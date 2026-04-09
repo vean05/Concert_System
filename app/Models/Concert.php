@@ -18,6 +18,8 @@ class Concert extends Model
         'ticket_price',
         'total_ticket',
         'created_by',
+        'image_path',
+        'seating_areas',
     ];
 
     /**
@@ -42,5 +44,21 @@ class Concert extends Model
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    /**
+     * Get all users who have favourited this concert.
+     */
+    public function favouritedBy()
+    {
+        return $this->belongsToMany(User::class, 'concert_user')->withTimestamps();
+    }
+
+    /**
+     * Check if a concert is favourited by a user.
+     */
+    public function isFavouredByUser($userId)
+    {
+        return $this->favouritedBy()->where('user_id', $userId)->exists();
     }
 }

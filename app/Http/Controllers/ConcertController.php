@@ -40,7 +40,21 @@ class ConcertController extends Controller
             'description' => 'required|string',
             'ticket_price' => 'required|numeric|min:0',
             'total_ticket' => 'required|integer|min:1',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'seating_areas' => 'nullable|string',
         ]);
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('concerts', 'public');
+        }
+
+        // Convert seating areas string to JSON array
+        $seatingAreas = null;
+        if (!empty($validated['seating_areas'])) {
+            $areas = array_map('trim', explode(',', $validated['seating_areas']));
+            $seatingAreas = json_encode(array_filter($areas));
+        }
 
         Concert::create([
             'title' => $validated['title'],
@@ -51,6 +65,8 @@ class ConcertController extends Controller
             'ticket_price' => $validated['ticket_price'],
             'total_ticket' => $validated['total_ticket'],
             'created_by' => auth()->id(),
+            'image_path' => $imagePath,
+            'seating_areas' => $seatingAreas,
         ]);
 
         return redirect()->route('concerts.index')->with('success', 'Concert created successfully!');
@@ -88,9 +104,29 @@ class ConcertController extends Controller
             'description' => 'required|string',
             'ticket_price' => 'required|numeric|min:0',
             'total_ticket' => 'required|integer|min:1',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'seating_areas' => 'nullable|string',
         ]);
 
-        $concert->update($validated);
+        $data = $validated;
+        
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($concert->image_path && \Storage::disk('public')->exists($concert->image_path)) {
+                \Storage::disk('public')->delete($concert->image_path);
+            }
+            $data['image_path'] = $request->file('image')->store('concerts', 'public');
+        }
+
+        // Convert seating areas string to JSON array
+        if (!empty($validated['seating_areas'])) {
+            $areas = array_map('trim', explode(',', $validated['seating_areas']));
+            $data['seating_areas'] = json_encode(array_filter($areas));
+        } else {
+            $data['seating_areas'] = null;
+        }
+
+        $concert->update($data);
 
         return redirect()->route('concerts.show', $concert)->with('success', 'Concert updated successfully!');
     }

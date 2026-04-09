@@ -58,4 +58,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Review::class);
     }
+
+    /**
+     * Get all concerts favourited by the user.
+     */
+    public function favouriteConcerts()
+    {
+        return $this->belongsToMany(Concert::class, 'concert_user')->withTimestamps();
+    }
+
+    /**
+     * Check if user has favourited a concert.
+     */
+    public function hasFavourited($concertId)
+    {
+        return $this->favouriteConcerts()->where('concert_id', $concertId)->exists();
+    }
 }

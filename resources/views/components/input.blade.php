@@ -1,3 +1,3 @@
 @props(['disabled' => false])
 
-<input {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50']) !!}>
+<input {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'rounded-md shadow-sm focus:border-purple-600 focus:ring focus:ring-purple-200 focus:ring-opacity-50', 'style' => 'border: 1.5px solid rgba(100, 116, 139, 0.2); padding: 0.85rem 1rem; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(10px); transition: all 0.3s ease;', 'onfocus' => "this.style.borderColor='#7c3aed'; this.style.background='rgba(255, 255, 255, 0.8)'; this.style.boxShadow='0 0 0 4px rgba(124,58,237,0.1)';", 'onblur' => "this.style.borderColor='rgba(100, 116, 139, 0.2)'; this.style.background='rgba(255, 255, 255, 0.6)'; this.style.boxShadow='none';"]) !!}>

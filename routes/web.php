@@ -5,6 +5,8 @@ use App\Http\Controllers\ConcertController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FavouriteController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +20,10 @@ use App\Http\Controllers\ProfileController;
 */
 
 // Home page with concert list
-Route::get('/', [ConcertController::class, 'index'])->name('home');
+Route::get('/', function () {
+    $concerts = \App\Models\Concert::with('creator')->paginate(12);
+    return view('home', compact('concerts'));
+})->name('home');
 
 // Concert Routes (Public - List and Show)
 Route::get('/concerts', [ConcertController::class, 'index'])->name('concerts.index');
@@ -60,9 +65,32 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile/reviews', [ProfileController::class, 'reviews'])->name('profile.reviews');
 });
 
+// Favourite Routes (Authenticated users only)
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::post('/concerts/{concert}/toggle-favourite', [FavouriteController::class, 'toggle'])->name('concerts.toggle-favourite');
+    Route::get('/favourites', [FavouriteController::class, 'getFavourites'])->name('concerts.favourites');
+});
+
 // Dashboard
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+// Admin Routes (Super Admin Only)
+Route::middleware(['auth', 'verified', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+    
+    // Concerts Management
+    Route::get('/concerts', [AdminController::class, 'concerts'])->name('concerts.index');
+    Route::get('/concerts/{concert}', [AdminController::class, 'showConcert'])->name('concerts.show');
+    Route::delete('/concerts/{concert}', [AdminController::class, 'deleteConcert'])->name('concerts.delete');
+    
+    // Users Management
+    Route::get('/users', [AdminController::class, 'users'])->name('users.index');
+    Route::get('/users/{user}', [AdminController::class, 'showUser'])->name('users.show');
+    
+    // Analytics
+    Route::get('/analytics', [AdminController::class, 'analytics'])->name('analytics');
+});
 
 require __DIR__.'/auth.php';
