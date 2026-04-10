@@ -169,6 +169,11 @@
 </style>
 
 <div class="admin-container container">
+    <!-- Back Button -->
+    <a href="javascript:history.back()" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #7c3aed; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+        <i class="fas fa-arrow-left"></i> Back
+    </a>
+
     <!-- Admin Header -->
     <div class="admin-header">
         <h1><i class="fas fa-cogs" style="color: #7c3aed;"></i> Admin Dashboard</h1>

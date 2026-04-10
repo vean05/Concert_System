@@ -82,7 +82,11 @@ Route::middleware(['auth', 'verified', 'is_admin'])->prefix('admin')->name('admi
     
     // Concerts Management
     Route::get('/concerts', [AdminController::class, 'concerts'])->name('concerts.index');
+    Route::get('/concerts/create', [ConcertController::class, 'create'])->name('concerts.create');
+    Route::post('/concerts', [ConcertController::class, 'store'])->name('concerts.store');
     Route::get('/concerts/{concert}', [AdminController::class, 'showConcert'])->name('concerts.show');
+    Route::get('/concerts/{concert}/edit', [ConcertController::class, 'edit'])->name('concerts.edit');
+    Route::put('/concerts/{concert}', [ConcertController::class, 'update'])->name('concerts.update');
     Route::delete('/concerts/{concert}', [AdminController::class, 'deleteConcert'])->name('concerts.delete');
     
     // Users Management

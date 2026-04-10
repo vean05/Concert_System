@@ -60,6 +60,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get all concerts created by the user.
+     */
+    public function concerts()
+    {
+        return $this->hasMany(Concert::class, 'created_by');
+    }
+
+    /**
      * Get all concerts favourited by the user.
      */
     public function favouriteConcerts()

@@ -186,6 +186,11 @@
 </style>
 
 <div class="form-container container">
+    <!-- Back Button -->
+    <a href="javascript:history.back()" style="display: inline-block; margin-bottom: 1.5rem; color: #7c3aed; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+        <i class="fas fa-arrow-left"></i> Back
+    </a>
+
     <!-- Header -->
     <div class="form-header">
         <h1><i class="fas fa-edit" style="color: #7c3aed;"></i> Edit Concert</h1>
@@ -206,7 +211,7 @@
 
     <!-- Form Card -->
     <div class="form-card">
-        <form action="{{ route('concerts.update', $concert) }}" method="POST" novalidate enctype="multipart/form-data">
+        <form action="{{ auth()->user()->is_admin ? route('admin.concerts.update', $concert) : route('concerts.update', $concert) }}" method="POST" novalidate enctype="multipart/form-data">
             @csrf
             @method('PUT')
 

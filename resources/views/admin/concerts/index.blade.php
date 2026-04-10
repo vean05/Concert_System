@@ -273,12 +273,17 @@
 </style>
 
 <div class="admin-page container">
+    <!-- Back Button -->
+    <a href="javascript:history.back()" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #7c3aed; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+        <i class="fas fa-arrow-left"></i> Back
+    </a>
+
     <!-- Header -->
     <div class="admin-header">
         <div>
             <h1><i class="fas fa-music" style="color: #7c3aed;"></i> Manage Concerts</h1>
         </div>
-        <a href="{{ route('concerts.create') }}" class="btn-primary">
+        <a href="{{ route('admin.concerts.create') }}" class="btn-primary">
             <i class="fas fa-plus"></i> Create New Concert
         </a>
     </div>
@@ -350,7 +355,7 @@
                                 <td>
                                     @if($concert->date > now())
                                         <span class="badge badge-success">Upcoming</span>
-                                    @elseif($concert->date->addDays(30) > now())
+                                    @elseif($concert->date->copy()->addDays(30) > now())
                                         <span class="badge badge-warning">Active</span>
                                     @else
                                         <span class="badge badge-danger">Past</span>
