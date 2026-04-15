@@ -11,7 +11,7 @@
     .back-link {
         display: inline-block;
         margin-bottom: 1.5rem;
-        color: #7c3aed;
+        color: #5BA3C0;
         text-decoration: none;
         font-weight: 600;
         transition: all 0.3s ease;
@@ -19,6 +19,7 @@
 
     .back-link:hover {
         transform: translateX(-5px);
+        color: #4A8FA3;
     }
 
     .user-header {
@@ -39,7 +40,7 @@
         width: 100px;
         height: 100px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
         color: white;
         display: flex;
         align-items: center;
@@ -75,7 +76,7 @@
     }
 
     .badge-admin {
-        background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+        background: linear-gradient(135deg, #6BB6D6 0%, #5BA3C0 100%);
         color: white;
     }
 
@@ -110,7 +111,7 @@
     .stat-item .value {
         font-size: 2rem;
         font-weight: 700;
-        color: #7c3aed;
+        color: #5BA3C0;
     }
 
     .section-card {
@@ -190,7 +191,7 @@
 </style>
 
 <div class="admin-detail-page container">
-    <a href="javascript:history.back()" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #7c3aed; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+    <a href="javascript:history.back()" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #5BA3C0; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
         <i class="fas fa-arrow-left"></i> Back
     </a>
 
@@ -237,7 +238,7 @@
     <!-- Concerts Created -->
     @if($user->concerts->count() > 0)
         <div class="section-card">
-            <h2><i class="fas fa-music" style="color: #7c3aed;"></i> Concerts Created ({{ $user->concerts->count() }})</h2>
+            <h2><i class="fas fa-music" style="color: #5BA3C0;"></i> Concerts Created ({{ $user->concerts->count() }})</h2>
             <div class="table-responsive">
                 <table>
                     <thead>
@@ -266,7 +267,7 @@
     <!-- Recent Orders -->
     @if($user->orders->count() > 0)
         <div class="section-card">
-            <h2><i class="fas fa-shopping-cart" style="color: #7c3aed;"></i> Recent Orders (Last 5)</h2>
+            <h2><i class="fas fa-shopping-cart" style="color: #5BA3C0;"></i> Recent Orders (Last 5)</h2>
             <div class="table-responsive">
                 <table>
                     <thead>
@@ -295,7 +296,7 @@
     <!-- Favourited Concerts -->
     @if($user->favouriteConcerts->count() > 0)
         <div class="section-card">
-            <h2><i class="fas fa-heart" style="color: #ec4899;"></i> Favourited Concerts</h2>
+            <h2><i class="fas fa-heart" style="color: #6BB6D6;"></i> Favourited Concerts</h2>
             <div class="table-responsive">
                 <table>
                     <thead>

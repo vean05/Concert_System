@@ -33,7 +33,7 @@
 
     .admin-nav a {
         padding: 0.75rem 1.5rem;
-        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
         color: white;
         border-radius: 8px;
         text-decoration: none;
@@ -43,11 +43,11 @@
 
     .admin-nav a:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+        box-shadow: 0 8px 20px rgba(91, 163, 192, 0.3);
     }
 
     .admin-nav a.active {
-        background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+        background: linear-gradient(135deg, #4A8FA3 0%, #3A7A8A 100%);
     }
 
     .stats-grid {
@@ -77,7 +77,7 @@
     .stat-card .number {
         font-size: 2.5rem;
         font-weight: 700;
-        color: #7c3aed;
+        color: #5BA3C0;
         margin: 0;
     }
 
@@ -126,7 +126,7 @@
     }
 
     tbody tr:hover {
-        background: rgba(124, 58, 237, 0.05);
+        background: rgba(107, 182, 214, 0.05);
     }
 
     .btn-small {
@@ -141,42 +141,42 @@
     }
 
     .btn-view {
-        background: #7c3aed;
+        background: #5BA3C0;
         color: white;
     }
 
     .btn-view:hover {
-        background: #6d28d9;
+        background: #4A8FA3;
     }
 
     .btn-edit {
-        background: #00b4d8;
+        background: #6BB6D6;
         color: white;
     }
 
     .btn-edit:hover {
-        background: #0096c7;
+        background: #5BA3C0;
     }
 
     .btn-delete {
-        background: #dc3545;
+        background: #D9A5A5;
         color: white;
     }
 
     .btn-delete:hover {
-        background: #c82333;
+        background: #C98E8E;
     }
 </style>
 
 <div class="admin-container container">
     <!-- Back Button -->
-    <a href="javascript:history.back()" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #7c3aed; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+    <a href="javascript:history.back()" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #5BA3C0; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
         <i class="fas fa-arrow-left"></i> Back
     </a>
 
     <!-- Admin Header -->
     <div class="admin-header">
-        <h1><i class="fas fa-cogs" style="color: #7c3aed;"></i> Admin Dashboard</h1>
+        <h1><i class="fas fa-cogs" style="color: #5BA3C0;"></i> Admin Dashboard</h1>
     </div>
 
     <!-- Admin Navigation -->
@@ -201,7 +201,7 @@
 
     <!-- Recent Concerts -->
     <div class="content-card">
-        <h2><i class="fas fa-music" style="color: #7c3aed;"></i> Recent Concerts</h2>
+        <h2><i class="fas fa-music" style="color: #5BA3C0;"></i> Recent Concerts</h2>
         <div class="table-responsive">
             <table>
                 <thead>
@@ -243,7 +243,7 @@
 
     <!-- Upcoming Concerts -->
     <div class="content-card">
-        <h2><i class="fas fa-calendar-alt" style="color: #7c3aed;"></i> Upcoming Concerts</h2>
+        <h2><i class="fas fa-calendar-alt" style="color: #5BA3C0;"></i> Upcoming Concerts</h2>
         <div class="table-responsive">
             <table>
                 <thead>

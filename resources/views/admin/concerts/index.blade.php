@@ -25,7 +25,7 @@
     }
 
     .btn-primary {
-        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
         color: white;
         padding: 0.75rem 1.5rem;
         border-radius: 8px;
@@ -38,17 +38,17 @@
 
     .btn-primary:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+        box-shadow: 0 8px 20px rgba(91, 163, 192, 0.3);
     }
 
     .filter-card {
         background: rgba(255, 255, 255, 0.85);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(200, 200, 200, 0.6);
         border-radius: 12px;
         padding: 1.5rem;
         margin-bottom: 2rem;
-        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.12);
+        box-shadow: 0 8px 32px rgba(100, 100, 100, 0.12);
     }
 
     .filter-row {
@@ -67,9 +67,9 @@
     }
 
     .form-control:focus {
-        border-color: #7c3aed;
+        border-color: #5BA3C0;
         outline: none;
-        box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        box-shadow: 0 0 0 3px rgba(91, 163, 192, 0.1);
     }
 
     .filter-actions {
@@ -92,7 +92,7 @@
     }
 
     .btn-search {
-        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
         color: white;
     }
 
@@ -151,8 +151,7 @@
         gap: 0.5rem;
     }
 
-    th a:hover {
-        color: #7c3aed;
+    th a:hover {\n        color: #5BA3C0;
     }
 
     td {
@@ -162,7 +161,7 @@
     }
 
     tbody tr:hover {
-        background: rgba(124, 58, 237, 0.05);
+        background: rgba(91, 163, 192, 0.05);
     }
 
     .badge {
@@ -206,30 +205,30 @@
     }
 
     .btn-view {
-        background: #7c3aed;
+        background: #5BA3C0;
         color: white;
     }
 
     .btn-view:hover {
-        background: #6d28d9;
+        background: #4A8FA3;
     }
 
     .btn-edit {
-        background: #00b4d8;
+        background: #6BB6D6;
         color: white;
     }
 
     .btn-edit:hover {
-        background: #0096c7;
+        background: #5BA3C0;
     }
 
     .btn-delete {
-        background: #dc3545;
+        background: #D9A5A5;
         color: white;
     }
 
     .btn-delete:hover {
-        background: #c82333;
+        background: #C98E8E;
     }
 
     .pagination {
@@ -244,19 +243,19 @@
         border: 1px solid #e0e0e0;
         border-radius: 6px;
         text-decoration: none;
-        color: #7c3aed;
+        color: #5BA3C0;
         transition: all 0.3s ease;
     }
 
     .pagination a:hover {
-        background: #7c3aed;
+        background: #5BA3C0;
         color: white;
     }
 
     .pagination .active span {
-        background: #7c3aed;
+        background: #5BA3C0;
         color: white;
-        border-color: #7c3aed;
+        border-color: #5BA3C0;
     }
 
     .empty-state {
@@ -274,14 +273,14 @@
 
 <div class="admin-page container">
     <!-- Back Button -->
-    <a href="javascript:history.back()" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #7c3aed; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+    <a href="javascript:history.back()" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #5BA3C0; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
         <i class="fas fa-arrow-left"></i> Back
     </a>
 
     <!-- Header -->
     <div class="admin-header">
         <div>
-            <h1><i class="fas fa-music" style="color: #7c3aed;"></i> Manage Concerts</h1>
+            <h1><i class="fas fa-music" style="color: #5BA3C0;"></i> Manage Concerts</h1>
         </div>
         <a href="{{ route('admin.concerts.create') }}" class="btn-primary">
             <i class="fas fa-plus"></i> Create New Concert

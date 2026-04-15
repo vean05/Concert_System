@@ -47,9 +47,9 @@
     }
 
     .form-control:focus {
-        border-color: #7c3aed;
+        border-color: #5BA3C0;
         outline: none;
-        box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        box-shadow: 0 0 0 3px rgba(91, 163, 192, 0.1);
     }
 
     .btn-small {
@@ -67,13 +67,13 @@
     }
 
     .btn-search {
-        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
         color: white;
     }
 
     .btn-search:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+        box-shadow: 0 8px 20px rgba(91, 163, 192, 0.3);
     }
 
     .btn-reset {
@@ -123,7 +123,7 @@
     }
 
     tbody tr:hover {
-        background: rgba(124, 58, 237, 0.05);
+        background: rgba(91, 163, 192, 0.05);
     }
 
     .badge {
@@ -132,8 +132,8 @@
         border-radius: 20px;
         font-size: 0.8rem;
         font-weight: 600;
-        background: rgba(124, 58, 237, 0.1);
-        color: #7c3aed;
+        background: rgba(91, 163, 192, 0.1);
+        color: #5BA3C0;
     }
 
     .user-info {
@@ -146,7 +146,7 @@
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
         color: white;
         display: flex;
         align-items: center;
@@ -169,12 +169,12 @@
     }
 
     .btn-view {
-        background: #7c3aed;
+        background: #5BA3C0;
         color: white;
     }
 
     .btn-view:hover {
-        background: #6d28d9;
+        background: #4A8FA3;
     }
 
     .pagination {
@@ -189,19 +189,19 @@
         border: 1px solid #e0e0e0;
         border-radius: 6px;
         text-decoration: none;
-        color: #7c3aed;
+        color: #5BA3C0;
         transition: all 0.3s ease;
     }
 
     .pagination a:hover {
-        background: #7c3aed;
+        background: #5BA3C0;
         color: white;
     }
 
     .pagination .active span {
-        background: #7c3aed;
+        background: #5BA3C0;
         color: white;
-        border-color: #7c3aed;
+        border-color: #5BA3C0;
     }
 
     .empty-state {
@@ -219,13 +219,13 @@
 
 <div class="admin-page container">
     <!-- Back Button -->
-    <a href="javascript:history.back()" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #7c3aed; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+    <a href="javascript:history.back()" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #5BA3C0; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
         <i class="fas fa-arrow-left"></i> Back
     </a>
 
     <!-- Header -->
     <div class="admin-header">
-        <h1><i class="fas fa-users" style="color: #7c3aed;"></i> Manage Users</h1>
+        <h1><i class="fas fa-users" style="color: #5BA3C0;"></i> Manage Users</h1>
     </div>
 
     <!-- Filter Card -->
@@ -282,22 +282,22 @@
                                 </td>
                                 <td>{{ $user->email }}</td>
                                 <td>
-                                    <span style="background: rgba(124, 58, 237, 0.1); padding: 0.25rem 0.75rem; border-radius: 20px; color: #7c3aed; font-weight: 600;">
+                                    <span style="background: rgba(91, 163, 192, 0.1); padding: 0.25rem 0.75rem; border-radius: 20px; color: #5BA3C0; font-weight: 600;">
                                         {{ $user->concerts_count }}
                                     </span>
                                 </td>
                                 <td>
-                                    <span style="background: rgba(0, 180, 216, 0.1); padding: 0.25rem 0.75rem; border-radius: 20px; color: #00b4d8; font-weight: 600;">
+                                    <span style="background: rgba(107, 182, 214, 0.1); padding: 0.25rem 0.75rem; border-radius: 20px; color: #6BB6D6; font-weight: 600;">
                                         {{ $user->orders_count }}
                                     </span>
                                 </td>
                                 <td>
-                                    <span style="background: rgba(236, 72, 153, 0.1); padding: 0.25rem 0.75rem; border-radius: 20px; color: #ec4899; font-weight: 600;">
+                                    <span style="background: rgba(107, 182, 214, 0.1); padding: 0.25rem 0.75rem; border-radius: 20px; color: #6BB6D6; font-weight: 600;">
                                         {{ $user->reviews_count }}
                                     </span>
                                 </td>
                                 <td>
-                                    <span style="background: rgba(255, 152, 0, 0.1); padding: 0.25rem 0.75rem; border-radius: 20px; color: #ff6b35; font-weight: 600;">
+                                    <span style="background: rgba(211, 165, 165, 0.1); padding: 0.25rem 0.75rem; border-radius: 20px; color: #D3A5A5; font-weight: 600;">
                                         {{ $user->favourite_concerts_count }}
                                     </span>
                                 </td>

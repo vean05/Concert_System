@@ -46,7 +46,7 @@
     .order-header-icon {
         width: 50px;
         height: 50px;
-        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
         border-radius: 8px;
         display: flex;
         align-items: center;
@@ -110,7 +110,7 @@
     }
 
     .detail-section-title i {
-        color: #ff6b35;
+        color: #5BA3C0;
         margin-right: 0.7rem;
         font-size: 1.2rem;
     }
@@ -152,7 +152,7 @@
     }
 
     .concert-link {
-        color: #ff6b35;
+        color: #5BA3C0;
         text-decoration: none;
         font-weight: 700;
     }
@@ -235,7 +235,7 @@
 <div class="order-detail-container container">
     <!-- Header -->
     <div class="order-detail-header">
-        <h1><i class="fas fa-receipt" style="color: #7c3aed;"></i> Order #{{ $order->id }}</h1>
+        <h1><i class="fas fa-receipt" style="color: #5BA3C0;"></i> Order #{{ $order->id }}</h1>
     </div>
 
     <!-- Order Detail Card -->

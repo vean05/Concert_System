@@ -47,7 +47,7 @@
     .stat-card .number {
         font-size: 3rem;
         font-weight: 700;
-        color: #7c3aed;
+        color: #5BA3C0;
         margin: 0;
     }
 
@@ -102,14 +102,14 @@
     }
 
     tbody tr:hover {
-        background: rgba(124, 58, 237, 0.05);
+        background: rgba(200, 200, 200, 0.05);
     }
 
     .rank {
         display: inline-block;
         width: 30px;
         height: 30px;
-        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
         color: white;
         border-radius: 50%;
         text-align: center;
@@ -128,7 +128,7 @@
 
     .progress-fill {
         height: 100%;
-        background: linear-gradient(90deg, #7c3aed 0%, #6d28d9 100%);
+        background: linear-gradient(90deg, #5BA3C0 0%, #4A8FA3 100%);
         border-radius: 4px;
         transition: width 0.3s ease;
     }
@@ -148,13 +148,13 @@
 
 <div class="admin-page container">
     <!-- Back Button -->
-    <a href="javascript:history.back()" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #7c3aed; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+    <a href="javascript:history.back()" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #5BA3C0; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
         <i class="fas fa-arrow-left"></i> Back
     </a>
 
     <!-- Header -->
     <div class="admin-header">
-        <h1><i class="fas fa-chart-bar" style="color: #7c3aed;"></i> Analytics Dashboard</h1>
+        <h1><i class="fas fa-chart-bar" style="color: #5BA3C0;"></i> Analytics Dashboard</h1>
     </div>
 
     <!-- Overall Statistics -->
@@ -179,7 +179,7 @@
 
     <!-- Most Popular Concerts -->
     <div class="section-card">
-        <h2><i class="fas fa-crown" style="color: #ff6b35;"></i> Most Popular Concerts (by orders)</h2>
+        <h2><i class="fas fa-crown" style="color: #6BB6D6;"></i> Most Popular Concerts (by orders)</h2>
         @if($popularConcerts->count() > 0)
             <div class="table-responsive">
                 <table>
@@ -219,7 +219,7 @@
 
     <!-- Most Reviewed Concerts -->
     <div class="section-card">
-        <h2><i class="fas fa-star" style="color: #ff6b35;"></i> Most Reviewed Concerts</h2>
+        <h2><i class="fas fa-star" style="color: #6BB6D6;"></i> Most Reviewed Concerts</h2>
         @if($reviewedConcerts->count() > 0)
             <div class="table-responsive">
                 <table>
@@ -259,7 +259,7 @@
 
     <!-- Concerts by Month -->
     <div class="section-card">
-        <h2><i class="fas fa-calendar-alt" style="color: #7c3aed;"></i> Concerts Created by Month (Last 12 Months)</h2>
+        <h2><i class="fas fa-calendar-alt" style="color: #5BA3C0;"></i> Concerts Created by Month (Last 12 Months)</h2>
         @if($concertsByMonth->count() > 0)
             <div style="margin-top: 1.5rem;">
                 <table>
@@ -295,38 +295,38 @@
 
     <!-- Quick Summary -->
     <div class="section-card">
-        <h2><i class="fas fa-info-circle" style="color: #7c3aed;"></i> Quick Summary</h2>
+        <h2><i class="fas fa-info-circle" style="color: #5BA3C0;"></i> Quick Summary</h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
             <div>
-                <h4 style="margin: 0 0 1rem 0; color: #7c3aed;">System Overview</h4>
+                <h4 style="margin: 0 0 1rem 0; color: #5BA3C0;">System Overview</h4>
                 <ul style="list-style: none; padding: 0; margin: 0;">
                     <li style="padding: 0.5rem 0; color: #4a5568;">
-                        <i class="fas fa-circle" style="color: #7c3aed; margin-right: 0.5rem;"></i>
+                        <i class="fas fa-circle" style="color: #5BA3C0; margin-right: 0.5rem;"></i>
                         Average concerts per user: <strong>{{ $totalConcerts > 0 && $totalUsers > 0 ? round($totalConcerts / $totalUsers, 2) : 0 }}</strong>
                     </li>
                     <li style="padding: 0.5rem 0; color: #4a5568;">
-                        <i class="fas fa-circle" style="color: #7c3aed; margin-right: 0.5rem;"></i>
+                        <i class="fas fa-circle" style="color: #5BA3C0; margin-right: 0.5rem;"></i>
                         Total users: <strong>{{ $totalUsers }}</strong>
                     </li>
                     <li style="padding: 0.5rem 0; color: #4a5568;">
-                        <i class="fas fa-circle" style="color: #7c3aed; margin-right: 0.5rem;"></i>
+                        <i class="fas fa-circle" style="color: #5BA3C0; margin-right: 0.5rem;"></i>
                         Active concerts: <strong>{{ \App\Models\Concert::where('date', '>=', now())->count() }}</strong>
                     </li>
                 </ul>
             </div>
             <div>
-                <h4 style="margin: 0 0 1rem 0; color: #7c3aed;">Engagement Metrics</h4>
+                <h4 style="margin: 0 0 1rem 0; color: #5BA3C0;">Engagement Metrics</h4>
                 <ul style="list-style: none; padding: 0; margin: 0;">
                     <li style="padding: 0.5rem 0; color: #4a5568;">
-                        <i class="fas fa-circle" style="color: #00b4d8; margin-right: 0.5rem;"></i>
+                        <i class="fas fa-circle" style="color: #6BB6D6; margin-right: 0.5rem;"></i>
                         Total orders: <strong>{{ $totalOrders }}</strong>
                     </li>
                     <li style="padding: 0.5rem 0; color: #4a5568;">
-                        <i class="fas fa-circle" style="color: #ec4899; margin-right: 0.5rem;"></i>
+                        <i class="fas fa-circle" style="color: #777777; margin-right: 0.5rem;"></i>
                         Total reviews: <strong>{{ $totalReviews }}</strong>
                     </li>
                     <li style="padding: 0.5rem 0; color: #4a5568;">
-                        <i class="fas fa-circle" style="color: #ff6b35; margin-right: 0.5rem;"></i>
+                        <i class="fas fa-circle" style="color: #A8D8E8; margin-right: 0.5rem;"></i>
                         Average reviews per concert: <strong>{{ $totalConcerts > 0 ? round($totalReviews / $totalConcerts, 2) : 0 }}</strong>
                     </li>
                 </ul>

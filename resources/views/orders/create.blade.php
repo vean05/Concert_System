@@ -20,7 +20,7 @@
     }
 
     .concert-banner {
-        background: linear-gradient(135deg, #ff6b35 0%, #d94a2a 100%);
+        background: linear-gradient(135deg, #D3A5A5 0%, #C98E8E 100%);
         color: white;
         padding: 2rem;
         border-radius: 12px;
@@ -81,7 +81,7 @@
     .detail-icon {
         width: 40px;
         height: 40px;
-        background: linear-gradient(135deg, #ff6b35 0%, #d94a2a 100%);
+        background: linear-gradient(135deg, #D3A5A5 0%, #C98E8E 100%);
         border-radius: 8px;
         display: flex;
         align-items: center;
@@ -143,7 +143,7 @@
     }
 
     .form-label i {
-        color: #ff6b35;
+        color: #D3A5A5;
         margin-right: 0.5rem;
     }
 
@@ -157,7 +157,7 @@
     }
 
     .quantity-input:focus {
-        border-color: #7c3aed;
+        border-color: #5BA3C0;
         box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
         outline: none;
     }
@@ -186,7 +186,7 @@
     .price-summary .price-value {
         font-size: 2rem;
         font-weight: 700;
-        color: #ff6b35;
+        color: #D3A5A5;
         margin: 0;
     }
 
@@ -286,7 +286,7 @@
 <div class="booking-container container">
     <!-- Header -->
     <div class="booking-header">
-        <h1><i class="fas fa-ticket-alt" style="color: #7c3aed;"></i> Book Your Tickets</h1>
+        <h1><i class="fas fa-ticket-alt" style="color: #5BA3C0;"></i> Book Your Tickets</h1>
     </div>
 
     <!-- Error Messages -->

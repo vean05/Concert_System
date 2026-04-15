@@ -47,7 +47,7 @@
         overflow: hidden;
         box-shadow: 0 8px 32px rgba(31, 38, 135, 0.12);
         transition: all 0.3s ease;
-        border-left: 5px solid #7c3aed;
+        border-left: 5px solid #5BA3C0;
         margin-bottom: 1.5rem;
     }
 
@@ -70,7 +70,7 @@
     }
 
     .order-card-artist {
-        color: #ff6b35;
+        color: #6BB6D6;
         font-weight: 600;
         font-size: 0.95rem;
         margin: 0;
@@ -95,7 +95,7 @@
     .order-detail-icon {
         width: 35px;
         height: 35px;
-        background: linear-gradient(135deg, #ff6b35 0%, #d94a2a 100%);
+        background: linear-gradient(135deg, #D3A5A5 0%, #C98E8E 100%);
         border-radius: 6px;
         display: flex;
         align-items: center;
@@ -200,7 +200,7 @@
 
     .empty-state i {
         font-size: 3rem;
-        color: #ff6b35;
+        color: #D3A5A5;
         margin-bottom: 1rem;
     }
 
@@ -210,7 +210,7 @@
     }
 
     .empty-state a {
-        background: linear-gradient(135deg, #ff6b35 0%, #d94a2a 100%);
+        background: linear-gradient(135deg, #D3A5A5 0%, #C98E8E 100%);
         color: white;
         padding: 0.7rem 1.5rem;
         border-radius: 8px;
@@ -223,7 +223,7 @@
 
     .empty-state a:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+        box-shadow: 0 8px 20px rgba(211, 165, 165, 0.3);
         color: white;
         text-decoration: none;
     }
@@ -233,18 +233,18 @@
     }
 
     .page-link {
-        color: #ff6b35;
+        color: #5BA3C0;
         border-color: #e0e0e0;
     }
 
     .page-link:hover {
-        color: #d94a2a;
-        background-color: #fff8f5;
+        color: #4A8FA3;
+        background-color: #F0F5F9;
     }
 
     .page-item.active .page-link {
-        background-color: #7c3aed;
-        border-color: #7c3aed;
+        background-color: #5BA3C0;
+        border-color: #5BA3C0;
     }
 
     @media (max-width: 768px) {
@@ -266,7 +266,7 @@
 <div class="orders-container container">
     <!-- Header -->
     <div class="orders-header">
-        <h1><i class="fas fa-receipt" style="color: #7c3aed;"></i> All Orders</h1>
+        <h1><i class="fas fa-receipt" style="color: #5BA3C0;"></i> All Orders</h1>
         <a href="{{ route('profile.show') }}" class="btn-back-to-profile">
             <i class="fas fa-arrow-left"></i> Back to Profile
         </a>

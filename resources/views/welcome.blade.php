@@ -75,7 +75,7 @@
             .nav-brand {
                 font-size: 1.6rem;
                 font-weight: 700;
-                background: linear-gradient(135deg, #ec4899 0%, #00b4d8 100%);
+                background: linear-gradient(135deg, #5BA3C0 0%, #6BB6D6 100%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
@@ -104,12 +104,12 @@
                 left: 0;
                 width: 0;
                 height: 2px;
-                background: linear-gradient(90deg, #ec4899, #00b4d8);
+                background: linear-gradient(90deg, #5BA3C0, #6BB6D6);
                 transition: width 0.3s ease;
             }
 
             .nav-links a:hover {
-                color: #ec4899;
+                color: #5BA3C0;
             }
 
             .btn-nav {
@@ -128,24 +128,24 @@
             }
 
             .btn-signin {
-                border: 2px solid rgba(236, 72, 153, 0.3);
-                color: #ec4899;
-                background: rgba(236, 72, 153, 0.08);
+                border: 2px solid rgba(91, 163, 192, 0.3);
+                color: #5BA3C0;
+                background: rgba(91, 163, 192, 0.08);
                 backdrop-filter: blur(10px);
             }
 
             .btn-signin:hover {
-                background: linear-gradient(135deg, #ec4899, #f472b6);
+                background: linear-gradient(135deg, #5BA3C0, #6BB6D6);
                 color: white;
                 transform: translateY(-4px);
-                box-shadow: 0 12px 32px rgba(236, 72, 153, 0.25);
-                border-color: #ec4899;
+                box-shadow: 0 12px 32px rgba(91, 163, 192, 0.25);
+                border-color: #5BA3C0;
             }
 
             .btn-signup {
-                background: linear-gradient(135deg, #ec4899, #00b4d8);
+                background: linear-gradient(135deg, #5BA3C0, #4A8FA3);
                 color: white;
-                box-shadow: 0 8px 24px rgba(236, 72, 153, 0.25);
+                box-shadow: 0 8px 24px rgba(91, 163, 192, 0.25);
             }
 
             .btn-signup:hover {
@@ -192,17 +192,17 @@
                 padding: 1rem 2.5rem;
                 font-size: 1rem;
                 border-radius: 12px;
-                background: linear-gradient(135deg, #ec4899, #00b4d8);
+                background: linear-gradient(135deg, #5BA3C0, #4A8FA3);
                 color: white;
                 text-decoration: none;
                 font-weight: 600;
-                box-shadow: 0 8px 24px rgba(236, 72, 153, 0.25);
+                box-shadow: 0 8px 24px rgba(91, 163, 192, 0.25);
                 transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             }
 
             .btn-primary:hover {
                 transform: translateY(-4px);
-                box-shadow: 0 16px 48px rgba(236, 72, 153, 0.35);
+                box-shadow: 0 16px 48px rgba(91, 163, 192, 0.35);
                 color: white;
             }
 
@@ -265,12 +265,12 @@
             .feature-card:hover {
                 transform: translateY(-12px) scale(1.02);
                 box-shadow: 0 16px 40px rgba(31, 38, 135, 0.15);
-                border-color: rgba(236, 72, 153, 0.3);
+                border-color: rgba(91, 163, 192, 0.3);
             }
 
             .feature-card i {
                 font-size: 2.5rem;
-                background: linear-gradient(135deg, #ec4899, #00b4d8);
+                background: linear-gradient(135deg, #5BA3C0, #6BB6D6);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;

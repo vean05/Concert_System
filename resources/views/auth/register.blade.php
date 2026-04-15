@@ -11,7 +11,7 @@
                     <!-- Header -->
                     <div class="text-center mb-4">
                         <h1 style="font-size: 2rem; font-weight: 700; color: #1a1a2e;">
-                            <i class="fas fa-music" style="color: #ff6b35;"></i> Join ConcertHub
+                            <i class="fas fa-music" style="color: #5BA3C0;"></i> Join ConcertHub
                         </h1>
                         <p style="color: #4a5568; margin-top: 0.5rem;">Create your account to start booking concerts</p>
                     </div>
@@ -35,7 +35,7 @@
                         <!-- Full Name -->
                         <div class="mb-4">
                             <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1a1a2e;">
-                                <i class="fas fa-user" style="color: #ff6b35;"></i> Full Name
+                                <i class="fas fa-user" style="color: #5BA3C0;"></i> Full Name
                             </label>
                             <input 
                                 type="text" 
@@ -47,7 +47,7 @@
                                 required 
                                 autofocus
                                 style="padding: 0.85rem 1.2rem; border: 1.5px solid rgba(100, 116, 139, 0.2); border-radius: 12px; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(10px);"
-                                onfocus="this.style.borderColor='#ff6b35'; this.style.boxShadow='0 0 0 4px rgba(255,107,53,0.1)'; this.style.background='rgba(255, 255, 255, 0.8)';"
+                                onfocus="this.style.borderColor='#5BA3C0'; this.style.boxShadow='0 0 0 4px rgba(91,163,192,0.1)'; this.style.background='rgba(255, 255, 255, 0.8)';"
                                 onblur="this.style.borderColor='rgba(100, 116, 139, 0.2)'; this.style.boxShadow='none'; this.style.background='rgba(255, 255, 255, 0.6)';"
                             >
                             @error('name')
@@ -58,7 +58,7 @@
                         <!-- Email -->
                         <div class="mb-4">
                             <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1a1a2e;">
-                                <i class="fas fa-envelope" style="color: #ff6b35;"></i> Email Address
+                                <i class="fas fa-envelope" style="color: #5BA3C0;"></i> Email Address
                             </label>
                             <input 
                                 type="email" 
@@ -69,7 +69,7 @@
                                 value="{{ old('email') }}"
                                 required
                                 style="padding: 0.85rem 1.2rem; border: 1.5px solid rgba(100, 116, 139, 0.2); border-radius: 12px; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(10px);"
-                                onfocus="this.style.borderColor='#ff6b35'; this.style.boxShadow='0 0 0 4px rgba(255,107,53,0.1)'; this.style.background='rgba(255, 255, 255, 0.8)';"
+                                onfocus="this.style.borderColor='#5BA3C0'; this.style.boxShadow='0 0 0 4px rgba(91,163,192,0.1)'; this.style.background='rgba(255, 255, 255, 0.8)';"
                                 onblur="this.style.borderColor='rgba(100, 116, 139, 0.2)'; this.style.boxShadow='none'; this.style.background='rgba(255, 255, 255, 0.6)';"
                             >
                             @error('email')
@@ -80,7 +80,7 @@
                         <!-- Password -->
                         <div class="mb-4">
                             <label for="password" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1a1a2e;">
-                                <i class="fas fa-lock" style="color: #ff6b35;"></i> Password
+                                <i class="fas fa-lock" style="color: #5BA3C0;"></i> Password
                             </label>
                             <input 
                                 type="password" 
@@ -90,7 +90,7 @@
                                 placeholder="••••••••"
                                 required
                                 style="padding: 0.85rem 1.2rem; border: 1.5px solid rgba(100, 116, 139, 0.2); border-radius: 12px; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(10px);"
-                                onfocus="this.style.borderColor='#ff6b35'; this.style.boxShadow='0 0 0 4px rgba(255,107,53,0.1)'; this.style.background='rgba(255, 255, 255, 0.8)';"
+                                onfocus="this.style.borderColor='#5BA3C0'; this.style.boxShadow='0 0 0 4px rgba(91,163,192,0.1)'; this.style.background='rgba(255, 255, 255, 0.8)';"
                                 onblur="this.style.borderColor='rgba(100, 116, 139, 0.2)'; this.style.boxShadow='none'; this.style.background='rgba(255, 255, 255, 0.6)';"
                             >
                             @error('password')
@@ -104,7 +104,7 @@
                         <!-- Confirm Password -->
                         <div class="mb-4">
                             <label for="password_confirmation" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1a1a2e;">
-                                <i class="fas fa-check-circle" style="color: #ff6b35;"></i> Confirm Password
+                                <i class="fas fa-check-circle" style="color: #5BA3C0;"></i> Confirm Password
                             </label>
                             <input 
                                 type="password" 
@@ -114,7 +114,7 @@
                                 placeholder="••••••••"
                                 required
                                 style="padding: 0.85rem 1.2rem; border: 1.5px solid rgba(100, 116, 139, 0.2); border-radius: 12px; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(10px);"
-                                onfocus="this.style.borderColor='#ff6b35'; this.style.boxShadow='0 0 0 4px rgba(255,107,53,0.1)'; this.style.background='rgba(255, 255, 255, 0.8)';"
+                                onfocus="this.style.borderColor='#5BA3C0'; this.style.boxShadow='0 0 0 4px rgba(91,163,192,0.1)'; this.style.background='rgba(255, 255, 255, 0.8)';"
                                 onblur="this.style.borderColor='rgba(100, 116, 139, 0.2)'; this.style.boxShadow='none'; this.style.background='rgba(255, 255, 255, 0.6)';"
                             >
                             @error('password_confirmation')
@@ -133,7 +133,7 @@
                                     style="cursor: pointer;"
                                 >
                                 <label class="form-check-label" for="terms" style="cursor: pointer; color: #4a5568;">
-                                    I agree to the <a href="#" style="color: #ff6b35; text-decoration: none; font-weight: 600;">Terms & Conditions</a>
+                                    I agree to the <a href="#" style="color: #5BA3C0; text-decoration: none; font-weight: 600;">Terms & Conditions</a>
                                 </label>
                             </div>
                         </div>
@@ -142,9 +142,9 @@
                         <button 
                             type="submit" 
                             class="btn btn-primary w-100"
-                            style="background: linear-gradient(135deg, #7c3aed 0%, #00b4d8 100%); border: none; color: white; font-weight: 600; padding: 0.85rem; border-radius: 12px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 15px rgba(124, 58, 237, 0.25);"
-                            onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 30px rgba(124, 58, 237, 0.35)';"
-                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(124, 58, 237, 0.25)';"
+                            style="background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%); border: none; color: white; font-weight: 600; padding: 0.85rem; border-radius: 12px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 15px rgba(91, 163, 192, 0.25);"
+                            onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 30px rgba(91, 163, 192, 0.35)';"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(91, 163, 192, 0.25)';"
                         >
                             <i class="fas fa-user-plus"></i> Create Account
                         </button>
@@ -153,7 +153,7 @@
                     <!-- Sign In Link -->
                     <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(100, 116, 139, 0.1);">
                         <p style="color: #4a5568;">Already have an account?</p>
-                        <a href="{{ route('login') }}" class="btn btn-outline-primary w-100" style="border: 2px solid rgba(255, 107, 53, 0.3); color: #ff6b35; font-weight: 600; margin-top: 0.5rem; border-radius: 12px; padding: 0.85rem; background: rgba(255, 107, 53, 0.05); transition: all 0.3s ease;" onmouseover="this.style.background='linear-gradient(135deg, #ff6b35, #ff8a50)'; this.style.color='white'; this.style.borderColor='#ff6b35'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 24px rgba(255, 107, 53, 0.3)';" onmouseout="this.style.background='rgba(255, 107, 53, 0.05)'; this.style.color='#ff6b35'; this.style.borderColor='rgba(255, 107, 53, 0.3)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <a href="{{ route('login') }}" class="btn btn-outline-primary w-100" style="border: 2px solid rgba(91, 163, 192, 0.3); color: #5BA3C0; font-weight: 600; margin-top: 0.5rem; border-radius: 12px; padding: 0.85rem; background: rgba(91, 163, 192, 0.05); transition: all 0.3s ease;" onmouseover="this.style.background='linear-gradient(135deg, #5BA3C0, #4A8FA3)'; this.style.color='white'; this.style.borderColor='#5BA3C0'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 24px rgba(91, 163, 192, 0.3);'" onmouseout="this.style.background='rgba(91, 163, 192, 0.05)'; this.style.color='#5BA3C0'; this.style.borderColor='rgba(91, 163, 192, 0.3)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';">
                             <i class="fas fa-sign-in-alt"></i> Sign In
                         </a>
                     </div>

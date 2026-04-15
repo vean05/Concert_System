@@ -111,8 +111,21 @@
 
     /* ===== 轮播区域 ===== */
     .carousel-section {
-        padding: 60px 0;
+        padding: 60px 0 120px;
         background: #ffffff;
+        position: relative;
+    }
+
+    .carousel-section::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle at 20% 50%, rgba(91, 163, 192, 0.03) 0%, transparent 40%),
+                    radial-gradient(circle at 80% 80%, rgba(107, 182, 214, 0.03) 0%, transparent 40%);
+        pointer-events: none;
     }
 
     .section-title {
@@ -121,14 +134,76 @@
         text-align: center;
         margin-bottom: 3rem;
         letter-spacing: -0.01em;
+        position: relative;
+        z-index: 2;
     }
 
     .swiper {
         width: 100%;
+        position: relative;
+        z-index: 1;
+        padding-bottom: 70px;
     }
 
     .swiper-slide {
         height: auto;
+        transition: opacity 0.3s ease;
+    }
+
+    /* 改进导航按钮 */
+    .swiper-button-next,
+    .swiper-button-prev {
+        color: #5BA3C0 !important;
+        background: rgba(255, 255, 255, 0.95) !important;
+        width: 48px !important;
+        height: 48px !important;
+        border-radius: 50% !important;
+        box-shadow: 0 4px 15px rgba(91, 163, 192, 0.2) !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+    }
+
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+        background: linear-gradient(135deg, #5BA3C0, #4A8FA3) !important;
+        color: white !important;
+        box-shadow: 0 8px 25px rgba(91, 163, 192, 0.4) !important;
+        transform: translateY(-50%) scale(1.1) !important;
+    }
+
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+        font-size: 22px !important;
+        font-weight: bold !important;
+    }
+
+    /* 改进分页点 */
+    .swiper-pagination {
+        bottom: -40px !important;
+        position: absolute !important;
+        padding: 30px 0 0 0 !important;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .swiper-pagination-bullet {
+        width: 10px !important;
+        height: 10px !important;
+        background: rgba(91, 163, 192, 0.3) !important;
+        opacity: 1 !important;
+        transition: all 0.3s ease !important;
+        margin: 0 6px !important;
+        border-radius: 50% !important;
+    }
+
+    .swiper-pagination-bullet-active {
+        background: linear-gradient(135deg, #5BA3C0, #4A8FA3) !important;
+        width: 32px !important;
+        border-radius: 10px !important;
+        box-shadow: 0 4px 15px rgba(91, 163, 192, 0.3) !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
 
     .concert-card {
@@ -137,17 +212,21 @@
         overflow: hidden;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         border: 1px solid #f5f5f7;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
     .concert-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+        transform: translateY(-12px);
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.15);
+        border-color: #5BA3C0;
     }
 
     .concert-image {
         width: 100%;
         height: 240px;
-        background: linear-gradient(135deg, #e8e8ed 0%, #f5f5f7 100%);
+        background: linear-gradient(135deg, #e8f2f8 0%, #d3e9f7 100%);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -156,75 +235,104 @@
         overflow: hidden;
     }
 
+    .concert-image::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(91, 163, 192, 0.05) 100%);
+    }
+
     .concert-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        position: relative;
+        z-index: 1;
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .concert-card:hover .concert-image img {
+        transform: scale(1.08);
     }
 
     .concert-content {
         padding: 2rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.98) 100%);
     }
 
     .concert-artist {
-        font-size: 0.9rem;
-        color: #0071e3;
-        font-weight: 600;
+        font-size: 0.85rem;
+        color: #5BA3C0;
+        font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-bottom: 0.5rem;
+        letter-spacing: 1px;
+        margin-bottom: 0.8rem;
     }
 
     .concert-title {
-        font-size: 1.3rem;
+        font-size: 1.35rem;
         font-weight: 700;
-        margin-bottom: 0.8rem;
-        color: #1d1d1f;
+        margin-bottom: 1rem;
+        color: #1a1a2e;
+        line-height: 1.3;
     }
 
     .concert-meta {
-        font-size: 0.95rem;
-        color: #666;
-        margin-bottom: 1.2rem;
-        line-height: 1.6;
+        font-size: 0.9rem;
+        color: #555;
+        margin-bottom: 1.5rem;
+        line-height: 1.8;
+        flex: 1;
     }
 
     .concert-meta-item {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 0.6rem;
+        gap: 0.6rem;
+        margin-bottom: 0.7rem;
     }
 
     .concert-footer {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-top: 1.2rem;
-        border-top: 1px solid #f5f5f7;
+        padding-top: 1.5rem;
+        border-top: 2px solid rgba(91, 163, 192, 0.1);
+        margin-top: auto;
     }
 
     .concert-price {
-        font-size: 1.4rem;
-        font-weight: 700;
-        color: #1d1d1f;
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: #5BA3C0;
     }
 
     .concert-btn {
-        background: #0071e3;
+        background: linear-gradient(135deg, #5BA3C0, #4A8FA3);
         color: white;
-        padding: 8px 16px;
-        border-radius: 6px;
+        padding: 10px 18px;
+        border-radius: 8px;
         font-size: 0.9rem;
         font-weight: 600;
         text-decoration: none;
         border: none;
         cursor: pointer;
-        transition: all 0.2s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 12px rgba(91, 163, 192, 0.25);
     }
 
     .concert-btn:hover {
-        background: #0977f5;
+        background: linear-gradient(135deg, #4A8FA3, #3A7A8A);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(91, 163, 192, 0.35);
+        color: white;
+        text-decoration: none;
     }
 
     /* ===== 网格区域 ===== */
@@ -412,6 +520,28 @@
         .btn {
             width: 100%;
         }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            width: 40px !important;
+            height: 40px !important;
+        }
+
+        .swiper-pagination {
+            bottom: -50px !important;
+        }
+
+        .concert-image {
+            height: 200px;
+        }
+
+        .concert-price {
+            font-size: 1.3rem;
+        }
+
+        .concert-title {
+            font-size: 1.1rem;
+        }
     }
 </style>
 
@@ -465,16 +595,16 @@
                                     
                                     <div class="concert-meta">
                                         <div class="concert-meta-item">
-                                            <i class="fas fa-map-marker-alt" style="color: #0071e3; font-size: 0.8rem;"></i>
+                                            <i class="fas fa-map-marker-alt" style="color: #5BA3C0; font-size: 0.8rem;"></i>
                                             <span>{{ Str::limit($concert->venue, 25) }}</span>
                                         </div>
                                         <div class="concert-meta-item">
-                                            <i class="fas fa-calendar" style="color: #0071e3; font-size: 0.8rem;"></i>
+                                            <i class="fas fa-calendar" style="color: #5BA3C0; font-size: 0.8rem;"></i>
                                             <span>{{ \Carbon\Carbon::parse($concert->date)->format('M d, Y') }}</span>
                                         </div>
                                     </div>
 
-                                    <div class="concert-footer" style="margin-top: auto;">
+                                    <div class="concert-footer">
                                         <span class="concert-price">${{ number_format($concert->ticket_price, 0) }}</span>
                                         <a href="{{ route('concerts.show', $concert) }}" class="concert-btn">
                                             View
@@ -487,8 +617,9 @@
                 @endforeach
             </div>
 
-            <div class="swiper-button-next" style="color: #0071e3; background: white; width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
-            <div class="swiper-button-prev" style="color: #0071e3; background: white; width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
         </div>
     </div>
 </section>
@@ -620,20 +751,30 @@
     // 初始化 Swiper
     const swiper = new Swiper('.mySwiper', {
         loop: true,
+        centeredSlides: true,
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
+            dynamicBullets: true,
+            dynamicMainBullets: 4,
         },
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
         autoplay: {
-            delay: 6000,
+            delay: 5000,
             disableOnInteraction: false,
+            pauseOnMouseEnter: true,
         },
+        speed: 800,
+        effect: 'slide',
         slidesPerView: 1,
         spaceBetween: 24,
+        grabCursor: true,
+        keyboard: {
+            enabled: true,
+        },
         breakpoints: {
             640: {
                 slidesPerView: 2,
@@ -643,7 +784,20 @@
                 slidesPerView: 4,
                 spaceBetween: 24,
             },
+            1440: {
+                slidesPerView: 4,
+                spaceBetween: 28,
+            }
         }
+    });
+
+    // 添加悬停暂停效果
+    document.querySelector('.carousel-section')?.addEventListener('mouseenter', function() {
+        swiper.autoplay.pause();
+    });
+
+    document.querySelector('.carousel-section')?.addEventListener('mouseleave', function() {
+        swiper.autoplay.resume();
     });
 
     function filterByGenre(genre) {

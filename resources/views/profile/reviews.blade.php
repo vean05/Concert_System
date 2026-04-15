@@ -47,7 +47,7 @@
         overflow: hidden;
         box-shadow: 0 8px 32px rgba(31, 38, 135, 0.12);
         transition: all 0.3s ease;
-        border-left: 5px solid #7c3aed;
+        border-left: 5px solid #5BA3C0;
         margin-bottom: 1.5rem;
     }
 
@@ -70,7 +70,7 @@
     }
 
     .review-card-header h5 a {
-        color: #ff6b35;
+        color: #D3A5A5;
         text-decoration: none;
     }
 
@@ -112,7 +112,7 @@
         padding: 1rem;
         background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         border-radius: 8px;
-        border-left: 3px solid #7c3aed;
+        border-left: 3px solid #5BA3C0;
     }
 
     .review-meta {
@@ -196,7 +196,7 @@
     }
 
     .empty-state a {
-        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
         color: white;
         padding: 0.7rem 1.5rem;
         border-radius: 8px;
@@ -218,19 +218,16 @@
         margin-top: 2rem;
     }
 
-    .page-link {
-        color: #ff6b35;
-        border-color: #e0e0e0;
-    }
+    .page-link {\n        color: #5BA3C0;\n        border-color: #e0e0e0;\n    }
 
     .page-link:hover {
-        color: #d94a2a;
-        background-color: #fff8f5;
+        color: #4A8FA3;
+        background-color: #F0F5F9;
     }
 
     .page-item.active .page-link {
-        background-color: #7c3aed;
-        border-color: #7c3aed;
+        background-color: #5BA3C0;
+        border-color: #5BA3C0;
     }
 
     @media (max-width: 768px) {

@@ -45,7 +45,7 @@
     }
 
     .form-label i {
-        color: #7c3aed;
+        color: #5BA3C0;
         margin-right: 0.5rem;
         font-size: 1.1rem;
     }
@@ -59,8 +59,8 @@
     }
 
     .form-control:focus {
-        border-color: #7c3aed;
-        box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        border-color: #5BA3C0;
+        box-shadow: 0 0 0 3px rgba(91, 163, 192, 0.1);
         outline: none;
     }
 
@@ -126,7 +126,7 @@
 
     .btn-submit {
         flex: 1;
-        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
         color: white;
         border: none;
         padding: 1rem;
@@ -139,7 +139,7 @@
 
     .btn-submit:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(255, 152, 0, 0.3);
+        box-shadow: 0 8px 20px rgba(91, 163, 192, 0.3);
     }
 
     .btn-cancel {
@@ -187,13 +187,13 @@
 
 <div class="form-container container">
     <!-- Back Button -->
-    <a href="javascript:history.back()" style="display: inline-block; margin-bottom: 1.5rem; color: #7c3aed; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+    <a href="javascript:history.back()" style="display: inline-block; margin-bottom: 1.5rem; color: #5BA3C0; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
         <i class="fas fa-arrow-left"></i> Back
     </a>
 
     <!-- Header -->
     <div class="form-header">
-        <h1><i class="fas fa-edit" style="color: #7c3aed;"></i> Edit Concert</h1>
+        <h1><i class="fas fa-edit" style="color: #5BA3C0;"></i> Edit Concert</h1>
     </div>
 
     <!-- Error Messages -->

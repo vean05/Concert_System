@@ -32,7 +32,7 @@
     .profile-avatar {
         width: 120px;
         height: 120px;
-        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -57,7 +57,7 @@
 
     .role-badge {
         display: inline-block;
-        background: linear-gradient(135deg, #ff6b35 0%, #d94a2a 100%);
+        background: linear-gradient(135deg, #D3A5A5 0%, #C98E8E 100%);
         color: white;
         padding: 0.4rem 1rem;
         border-radius: 20px;
@@ -75,9 +75,9 @@
     .profile-nav-btn {
         flex: 1;
         padding: 0.9rem 1.5rem;
-        border: 2px solid #7c3aed;
+        border: 2px solid #5BA3C0;
         background: white;
-        color: #ff6b35;
+        color: #5BA3C0;
         border-radius: 8px;
         font-weight: 600;
         cursor: pointer;
@@ -87,7 +87,7 @@
     }
 
     .profile-nav-btn:hover {
-        background: #7c3aed;
+        background: #5BA3C0;
         color: white;
         transform: translateY(-2px);
     }
@@ -109,7 +109,7 @@
 
     .stat-icon {
         font-size: 2rem;
-        color: #ff6b35;
+        color: #5BA3C0;
         margin-bottom: 0.5rem;
     }
 
@@ -143,7 +143,7 @@
     }
 
     .section-title i {
-        color: #ff6b35;
+        color: #5BA3C0;
         margin-right: 0.5rem;
     }
 
@@ -172,7 +172,7 @@
     }
 
     .item-title a {
-        color: #ff6b35;
+        color: #5BA3C0;
         text-decoration: none;
     }
 
@@ -211,7 +211,7 @@
     }
 
     .view-all-btn {
-        background: linear-gradient(135deg, #ff6b35 0%, #d94a2a 100%);
+        background: linear-gradient(135deg, #D3A5A5 0%, #C98E8E 100%);
         color: white;
         padding: 0.6rem 1rem;
         border-radius: 8px;
@@ -226,7 +226,7 @@
 
     .view-all-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+        box-shadow: 0 8px 20px rgba(211, 165, 165, 0.3);
         color: white;
         text-decoration: none;
     }
@@ -252,7 +252,7 @@
 <div class="profile-container container">
     <!-- Header -->
     <div class="profile-header">
-        <h1><i class="fas fa-user-circle" style="color: #7c3aed;"></i> My Profile</h1>
+        <h1><i class="fas fa-user-circle" style="color: #5BA3C0;"></i> My Profile</h1>
     </div>
 
     <div class="row">

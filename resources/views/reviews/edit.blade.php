@@ -20,7 +20,7 @@
     }
 
     .concert-info {
-        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
         color: white;
         padding: 1.5rem;
         border-radius: 12px;
@@ -70,7 +70,7 @@
     }
 
     .form-label i {
-        color: #7c3aed;
+        color: #5BA3C0;
         margin-right: 0.5rem;
         font-size: 1.3rem;
     }
@@ -124,8 +124,8 @@
     }
 
     .rating-option label:hover {
-        border-color: #ff6b35;
-        background: #fff8f5;
+        border-color: #D3A5A5;
+        background: #faf7f7;
     }
 
     .rating-value {
@@ -148,8 +148,8 @@
     }
 
     .form-control:focus {
-        border-color: #ff6b35;
-        box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        border-color: #D3A5A5;
+        box-shadow: 0 0 0 3px rgba(211, 165, 165, 0.1);
         outline: none;
     }
 
@@ -267,7 +267,7 @@
 <div class="review-form-container container">
     <!-- Header -->
     <div class="review-header">
-        <h1><i class="fas fa-edit" style="color: #7c3aed;"></i> Edit Your Review</h1>
+        <h1><i class="fas fa-edit" style="color: #5BA3C0;"></i> Edit Your Review</h1>
     </div>
 
     <!-- Concert Info Banner -->

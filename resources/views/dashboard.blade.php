@@ -22,7 +22,7 @@
                             <p style="color: #4a5568; font-size: 0.9rem; margin: 0 0 0.5rem 0;">Total Orders</p>
                             <h3 style="font-size: 2.5rem; font-weight: 700; color: #1a1a2e; margin: 0;">0</h3>
                         </div>
-                        <div style="font-size: 3rem; background: linear-gradient(135deg, #7c3aed, #00b4d8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                        <div style="font-size: 3rem; background: linear-gradient(135deg, #5BA3C0, #6BB6D6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
                             <i class="fas fa-ticket-alt"></i>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                             <p style="color: #4a5568; font-size: 0.9rem; margin: 0 0 0.5rem 0;">Saved Events</p>
                             <h3 style="font-size: 2.5rem; font-weight: 700; color: #1a1a2e; margin: 0;">0</h3>
                         </div>
-                        <div style="font-size: 3rem; color: #7c3aed;">
+                        <div style="font-size: 3rem; color: #5BA3C0;">
                             <i class="fas fa-heart"></i>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                             <p style="color: #4a5568; font-size: 0.9rem; margin: 0 0 0.5rem 0;">Reviews Written</p>
                             <h3 style="font-size: 2.5rem; font-weight: 700; color: #1a1a2e; margin: 0;">0</h3>
                         </div>
-                        <div style="font-size: 3rem; color: #00b4d8;">
+                        <div style="font-size: 3rem; color: #6BB6D6;">
                             <i class="fas fa-star"></i>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
             <div style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px); border: 1px solid rgba(100, 116, 139, 0.1); border-radius: 20px; padding: 2.5rem; box-shadow: 0 4px 20px rgba(31, 38, 135, 0.08);">
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;">
                     <h2 style="font-size: 1.5rem; font-weight: 700; color: #1a1a2e; margin: 0;">
-                        <i class="fas fa-music" style="color: #7c3aed; margin-right: 0.5rem;"></i>
+                        <i class="fas fa-music" style="color: #5BA3C0; margin-right: 0.5rem;"></i>
                         Welcome to ConcertHub!
                     </h2>
                 </div>
@@ -72,7 +72,7 @@
                         <li>❤️ <strong>Save Favorites</strong> - Keep track of events you're interested in</li>
                     </ul>
                     <p style="margin-top: 1.5rem;">
-                        <a href="{{ route('concerts.index') }}" style="display: inline-block; background: linear-gradient(135deg, #7c3aed, #00b4d8); color: white; padding: 0.8rem 2rem; border-radius: 12px; text-decoration: none; font-weight: 600; box-shadow: 0 4px 15px rgba(124, 58, 237, 0.35); transition: all 0.3s ease;">
+                        <a href="{{ route('concerts.index') }}" style="display: inline-block; background: linear-gradient(135deg, #5BA3C0, #4A8FA3); color: white; padding: 0.8rem 2rem; border-radius: 12px; text-decoration: none; font-weight: 600; box-shadow: 0 4px 15px rgba(91, 163, 192, 0.35); transition: all 0.3s ease;">
                             🎵 Start Exploring Events
                         </a>
                     </p>

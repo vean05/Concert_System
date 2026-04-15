@@ -19,13 +19,13 @@
 
     <style>
         :root {
-            --primary: #7c3aed;
-            --primary-dark: #6d28d9;
-            --secondary: #004e89;
-            --dark: #1a1a1a;
-            --light: #f8f9fa;
+            --primary: #5BA3C0;
+            --primary-dark: #4A8FA3;
+            --secondary: #7CB5D4;
+            --dark: #1a1a2e;
+            --light: #f5f7fa;
             --text-dark: #2c3e50;
-            --accent: #00b4d8;
+            --accent: #6BB6D6;
         }
 
         * {
@@ -37,14 +37,14 @@
         }
 
         body {
-            background: linear-gradient(135deg, #f8fafc 0%, #f0f4f8 50%, #e8eef7 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #f0f5f9 50%, #e8f2f8 100%);
             color: var(--text-dark);
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
         }
 
-        /* 背景装饰 - Apple Store 风格 */
+        /* 背景装饰 - 蓝色柔和背景 */
         body::before {
             content: '';
             position: fixed;
@@ -53,8 +53,8 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.06) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(0, 180, 216, 0.06) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(91, 163, 192, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(107, 182, 214, 0.05) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
         }
@@ -80,7 +80,7 @@
         .navbar-brand {
             font-size: 1.6rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #ff6b35 0%, #00b4d8 100%);
+            background: linear-gradient(135deg, #5BA3C0 0%, #2c3e50 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -102,7 +102,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
+            background: linear-gradient(90deg, #5BA3C0, #6BB6D6);
             transition: width 0.3s ease;
         }
 
@@ -118,9 +118,9 @@
 
         /* Alert Messages - 高级效果 */
         .alert-success {
-            background: rgba(40, 167, 69, 0.1);
-            border: 1px solid rgba(40, 167, 69, 0.3);
-            color: #155724;
+            background: rgba(91, 163, 192, 0.1);
+            border: 1px solid rgba(107, 182, 214, 0.3);
+            color: #2c3e50;
             border-radius: 16px;
             backdrop-filter: blur(10px);
             padding: 1.5rem;
@@ -128,9 +128,9 @@
         }
 
         .alert-danger {
-            background: rgba(220, 53, 69, 0.1);
-            border: 1px solid rgba(220, 53, 69, 0.3);
-            color: #721c24;
+            background: rgba(220, 120, 120, 0.1);
+            border: 1px solid rgba(200, 100, 100, 0.3);
+            color: #8b3a3a;
             border-radius: 16px;
             backdrop-filter: blur(10px);
             padding: 1.5rem;
@@ -169,23 +169,23 @@
 
         /* Primary Button */
         .btn-primary {
-            background: linear-gradient(135deg, #ff6b35 0%, #ff8a50 100%);
+            background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
             color: white;
-            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
+            box-shadow: 0 8px 24px rgba(91, 163, 192, 0.3);
             padding: 0.7rem 1.8rem;
             border-radius: 12px;
         }
 
         .btn-primary:hover {
-            background: linear-gradient(135deg, #ff5a1a 0%, #ff7a3a 100%);
+            background: linear-gradient(135deg, #4A8FA3 0%, #3A7A8A 100%);
             transform: translateY(-4px);
-            box-shadow: 0 16px 40px rgba(124, 58, 237, 0.45);
+            box-shadow: 0 16px 40px rgba(91, 163, 192, 0.45);
             color: white;
         }
 
         .btn-primary:active {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
+            box-shadow: 0 8px 24px rgba(91, 163, 192, 0.3);
         }
 
         /* Auth Buttons - 高级样式 */
@@ -199,24 +199,24 @@
         }
 
         .btn-login {
-            border: 2px solid rgba(124, 58, 237, 0.5);
-            color: var(--primary);
-            background: rgba(124, 58, 237, 0.05);
+            border: 2px solid rgba(91, 163, 192, 0.5);
+            color: #5BA3C0;
+            background: rgba(107, 182, 214, 0.05);
             backdrop-filter: blur(10px);
         }
 
         .btn-login:hover {
-            background: linear-gradient(135deg, var(--primary) 0%, #ff8a50 100%);
+            background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
             color: white;
-            border-color: var(--primary);
+            border-color: #5BA3C0;
             transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(124, 58, 237, 0.35);
+            box-shadow: 0 12px 32px rgba(91, 163, 192, 0.35);
         }
 
         .btn-register {
-            background: rgba(167, 139, 250, 0.15);
-            color: #7c3aed;
-            border: 2px solid rgba(124, 58, 237, 0.2);
+            background: rgba(107, 182, 214, 0.15);
+            color: #5BA3C0;
+            border: 2px solid rgba(107, 182, 214, 0.2);
             backdrop-filter: blur(10px);
             font-weight: 600;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -224,10 +224,10 @@
 
         .btn-register:hover {
             transform: translateY(-4px);
-            background: linear-gradient(135deg, #7c3aed, #a78bfa) rgba(167, 139, 250, 0.25);
-            border-color: rgba(124, 58, 237, 0.5);
+            background: linear-gradient(135deg, #5BA3C0, #6BB6D6);
+            border-color: rgba(91, 163, 192, 0.5);
             color: white;
-            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.3);
+            box-shadow: 0 8px 24px rgba(91, 163, 192, 0.3);
         }
 
         /* Secondary Button */
@@ -277,7 +277,7 @@
         }
 
         .footer a:hover {
-            color: #ff6b35;
+            color: #4A8FA3;
             transform: translateX(2px);
         }
 
@@ -302,8 +302,6 @@
             }
         }
     </style>
-
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light">
@@ -330,7 +328,7 @@
 
                         @if(auth()->user()->is_admin)
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.dashboard') }}" style="color: #ec4899; font-weight: 600;">
+                                <a class="nav-link" href="{{ route('admin.dashboard') }}" style="color: #5BA3C0; font-weight: 600;">
                                     <i class="fas fa-cogs"></i> Admin
                                 </a>
                             </li>

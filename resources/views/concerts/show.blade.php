@@ -5,7 +5,7 @@
 @section('content')
 <style>
     .concert-hero {
-        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
         color: white;
         padding: 3rem 0;
         margin-bottom: 2rem;
@@ -48,7 +48,7 @@
     .detail-item-icon {
         width: 40px;
         height: 40px;
-        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
         border-radius: 8px;
         display: flex;
         align-items: center;
@@ -130,13 +130,13 @@
     }
 
     .btn-edit {
-        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
         color: white;
     }
 
     .btn-edit:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+        box-shadow: 0 8px 20px rgba(91, 163, 192, 0.3);
         color: white;
         text-decoration: none;
     }
@@ -185,7 +185,7 @@
     }
 
     .review-count-badge {
-        background: #7c3aed;
+        background: #5BA3C0;
         color: white;
         padding: 0.3rem 0.8rem;
         border-radius: 20px;
@@ -194,7 +194,7 @@
     }
 
     .btn-write-review {
-        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
         color: white;
         padding: 0.6rem 1.5rem;
         border-radius: 8px;
@@ -207,7 +207,7 @@
 
     .btn-write-review:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+        box-shadow: 0 8px 20px rgba(91, 163, 192, 0.3);
         color: white;
         text-decoration: none;
     }
@@ -300,7 +300,7 @@
     .creator-avatar {
         width: 80px;
         height: 80px;
-        background: linear-gradient(135deg, #ff6b35 0%, #d94a2a 100%);
+        background: linear-gradient(135deg, #D3A5A5 0%, #C98E8E 100%);
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -330,7 +330,7 @@
 
     .empty-reviews i {
         font-size: 2rem;
-        color: #7c3aed;
+        color: #5BA3C0;
         margin-bottom: 1rem;
     }
 
@@ -454,7 +454,7 @@
                                     $seatingAreas = json_decode($concert->seating_areas, true) ?? [];
                                 @endphp
                                 @forelse($seatingAreas as $area)
-                                    <div style="background: rgba(124, 58, 237, 0.1); border: 1px solid rgba(124, 58, 237, 0.3); border-radius: 8px; padding: 0.6rem 1rem; font-weight: 500; color: #7c3aed;">
+                                    <div style="background: rgba(91, 163, 192, 0.1); border: 1px solid rgba(91, 163, 192, 0.3); border-radius: 8px; padding: 0.6rem 1rem; font-weight: 500; color: #5BA3C0;">
                                         <i class="fas fa-tag" style="margin-right: 0.4rem;"></i>{{ $area }}
                                     </div>
                                 @empty

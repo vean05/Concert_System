@@ -11,7 +11,7 @@
     .back-link {
         display: inline-block;
         margin-bottom: 1.5rem;
-        color: #7c3aed;
+        color: #5BA3C0;
         text-decoration: none;
         font-weight: 600;
         transition: all 0.3s ease;
@@ -19,6 +19,7 @@
 
     .back-link:hover {
         transform: translateX(-5px);
+        color: #4A8FA3;
     }
 
     .detail-header {
@@ -31,10 +32,10 @@
     .detail-image {
         background: rgba(255, 255, 255, 0.85);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(200, 200, 200, 0.6);
         border-radius: 12px;
         padding: 1rem;
-        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.12);
+        box-shadow: 0 8px 32px rgba(100, 100, 100, 0.12);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -55,10 +56,10 @@
     .detail-info {
         background: rgba(255, 255, 255, 0.85);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(200, 200, 200, 0.6);
         border-radius: 12px;
         padding: 2rem;
-        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.12);
+        box-shadow: 0 8px 32px rgba(100, 100, 100, 0.12);
     }
 
     .detail-info h1 {
@@ -82,7 +83,7 @@
 
     .info-label {
         font-weight: 700;
-        color: #7c3aed;
+        color: #5BA3C0;
         min-width: 120px;
         margin-right: 1rem;
     }
@@ -113,23 +114,23 @@
     }
 
     .btn-edit {
-        background: linear-gradient(135deg, #00b4d8 0%, #0096c7 100%);
+        background: linear-gradient(135deg, #6BB6D6 0%, #5BA3C0 100%);
         color: white;
     }
 
     .btn-edit:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0, 180, 216, 0.3);
+        box-shadow: 0 8px 20px rgba(91, 163, 192, 0.3);
     }
 
     .btn-delete {
-        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        background: linear-gradient(135deg, #D9A5A5 0%, #C98E8E 100%);
         color: white;
     }
 
     .btn-delete:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
+        box-shadow: 0 8px 20px rgba(217, 165, 165, 0.3);
     }
 
     .stats-grid {
@@ -142,11 +143,11 @@
     .stat-item {
         background: rgba(255, 255, 255, 0.85);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(200, 200, 200, 0.6);
         border-radius: 12px;
         padding: 1.5rem;
         text-align: center;
-        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.12);
+        box-shadow: 0 8px 32px rgba(100, 100, 100, 0.12);
     }
 
     .stat-item .label {
@@ -158,16 +159,16 @@
     .stat-item .value {
         font-size: 2rem;
         font-weight: 700;
-        color: #7c3aed;
+        color: #5BA3C0;
     }
 
     .section-card {
         background: rgba(255, 255, 255, 0.85);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(200, 200, 200, 0.6);
         border-radius: 12px;
         padding: 2rem;
-        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.12);
+        box-shadow: 0 8px 32px rgba(100, 100, 100, 0.12);
         margin-bottom: 2rem;
     }
 
@@ -190,9 +191,9 @@
     }
 
     .tag {
-        background: rgba(124, 58, 237, 0.1);
-        border: 1px solid rgba(124, 58, 237, 0.3);
-        color: #7c3aed;
+        background: #e8f2f8;
+        border: 1px solid #b8dce9;
+        color: #5BA3C0;
         padding: 0.5rem 1rem;
         border-radius: 20px;
         font-size: 0.9rem;
@@ -215,7 +216,7 @@
 </style>
 
 <div class="admin-detail-page container">
-    <a href="javascript:history.back()" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #7c3aed; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+    <a href="javascript:history.back()" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #5BA3C0; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
         <i class="fas fa-arrow-left"></i> Back
     </a>
 
@@ -297,14 +298,14 @@
 
     <!-- Description -->
     <div class="section-card">
-        <h2><i class="fas fa-align-left" style="color: #7c3aed;"></i> Description</h2>
+        <h2><i class="fas fa-align-left" style="color: #5BA3C0;"></i> Description</h2>
         <div class="description">{{ $concert->description }}</div>
     </div>
 
     <!-- Seating Areas -->
     @if($seatingAreas)
         <div class="section-card">
-            <h2><i class="fas fa-chair" style="color: #7c3aed;"></i> Seating Areas</h2>
+            <h2><i class="fas fa-chair" style="color: #5BA3C0;"></i> Seating Areas</h2>
             <div class="tags">
                 @foreach($seatingAreas as $area)
                     <span class="tag">{{ $area }}</span>
@@ -316,7 +317,7 @@
     <!-- Recent Orders -->
     @if($concert->orders->count() > 0)
         <div class="section-card">
-            <h2><i class="fas fa-shopping-cart" style="color: #7c3aed;"></i> Recent Orders (Last 10)</h2>
+            <h2><i class="fas fa-shopping-cart" style="color: #5BA3C0;"></i> Recent Orders (Last 10)</h2>
             <div style="overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse;">
                     <thead style="background: #f8f9fa;">
@@ -347,12 +348,12 @@
     <!-- Recent Reviews -->
     @if($concert->reviews->count() > 0)
         <div class="section-card">
-            <h2><i class="fas fa-star" style="color: #7c3aed;"></i> Recent Reviews (Last 5)</h2>
+            <h2><i class="fas fa-star" style="color: #5BA3C0;"></i> Recent Reviews (Last 5)</h2>
             @foreach($concert->reviews->take(5) as $review)
                 <div style="margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #f0f0f0;">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
                         <strong>{{ $review->user->name ?? 'Anonymous' }}</strong>
-                        <span style="color: #ff6b35;">
+                        <span style="color: #B0B0B0;">
                             @for($i = 0; $i < $review->rating; $i++)
                                 <i class="fas fa-star"></i>
                             @endfor

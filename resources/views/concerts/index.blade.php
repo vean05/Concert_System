@@ -39,7 +39,7 @@
     .concert-card:hover {
         transform: translateY(-12px) scale(1.02);
         box-shadow: 0 16px 40px rgba(31, 38, 135, 0.15);
-        border-color: rgba(124, 58, 237, 0.3);
+        border-color: rgba(91, 163, 192, 0.3);
     }
 
     .concert-card:hover::before {
@@ -47,7 +47,7 @@
     }
 
     .concert-card-header {
-        background: linear-gradient(135deg, #7c3aed 0%, #00b4d8 100%);
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
         height: 220px;
         position: relative;
         overflow: hidden;
@@ -96,7 +96,7 @@
     }
 
     .concert-artist {
-        color: #7c3aed;
+        color: #6BB6D6;
         font-weight: 600;
         font-size: 0.95rem;
         margin-bottom: 1rem;
@@ -116,7 +116,7 @@
 
     .concert-detail-item i {
         width: 24px;
-        color: #ff6b35;
+        color: #D3A5A5;
         margin-right: 0.75rem;
         font-size: 1rem;
     }
@@ -213,27 +213,27 @@
     }
 
     .btn-favourite {
-        background: rgba(236, 72, 153, 0.1);
-        color: #ec4899;
-        border: 1.5px solid rgba(236, 72, 153, 0.3);
+        background: rgba(91, 163, 192, 0.1);
+        color: #5BA3C0;
+        border: 1.5px solid rgba(91, 163, 192, 0.3);
         backdrop-filter: blur(10px);
         flex: 0.8;
     }
 
     .btn-favourite:hover {
         transform: translateY(-3px);
-        background: #ec4899;
+        background: #5BA3C0;
         color: white;
-        border-color: #ec4899;
+        border-color: #5BA3C0;
         text-decoration: none;
-        box-shadow: 0 8px 25px rgba(236, 72, 153, 0.3);
+        box-shadow: 0 8px 25px rgba(91, 163, 192, 0.3);
     }
 
     .btn-favourite.active {
-        background: #ec4899;
+        background: #5BA3C0;
         color: white;
-        border-color: #ec4899;
-        box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+        border-color: #5BA3C0;
+        box-shadow: 0 4px 15px rgba(91, 163, 192, 0.4);
     }
 
     .search-filter-box {
@@ -265,14 +265,14 @@
     }
 
     .filter-input:focus {
-        border-color: #7c3aed;
-        box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+        border-color: #5BA3C0;
+        box-shadow: 0 0 0 4px rgba(91, 163, 192, 0.1);
         outline: none;
         background: rgba(255, 255, 255, 0.8);
     }
 
     .btn-filter {
-        background: linear-gradient(135deg, #7c3aed 0%, #00b4d8 100%);
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
         color: white;
         border: none;
         border-radius: 12px;
@@ -280,16 +280,16 @@
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 0 4px 15px rgba(124, 58, 237, 0.25);
+        box-shadow: 0 4px 15px rgba(91, 163, 192, 0.25);
     }
 
     .btn-filter:hover {
         transform: translateY(-4px);
-        box-shadow: 0 8px 30px rgba(255, 107, 53, 0.35);
+        box-shadow: 0 8px 30px rgba(91, 163, 192, 0.35);
     }
 
     .btn-create {
-        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
         color: white;
         border: none;
         border-radius: 12px;
@@ -299,14 +299,14 @@
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         text-decoration: none;
         display: inline-block;
-        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.25);
+        box-shadow: 0 4px 15px rgba(91, 163, 192, 0.25);
     }
 
     .btn-create:hover {
         transform: translateY(-4px);
         color: white;
         text-decoration: none;
-        box-shadow: 0 8px 30px rgba(40, 167, 69, 0.35);
+        box-shadow: 0 8px 30px rgba(91, 163, 192, 0.35);
     }
 
     .header-section {
@@ -331,8 +331,8 @@
     }
 
     .page-link {
-        color: #7c3aed;
-        border-color: rgba(124, 58, 237, 0.3);
+        color: #5BA3C0;
+        border-color: rgba(91, 163, 192, 0.3);
         background: rgba(255, 255, 255, 0.8);
         border-radius: 10px;
         transition: all 0.3s ease;
@@ -340,15 +340,15 @@
 
     .page-link:hover {
         color: white;
-        background-color: #7c3aed;
-        border-color: #7c3aed;
+        background-color: #5BA3C0;
+        border-color: #5BA3C0;
         transform: translateY(-2px);
     }
 
     .page-item.active .page-link {
-        background: linear-gradient(135deg, #7c3aed, #00b4d8);
-        border-color: #7c3aed;
-        box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+        background: linear-gradient(135deg, #5BA3C0, #4A8FA3);
+        border-color: #5BA3C0;
+        box-shadow: 0 4px 15px rgba(91, 163, 192, 0.3);
     }
 
     .empty-state {
@@ -364,7 +364,7 @@
 
     .empty-state i {
         font-size: 4rem;
-        background: linear-gradient(135deg, #ff6b35, #00b4d8);
+        background: linear-gradient(135deg, #D3A5A5, #6BB6D6);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -385,7 +385,7 @@
 <div class="container" style="padding: 2rem 0;">
     <!-- Header with Create Button -->
     <div class="header-section">
-        <h1><i class="fas fa-music" style="color: #ff6b35;"></i> Upcoming Concerts</h1>
+        <h1><i class="fas fa-music" style="color: #D3A5A5;"></i> Upcoming Concerts</h1>
         @auth
             @if(auth()->user()->role === 'admin')
                 <a href="{{ route('concerts.create') }}" class="btn-create">
@@ -442,7 +442,7 @@
         @endif
 
         <div class="col-lg-3 col-md-6">
-            <a href="{{ route('concerts.show', $concert) }}" class="concert-card" style="text-decoration: none; color: inherit;">
+            <div class="concert-card" style="text-decoration: none; color: inherit;">
                 <!-- Card Header with Gradient -->
                 <div class="concert-card-header">
                     <i class="fas fa-microphone"></i>
@@ -489,17 +489,17 @@
 
                     <!-- Action Buttons -->
                     <div class="concert-actions">
-                        <button type="button" class="btn-view" onclick="event.stopPropagation();">
+                        <a href="{{ route('concerts.show', $concert) }}" class="btn-view">
                             <i class="fas fa-eye"></i> Details
-                        </button>
+                        </a>
 
                         @auth
                             @if(auth()->user()->role === 'admin' && auth()->user()->id === $concert->created_by)
-                                <a href="{{ route('concerts.edit', $concert) }}" class="btn-edit" onclick="event.stopPropagation();">
+                                <a href="{{ route('concerts.edit', $concert) }}" class="btn-edit">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
                             @elseif(auth()->user()->role === 'user' && $availableTickets > 0)
-                                <a href="{{ route('orders.create', $concert) }}" class="btn-book" onclick="event.stopPropagation();">
+                                <a href="{{ route('orders.create', $concert) }}" class="btn-book">
                                     <i class="fas fa-ticket-alt"></i> Book
                                 </a>
                             @endif
@@ -533,7 +533,7 @@
                         @endif
                     @endauth
                 </div>
-            </a>
+            </div>
         </div>
 
         @if($loop->last)
