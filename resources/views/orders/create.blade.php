@@ -6,6 +6,7 @@
 <style>
     .booking-container {
         padding: 2rem 0;
+        
     }
 
     .booking-header {
