@@ -314,17 +314,21 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    @if(!auth()->check() || !auth()->user()->is_admin)
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('concerts.index') }}">Browse Concerts</a>
                     </li>
+                    @endif
 
                     @auth
+                        @if(!auth()->user()->is_admin)
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('orders.index') }}">My Orders</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('profile.show') }}">Profile</a>
                         </li>
+                        @endif
 
                         @if(auth()->user()->is_admin)
                             <li class="nav-item">
@@ -340,10 +344,6 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li><a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a></li>
-                                @if(auth()->user()->is_admin)
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}"><i class="fas fa-cogs" style="margin-right: 0.5rem;"></i> Admin Panel</a></li>
-                                @endif
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}">

@@ -247,19 +247,6 @@
         <h1><i class="fas fa-receipt" style="color: #5BA3C0;"></i> My Orders</h1>
     </div>
 
-    <!-- Alerts -->
-    @if(session('success'))
-        <div class="alert-custom alert-success-custom">
-            <i class="fas fa-check-circle"></i> {{ session('success') }}
-        </div>
-    @endif
-
-    @if(session('error'))
-        <div class="alert-custom alert-danger-custom">
-            <i class="fas fa-times-circle"></i> {{ session('error') }}
-        </div>
-    @endif
-
     <!-- Orders List -->
     @forelse($orders as $order)
         <div class="order-card mb-4">

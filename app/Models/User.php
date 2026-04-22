@@ -83,4 +83,12 @@ class User extends Authenticatable
     {
         return $this->favouriteConcerts()->where('concert_id', $concertId)->exists();
     }
+
+    /**
+     * Get all payment cards for the user.
+     */
+    public function paymentCards()
+    {
+        return $this->hasMany(PaymentCard::class);
+    }
 }

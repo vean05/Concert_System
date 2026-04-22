@@ -283,7 +283,7 @@
                             class="form-control @error('date') is-invalid @enderror" 
                             id="date" 
                             name="date" 
-                            value="{{ old('date', $concert->date) }}" 
+                            value="{{ old('date', \Carbon\Carbon::parse($concert->date)->format('Y-m-d')) }}" 
                             required
                         >
                         @error('date')

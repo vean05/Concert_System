@@ -48,7 +48,7 @@
 
     .concert-card-header {
         background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
-        height: 220px;
+        height: 260px;
         position: relative;
         overflow: hidden;
         display: flex;
@@ -56,6 +56,15 @@
         justify-content: center;
         color: white;
         font-size: 3rem;
+        flex-shrink: 0;
+    }
+
+    .concert-card-header img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background: #f8f9fa;
+        display: block;
     }
 
     .concert-card-header::after {
@@ -67,6 +76,10 @@
         bottom: 0;
         background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3), transparent),
                     radial-gradient(circle at 70% 70%, rgba(0, 0, 0, 0.1), transparent);
+    }
+
+    .concert-card-header.has-image::after {
+        display: none;
     }
 
     .concert-card-header i {
@@ -148,17 +161,21 @@
     .concert-actions a,
     .concert-actions button {
         flex: 1;
-        padding: 0.75rem;
+        padding: 0.65rem 0.5rem;
         border-radius: 10px;
         border: none;
         font-weight: 600;
-        font-size: 0.85rem;
+        font-size: 0.78rem;
         cursor: pointer;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         text-decoration: none;
         text-align: center;
         position: relative;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.3rem;
     }
 
     .btn-view {
@@ -443,9 +460,13 @@
 
         <div class="col-lg-3 col-md-6">
             <div class="concert-card" style="text-decoration: none; color: inherit;">
-                <!-- Card Header with Gradient -->
-                <div class="concert-card-header">
-                    <i class="fas fa-microphone"></i>
+                <!-- Card Header with Image -->
+                <div class="concert-card-header {{ $concert->image_path ? 'has-image' : '' }}">
+                    @if($concert->image_path)
+                        <img src="{{ asset('storage/' . $concert->image_path) }}" alt="{{ $concert->title }}">
+                    @else
+                        <i class="fas fa-microphone"></i>
+                    @endif
                 </div>
 
                 <!-- Card Body -->

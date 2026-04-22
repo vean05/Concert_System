@@ -311,7 +311,7 @@
                 <div class="detail-row">
                     <div class="detail-item-box">
                         <h6>Number of Tickets</h6>
-                        <p>{{ $order->quantity }} @if($order->quantity > 1)tickets@else ticket@endif</p>
+                        <p>{{ $order->quantity }} @if($order->quantity > 1) tickets @else ticket @endif</p>
                     </div>
                     <div class="detail-item-box">
                         <h6>Price per Ticket</h6>

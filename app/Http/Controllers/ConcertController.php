@@ -114,7 +114,8 @@ class ConcertController extends Controller
         ]);
 
         $data = $validated;
-        
+        unset($data['image']); // remove raw file from data, only keep image_path
+
         if ($request->hasFile('image')) {
             // Delete old image if exists
             if ($concert->image_path && \Storage::disk('public')->exists($concert->image_path)) {

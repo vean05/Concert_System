@@ -63,12 +63,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/orders', [ProfileController::class, 'orders'])->name('profile.orders');
     Route::get('/profile/reviews', [ProfileController::class, 'reviews'])->name('profile.reviews');
+    Route::get('/profile/published-concerts', [ProfileController::class, 'publishedConcerts'])->name('profile.published_concerts');
+    Route::get('/profile/admin-reviews', [ProfileController::class, 'adminReviews'])->name('profile.admin_reviews');
 });
 
 // Favourite Routes (Authenticated users only)
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/concerts/{concert}/toggle-favourite', [FavouriteController::class, 'toggle'])->name('concerts.toggle-favourite');
     Route::get('/favourites', [FavouriteController::class, 'getFavourites'])->name('concerts.favourites');
+});
+
+// Payment Card Routes (Authenticated users only)
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/payment-cards', [\App\Http\Controllers\PaymentCardController::class, 'index'])->name('payment_cards.index');
+    Route::get('/payment-cards/create', [\App\Http\Controllers\PaymentCardController::class, 'create'])->name('payment_cards.create');
+    Route::post('/payment-cards', [\App\Http\Controllers\PaymentCardController::class, 'store'])->name('payment_cards.store');
+    Route::post('/payment-cards/ajax', [\App\Http\Controllers\PaymentCardController::class, 'storeAjax'])->name('payment_cards.storeAjax');
+    Route::delete('/payment-cards/{paymentCard}', [\App\Http\Controllers\PaymentCardController::class, 'destroy'])->name('payment_cards.destroy');
 });
 
 // Dashboard

@@ -273,7 +273,7 @@
 
 <div class="admin-page container">
     <!-- Back Button -->
-    <a href="javascript:history.back()" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #5BA3C0; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+    <a href="{{ route('admin.dashboard') }}" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #5BA3C0; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
         <i class="fas fa-arrow-left"></i> Back
     </a>
 

@@ -13,7 +13,8 @@ class OrderController extends Controller
      */
     public function create(Concert $concert)
     {
-        return view('orders.create', compact('concert'));
+        $paymentCards = auth()->user()->paymentCards()->get();
+        return view('orders.create', compact('concert', 'paymentCards'));
     }
 
     /**
@@ -23,7 +24,14 @@ class OrderController extends Controller
     {
         $validated = $request->validate([
             'quantity' => 'required|integer|min:1|max:100',
+            'payment_card_id' => 'required|exists:payment_cards,id',
         ]);
+
+        // Verify the user owns the card
+        $card = auth()->user()->paymentCards()->find($validated['payment_card_id']);
+        if (!$card) {
+            return redirect()->back()->with('error', 'Invalid payment card selected!');
+        }
 
         // Check if enough tickets are available
         $availableTickets = $concert->total_ticket - Order::where('concert_id', $concert->id)
@@ -44,13 +52,18 @@ class OrderController extends Controller
             'status' => 'confirmed',
         ]);
 
+        // Generate dynamic success message
+        $lastFour = substr($card->card_number, -4);
+        $formattedPrice = number_format($totalPrice, 2);
+        $successMsg = "Booking successful! Card ending in {$lastFour} was charged \${$formattedPrice}.";
+
         // Store message in session
-        session()->flash('success', 'Booking successful! Your order has been confirmed.');
+        session()->flash('success', $successMsg);
         
         // Store last viewed concert in cookie
         cookie('last_concert', $concert->id, 60 * 24 * 7); // 7 days
 
-        return redirect()->route('orders.index')->with('success', 'Booking successful!');
+        return redirect()->route('orders.index')->with('success', $successMsg);
     }
 
     /**
