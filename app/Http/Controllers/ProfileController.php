@@ -85,5 +85,40 @@ class ProfileController extends Controller
         $reviews = auth()->user()->reviews()->with('concert')->latest()->paginate(15);
         return view('profile.reviews', compact('reviews'));
     }
+
+    /**
+     * Show edit profile form.
+     */
+    public function edit()
+    {
+        return view('profile.edit', ['user' => auth()->user()]);
+    }
+
+    /**
+     * Update user profile.
+     */
+    public function update(Request $request)
+    {
+        $user = auth()->user();
+
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'password' => ['nullable', 'confirmed', 'min:8'],
+        ]);
+
+        // Update name and email
+        $user->update([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+        ]);
+
+        // Update password if provided
+        if (!empty($validated['password'])) {
+            $user->update(['password' => bcrypt($validated['password'])]);
+        }
+
+        return redirect()->route('profile.show')->with('success', 'Profile updated successfully!');
+    }
 }
 

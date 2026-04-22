@@ -38,6 +38,7 @@ class ConcertSeeder extends Seeder
                 'ticket_price' => 150.00,
                 'total_ticket' => 20000,
                 'created_by' => $adminUser->id,
+                'image_path' => 'concerts/taylor-swift-eras-tour.png',
             ],
             [
                 'title' => 'The Weeknd: After Hours Tour',
@@ -48,6 +49,7 @@ class ConcertSeeder extends Seeder
                 'ticket_price' => 120.00,
                 'total_ticket' => 18000,
                 'created_by' => $adminUser->id,
+                'image_path' => 'concerts/the-weeknd-after-hours-tour.png',
             ],
             [
                 'title' => 'Beyoncé: Renaissance Tour',
@@ -58,6 +60,7 @@ class ConcertSeeder extends Seeder
                 'ticket_price' => 200.00,
                 'total_ticket' => 82500,
                 'created_by' => $adminUser->id,
+                'image_path' => 'concerts/beyonce-renaissance-tour.png',
             ],
             [
                 'title' => 'Coldplay: Music of the Spheres Tour',
@@ -68,6 +71,7 @@ class ConcertSeeder extends Seeder
                 'ticket_price' => 110.00,
                 'total_ticket' => 70000,
                 'created_by' => $adminUser->id,
+                'image_path' => 'concerts/coldplay-music-of-the-spheres-tour.png',
             ],
             [
                 'title' => 'Drake: OVO Sound Fest',
@@ -78,6 +82,7 @@ class ConcertSeeder extends Seeder
                 'ticket_price' => 95.00,
                 'total_ticket' => 20000,
                 'created_by' => $adminUser->id,
+                'image_path' => 'concerts/drake-ovo-sound-fest.png',
             ],
             [
                 'title' => 'Ed Sheeran: + − × ÷ Tour',
@@ -88,6 +93,7 @@ class ConcertSeeder extends Seeder
                 'ticket_price' => 130.00,
                 'total_ticket' => 65000,
                 'created_by' => $adminUser->id,
+                'image_path' => 'concerts/ed-sheeran-tour.png',
             ],
             [
                 'title' => 'Billie Eilish: Happier Than Ever Tour',
@@ -98,6 +104,7 @@ class ConcertSeeder extends Seeder
                 'ticket_price' => 85.00,
                 'total_ticket' => 20000,
                 'created_by' => $adminUser->id,
+                'image_path' => 'concerts/billie-eilish-happier-than-ever-tour.png',
             ],
             [
                 'title' => 'Ariana Grande: Eternal Sunshine Tour',
@@ -108,6 +115,7 @@ class ConcertSeeder extends Seeder
                 'ticket_price' => 140.00,
                 'total_ticket' => 20000,
                 'created_by' => $adminUser->id,
+                'image_path' => 'concerts/ariana-grande-eternal-sunshine-tour.png',
             ],
         ];
 

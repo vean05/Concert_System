@@ -28,9 +28,14 @@
     .hero {
         padding: 120px 0 80px;
         text-align: center;
-        background: linear-gradient(135deg, #ffffff 0%, #f5f5f7 100%);
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.4) 100%), 
+                    url('{{ asset("images/hero-concert-bg.jpg") }}') center/cover no-repeat;
         position: relative;
         overflow: hidden;
+        min-height: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .hero::after {
@@ -40,8 +45,8 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: radial-gradient(circle at 20% 50%, rgba(0, 0, 0, 0.02) 0%, transparent 50%),
-                    radial-gradient(circle at 80% 80%, rgba(0, 0, 0, 0.02) 0%, transparent 50%);
+        background: radial-gradient(circle at 20% 50%, rgba(0, 0, 0, 0.2) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 80%, rgba(0, 0, 0, 0.2) 0%, transparent 50%);
         pointer-events: none;
     }
 
@@ -56,16 +61,19 @@
         line-height: 1.1;
         margin-bottom: 1.5rem;
         letter-spacing: -0.02em;
+        color: #ffffff;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
 
     .hero p {
         font-size: 1.4rem;
-        color: #555;
+        color: #ffffff;
         margin-bottom: 2.5rem;
         line-height: 1.6;
         max-width: 800px;
         margin-left: auto;
         margin-right: auto;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     }
 
     .hero-cta {
@@ -88,25 +96,29 @@
     }
 
     .btn-primary {
-        background: #0071e3;
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
         color: white;
+        box-shadow: 0 4px 15px rgba(91, 163, 192, 0.4);
     }
 
     .btn-primary:hover {
-        background: #0077ed;
-        box-shadow: 0 8px 24px rgba(0, 113, 227, 0.25);
+        background: linear-gradient(135deg, #4A8FA3 0%, #3A7A8A 100%);
+        box-shadow: 0 8px 24px rgba(91, 163, 192, 0.5);
         transform: translateY(-2px);
     }
 
     .btn-secondary {
-        background: #f5f5f7;
+        background: rgba(255, 255, 255, 0.95);
         color: #1d1d1f;
-        border: 1px solid #d2d2d7;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .btn-secondary:hover {
-        background: #efefef;
+        background: rgba(255, 255, 255, 1);
+        border-color: #ffffff;
         transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     }
 
     /* ===== 轮播区域 ===== */
@@ -213,6 +225,7 @@
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         border: 1px solid #f5f5f7;
         height: 100%;
+        max-height: 380px;
         display: flex;
         flex-direction: column;
     }
@@ -225,7 +238,8 @@
 
     .concert-image {
         width: 100%;
-        height: 240px;
+        flex: 0 0 70%;
+        max-height: 270px;
         background: linear-gradient(135deg, #e8f2f8 0%, #d3e9f7 100%);
         display: flex;
         align-items: center;
@@ -259,56 +273,57 @@
     }
 
     .concert-content {
-        padding: 2rem;
-        flex: 1;
+        padding: 1.2rem;
+        flex: 0 0 30%;
         display: flex;
         flex-direction: column;
         background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.98) 100%);
+        overflow: hidden;
     }
 
     .concert-artist {
-        font-size: 0.85rem;
+        font-size: 0.7rem;
         color: #5BA3C0;
         font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 0.8rem;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.4rem;
     }
 
     .concert-title {
-        font-size: 1.35rem;
+        font-size: 1.05rem;
         font-weight: 700;
-        margin-bottom: 1rem;
+        margin-bottom: 0.6rem;
         color: #1a1a2e;
-        line-height: 1.3;
+        line-height: 1.2;
     }
 
     .concert-meta {
-        font-size: 0.9rem;
+        font-size: 0.75rem;
         color: #555;
-        margin-bottom: 1.5rem;
-        line-height: 1.8;
+        margin-bottom: 0.8rem;
+        line-height: 1.5;
         flex: 1;
     }
 
     .concert-meta-item {
         display: flex;
         align-items: center;
-        gap: 0.6rem;
-        margin-bottom: 0.7rem;
+        gap: 0.3rem;
+        margin-bottom: 0.3rem;
     }
 
     .concert-footer {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-top: 1.5rem;
-        border-top: 2px solid rgba(91, 163, 192, 0.1);
+        padding-top: 0.8rem;
+        border-top: 1px solid rgba(91, 163, 192, 0.1);
         margin-top: auto;
     }
 
     .concert-price {
-        font-size: 1.6rem;
+        font-size: 1.2rem;
         font-weight: 800;
         color: #5BA3C0;
     }
@@ -316,9 +331,9 @@
     .concert-btn {
         background: linear-gradient(135deg, #5BA3C0, #4A8FA3);
         color: white;
-        padding: 10px 18px;
-        border-radius: 8px;
-        font-size: 0.9rem;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 0.75rem;
         font-weight: 600;
         text-decoration: none;
         border: none;
@@ -363,13 +378,145 @@
     }
 
     .concert-card-grid .concert-image {
-        height: 200px;
+        flex: 0 0 60%;
+        height: auto;
+        min-height: 240px;
     }
 
     .concert-card-grid .concert-content {
-        flex: 1;
+        flex: 0 0 40%;
         display: flex;
         flex-direction: column;
+        overflow: hidden;
+    }
+
+    /* ===== 热门演唱会区域 ===== */
+    .popular-concerts-section {
+        padding: 80px 0;
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    }
+
+    .popular-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+        gap: 2rem;
+    }
+
+    .concert-card-horizontal {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: row;
+        height: 200px;
+    }
+
+    .concert-card-horizontal:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 32px rgba(91, 163, 192, 0.15);
+        border-left: 4px solid #5BA3C0;
+    }
+
+    .concert-card-horizontal .concert-image {
+        flex: 0 0 35%;
+        height: 100%;
+        background: linear-gradient(135deg, #e8f2f8 0%, #d3e9f7 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .concert-card-horizontal .concert-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .concert-card-horizontal:hover .concert-image img {
+        transform: scale(1.1);
+    }
+
+    .concert-card-horizontal .concert-content {
+        flex: 0 0 65%;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: white;
+    }
+
+    .concert-card-horizontal .concert-artist {
+        font-size: 0.75rem;
+        color: #5BA3C0;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.5rem;
+    }
+
+    .concert-card-horizontal .concert-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #1a1a2e;
+        line-height: 1.3;
+        margin-bottom: 0.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .concert-card-horizontal .concert-meta {
+        font-size: 0.8rem;
+        color: #666;
+        margin-bottom: 0.8rem;
+        line-height: 1.4;
+    }
+
+    .concert-card-horizontal .concert-meta-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        margin-right: 1rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .concert-card-horizontal .concert-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 0;
+        border-top: none;
+        margin-top: auto;
+    }
+
+    .concert-card-horizontal .concert-price {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: #5BA3C0;
+    }
+
+    .concert-card-horizontal .concert-btn {
+        background: linear-gradient(135deg, #5BA3C0, #4A8FA3);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .concert-card-horizontal .concert-btn:hover {
+        background: linear-gradient(135deg, #4A8FA3, #3A7A8A);
+        transform: translateY(-2px);
     }
 
     /* ===== 特性区域 ===== */
@@ -508,6 +655,30 @@
             gap: 1.5rem;
         }
 
+        .popular-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .concert-card-horizontal {
+            height: auto;
+            flex-direction: column;
+        }
+
+        .concert-card-horizontal .concert-image {
+            flex: 0 0 150px;
+            height: 150px;
+        }
+
+        .concert-card-horizontal .concert-content {
+            flex: 0 0 auto;
+            padding: 1rem;
+        }
+
+        .concert-card-horizontal:hover {
+            border-left: none;
+            border-top: 4px solid #5BA3C0;
+        }
+
         .cta h2 {
             font-size: 2rem;
         }
@@ -625,22 +796,26 @@
 </section>
 @endif
 
-<!-- 网格区域 -->
-<section class="concerts-grid" id="concerts">
+<!-- 热门演唱会区域 -->
+<section class="popular-concerts-section" id="concerts">
     <div class="container">
-        <h2 class="section-title">Upcoming Concerts</h2>
+        <h2 class="section-title">🔥 Popular Concerts</h2>
+        <p style="text-align: center; color: #666; margin-bottom: 3rem; font-size: 1.1rem;">Most booked concerts - Join the excitement!</p>
         
         @if($concerts->count() > 0)
-            <div class="grid-container">
-                @foreach($concerts as $concert)
-                    @php
-                        $bookedTickets = $concert->orders()
-                            ->where('status', 'confirmed')
-                            ->sum('quantity');
-                        $availableTickets = $concert->total_ticket - $bookedTickets;
-                    @endphp
+            <div class="popular-grid">
+                @php
+                    // 按订票数量排序
+                    $concertsByBooking = $concerts->map(function($concert) {
+                        $booked = $concert->orders()->where('status', 'confirmed')->sum('quantity');
+                        $concert->booked_count = $booked;
+                        return $concert;
+                    })->sortByDesc('booked_count')->take(6);
+                @endphp
+                
+                @foreach($concertsByBooking as $concert)
                     <a href="{{ route('concerts.show', $concert) }}" style="text-decoration: none; color: inherit;">
-                        <div class="concert-card-grid">
+                        <div class="concert-card-horizontal">
                             <div class="concert-image">
                                 @if($concert->image_path)
                                     <img src="{{ asset('storage/' . $concert->image_path) }}" alt="{{ $concert->title }}">
@@ -649,25 +824,29 @@
                                 @endif
                             </div>
                             <div class="concert-content">
-                                <div class="concert-artist">{{ $concert->artist }}</div>
-                                <h3 class="concert-title">{{ $concert->title }}</h3>
-                                
-                                <div class="concert-meta">
-                                    <div class="concert-meta-item">
-                                        <i class="fas fa-map-marker-alt" style="color: #0071e3; font-size: 0.8rem;"></i>
-                                        <span>{{ Str::limit($concert->venue, 25) }}</span>
-                                    </div>
-                                    <div class="concert-meta-item">
-                                        <i class="fas fa-calendar" style="color: #0071e3; font-size: 0.8rem;"></i>
-                                        <span>{{ \Carbon\Carbon::parse($concert->date)->format('M d, Y') }}</span>
+                                <div>
+                                    <div class="concert-artist">{{ $concert->artist }}</div>
+                                    <h3 class="concert-title">{{ $concert->title }}</h3>
+                                    
+                                    <div class="concert-meta">
+                                        <div class="concert-meta-item">
+                                            <i class="fas fa-map-marker-alt" style="color: #5BA3C0; font-size: 0.75rem;"></i>
+                                            <span>{{ Str::limit($concert->venue, 20) }}</span>
+                                        </div>
+                                        <div class="concert-meta-item">
+                                            <i class="fas fa-calendar" style="color: #5BA3C0; font-size: 0.75rem;"></i>
+                                            <span>{{ \Carbon\Carbon::parse($concert->date)->format('M d') }}</span>
+                                        </div>
+                                        <div class="concert-meta-item">
+                                            <i class="fas fa-fire" style="color: #ff6b6b; font-size: 0.75rem;"></i>
+                                            <span>{{ $concert->booked_count ?? 0 }} booked</span>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="concert-footer">
                                     <span class="concert-price">${{ number_format($concert->ticket_price, 0) }}</span>
-                                    <a href="{{ route('concerts.show', $concert) }}" class="concert-btn" onclick="event.preventDefault(); window.location.href=this.href;">
-                                        {{ $availableTickets > 0 ? 'Book Now' : 'Sold Out' }}
-                                    </a>
+                                    <button class="concert-btn">View</button>
                                 </div>
                             </div>
                         </div>

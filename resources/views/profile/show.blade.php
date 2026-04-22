@@ -92,6 +92,57 @@
         transform: translateY(-2px);
     }
 
+    /* Color-coded buttons */
+    .profile-nav-btn.concerts-btn {
+        border-color: #ffc107;
+        color: #ffc107;
+    }
+
+    .profile-nav-btn.concerts-btn:hover {
+        background: #ffc107;
+        color: white;
+    }
+
+    .profile-nav-btn.orders-btn {
+        border-color: #28a745;
+        color: #28a745;
+    }
+
+    .profile-nav-btn.orders-btn:hover {
+        background: #28a745;
+        color: white;
+    }
+
+    .profile-nav-btn.reviews-btn {
+        border-color: #6f42c1;
+        color: #6f42c1;
+    }
+
+    .profile-nav-btn.reviews-btn:hover {
+        background: #6f42c1;
+        color: white;
+    }
+
+    .profile-nav-btn.payment-btn {
+        border-color: #dc3545;
+        color: #dc3545;
+    }
+
+    .profile-nav-btn.payment-btn:hover {
+        background: #dc3545;
+        color: white;
+    }
+
+    .profile-nav-btn.account-btn {
+        border-color: #17a2b8;
+        color: #17a2b8;
+    }
+
+    .profile-nav-btn.account-btn:hover {
+        background: #17a2b8;
+        color: white;
+    }
+
     .stats-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -269,26 +320,29 @@
                 </div>
                 <div class="profile-nav">
                     @if($user->is_admin)
-                        <a href="{{ route('profile.published_concerts') }}" class="profile-nav-btn">
+                        <a href="{{ route('profile.published_concerts') }}" class="profile-nav-btn concerts-btn">
                             <i class="fas fa-music"></i> Published Concerts
                         </a>
                     @else
-                        <a href="{{ route('profile.orders') }}" class="profile-nav-btn">
+                        <a href="{{ route('profile.orders') }}" class="profile-nav-btn orders-btn">
                             <i class="fas fa-shopping-cart"></i> My Orders
                         </a>
                     @endif
                     @if($user->is_admin)
-                        <a href="{{ route('profile.admin_reviews') }}" class="profile-nav-btn">
+                        <a href="{{ route('profile.admin_reviews') }}" class="profile-nav-btn reviews-btn">
                             <i class="fas fa-comments"></i> Concert Reviews
                         </a>
                     @else
-                        <a href="{{ route('profile.reviews') }}" class="profile-nav-btn" style="margin-bottom: 1rem;">
+                        <a href="{{ route('profile.reviews') }}" class="profile-nav-btn reviews-btn">
                             <i class="fas fa-star"></i> My Reviews
                         </a>
-                        <a href="{{ route('payment_cards.index') }}" class="profile-nav-btn">
+                        <a href="{{ route('payment_cards.index') }}" class="profile-nav-btn payment-btn">
                             <i class="fas fa-credit-card"></i> Payment Card
                         </a>
                     @endif
+                    <a href="{{ route('profile.edit') }}" class="profile-nav-btn account-btn">
+                        <i class="fas fa-cog"></i> Manage Account
+                    </a>
                 </div>
             </div>
         </div>

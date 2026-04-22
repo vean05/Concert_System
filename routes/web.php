@@ -61,6 +61,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // Profile Routes (Authenticated users only)
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/profile/orders', [ProfileController::class, 'orders'])->name('profile.orders');
     Route::get('/profile/reviews', [ProfileController::class, 'reviews'])->name('profile.reviews');
     Route::get('/profile/published-concerts', [ProfileController::class, 'publishedConcerts'])->name('profile.published_concerts');

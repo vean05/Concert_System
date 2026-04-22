@@ -152,15 +152,48 @@
         border-color: rgba(220, 53, 69, 0.3);
     }
 
-    .concert-actions {
+    .concert-heart-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid rgba(91, 163, 192, 0.3);
+        color: rgba(91, 163, 192, 0.6);
+        font-size: 1.3rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
         display: flex;
-        gap: 0.75rem;
-        margin-top: 1.5rem;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        backdrop-filter: blur(10px);
     }
 
-    .concert-actions a,
-    .concert-actions button {
-        flex: 1;
+    .concert-heart-btn:hover {
+        background: rgba(255, 255, 255, 0.95);
+        color: #ff6b6b;
+        border-color: #ff6b6b;
+        transform: scale(1.1);
+    }
+
+    .concert-heart-btn.active {
+        background: #ff6b6b;
+        color: white;
+        border-color: #ff6b6b;
+        box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+    }
+
+    .concert-heart-btn.active:hover {
+        transform: scale(1.15);
+    }
+
+    .btn-edit {
+        background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+        color: white;
+        box-shadow: 0 4px 15px rgba(255, 152, 0, 0.25);
         padding: 0.65rem 0.5rem;
         border-radius: 10px;
         border: none;
@@ -176,38 +209,7 @@
         flex-direction: column;
         align-items: center;
         gap: 0.3rem;
-    }
-
-    .btn-view {
-        background: linear-gradient(135deg, #004e89 0%, #0077b6 100%);
-        color: white;
-        box-shadow: 0 4px 15px rgba(0, 78, 137, 0.25);
-    }
-
-    .btn-view:hover {
-        transform: translateY(-3px);
-        color: white;
-        text-decoration: none;
-        box-shadow: 0 8px 25px rgba(0, 78, 137, 0.4);
-    }
-
-    .btn-book {
-        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-        color: white;
-        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.25);
-    }
-
-    .btn-book:hover {
-        transform: translateY(-3px);
-        color: white;
-        text-decoration: none;
-        box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
-    }
-
-    .btn-edit {
-        background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
-        color: white;
-        box-shadow: 0 4px 15px rgba(255, 152, 0, 0.25);
+        flex: 1;
     }
 
     .btn-edit:hover {
@@ -227,30 +229,6 @@
         transform: translateY(-3px);
         color: white;
         box-shadow: 0 8px 25px rgba(220, 53, 69, 0.4);
-    }
-
-    .btn-favourite {
-        background: rgba(91, 163, 192, 0.1);
-        color: #5BA3C0;
-        border: 1.5px solid rgba(91, 163, 192, 0.3);
-        backdrop-filter: blur(10px);
-        flex: 0.8;
-    }
-
-    .btn-favourite:hover {
-        transform: translateY(-3px);
-        background: #5BA3C0;
-        color: white;
-        border-color: #5BA3C0;
-        text-decoration: none;
-        box-shadow: 0 8px 25px rgba(91, 163, 192, 0.3);
-    }
-
-    .btn-favourite.active {
-        background: #5BA3C0;
-        color: white;
-        border-color: #5BA3C0;
-        box-shadow: 0 4px 15px rgba(91, 163, 192, 0.4);
     }
 
     .search-filter-box {
@@ -459,102 +437,91 @@
         @endif
 
         <div class="col-lg-3 col-md-6">
-            <div class="concert-card" style="text-decoration: none; color: inherit;">
-                <!-- Card Header with Image -->
-                <div class="concert-card-header {{ $concert->image_path ? 'has-image' : '' }}">
-                    @if($concert->image_path)
-                        <img src="{{ asset('storage/' . $concert->image_path) }}" alt="{{ $concert->title }}">
+            <a href="{{ route('concerts.show', $concert) }}" style="text-decoration: none; color: inherit; display: block; height: 100%;">
+                <div class="concert-card">
+                    <!-- Heart Button - Top Right -->
+                    @auth
+                        <button type="button" class="concert-heart-btn @if(auth()->user()->hasFavourited($concert->id)) active @endif" 
+                                onclick="toggleFavourite(event, {{ $concert->id }}, this);" 
+                                title="Add to favourites">
+                            <i class="fas fa-heart"></i>
+                        </button>
                     @else
-                        <i class="fas fa-microphone"></i>
-                    @endif
-                </div>
+                        <button type="button" class="concert-heart-btn" disabled 
+                                title="Please log in to add to favourites"
+                                style="opacity: 0.5; cursor: not-allowed;">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    @endauth
 
-                <!-- Card Body -->
-                <div class="concert-card-body">
-                    <h4 class="concert-title" title="{{ $concert->title }}">{{ $concert->title }}</h4>
-                    <p class="concert-artist">
-                        <i class="fas fa-user-music"></i> {{ $concert->artist }}
-                    </p>
-
-                    <!-- Concert Details -->
-                    <div class="concert-details">
-                        <div class="concert-detail-item">
-                            <i class="fas fa-calendar-alt"></i>
-                            <span>{{ \Carbon\Carbon::parse($concert->date)->format('M d, Y') }}</span>
-                        </div>
-                        <div class="concert-detail-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>{{ $concert->venue }}</span>
-                        </div>
-                        <div class="concert-detail-item">
-                            <i class="fas fa-dollar-sign"></i>
-                            <span>${{ number_format($concert->ticket_price, 2) }}</span>
-                        </div>
-
-                        <!-- Availability Badge -->
-                        @php
-                            $bookedTickets = $concert->orders()
-                                ->where('status', 'confirmed')
-                                ->sum('quantity');
-                            $availableTickets = $concert->total_ticket - $bookedTickets;
-                        @endphp
-
-                        <div class="ticket-availability @if($availableTickets <= 0) sold-out @endif">
-                            @if($availableTickets > 0)
-                                <i class="fas fa-check-circle"></i> {{ $availableTickets }} Available
-                            @else
-                                <i class="fas fa-times-circle"></i> Sold Out
-                            @endif
-                        </div>
+                    <!-- Card Header with Image -->
+                    <div class="concert-card-header {{ $concert->image_path ? 'has-image' : '' }}">
+                        @if($concert->image_path)
+                            <img src="{{ asset('storage/' . $concert->image_path) }}" alt="{{ $concert->title }}">
+                        @else
+                            <i class="fas fa-microphone"></i>
+                        @endif
                     </div>
 
-                    <!-- Action Buttons -->
-                    <div class="concert-actions">
-                        <a href="{{ route('concerts.show', $concert) }}" class="btn-view">
-                            <i class="fas fa-eye"></i> Details
-                        </a>
+                    <!-- Card Body -->
+                    <div class="concert-card-body">
+                        <h4 class="concert-title" title="{{ $concert->title }}">{{ $concert->title }}</h4>
+                        <p class="concert-artist">
+                            <i class="fas fa-user-music"></i> {{ $concert->artist }}
+                        </p>
 
+                        <!-- Concert Details -->
+                        <div class="concert-details">
+                            <div class="concert-detail-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>{{ \Carbon\Carbon::parse($concert->date)->format('M d, Y') }}</span>
+                            </div>
+                            <div class="concert-detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>{{ $concert->venue }}</span>
+                            </div>
+                            <div class="concert-detail-item">
+                                <i class="fas fa-dollar-sign"></i>
+                                <span>${{ number_format($concert->ticket_price, 2) }}</span>
+                            </div>
+
+                            <!-- Availability Badge -->
+                            @php
+                                $bookedTickets = $concert->orders()
+                                    ->where('status', 'confirmed')
+                                    ->sum('quantity');
+                                $availableTickets = $concert->total_ticket - $bookedTickets;
+                            @endphp
+
+                            <div class="ticket-availability @if($availableTickets <= 0) sold-out @endif">
+                                @if($availableTickets > 0)
+                                    <i class="fas fa-check-circle"></i> {{ $availableTickets }} Available
+                                @else
+                                    <i class="fas fa-times-circle"></i> Sold Out
+                                @endif
+                            </div>
+                        </div>
+
+                        <!-- Admin Edit/Delete Buttons -->
                         @auth
                             @if(auth()->user()->role === 'admin' && auth()->user()->id === $concert->created_by)
-                                <a href="{{ route('concerts.edit', $concert) }}" class="btn-edit">
-                                    <i class="fas fa-edit"></i> Edit
-                                </a>
-                            @elseif(auth()->user()->role === 'user' && $availableTickets > 0)
-                                <a href="{{ route('orders.create', $concert) }}" class="btn-book">
-                                    <i class="fas fa-ticket-alt"></i> Book
-                                </a>
+                                <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
+                                    <a href="{{ route('concerts.edit', $concert) }}" class="btn-edit" onclick="event.stopPropagation();">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    <form action="{{ route('concerts.destroy', $concert) }}" method="POST" style="flex: 1;" onclick="event.stopPropagation();">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-delete w-100" onclick="return confirm('Are you sure you want to delete this concert?')">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </form>
+                                </div>
                             @endif
-
-                            <!-- Favourite Button -->
-                            <button type="button" class="btn-favourite @if(auth()->user()->hasFavourited($concert->id)) active @endif" 
-                                    onclick="toggleFavourite(event, {{ $concert->id }}, this);" 
-                                    title="Add to favourites">
-                                <i class="fas fa-heart"></i>
-                            </button>
-                        @else
-                            <!-- Show tooltip for non-logged in users -->
-                            <button type="button" class="btn-favourite" disabled 
-                                    title="Please log in to add to favourites"
-                                    style="opacity: 0.5; cursor: not-allowed;">
-                                <i class="fas fa-heart"></i>
-                            </button>
                         @endauth
                     </div>
-
-                    <!-- Delete Button for Admin -->
-                    @auth
-                        @if(auth()->user()->role === 'admin' && auth()->user()->id === $concert->created_by)
-                            <form action="{{ route('concerts.destroy', $concert) }}" method="POST" style="margin-top: 0.5rem;" onclick="event.stopPropagation();">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn-delete w-100" onclick="return confirm('Are you sure you want to delete this concert?')">
-                                    <i class="fas fa-trash"></i> Delete
-                                </button>
-                            </form>
-                        @endif
-                    @endauth
                 </div>
-            </div>
+            </a>
         </div>
 
         @if($loop->last)
