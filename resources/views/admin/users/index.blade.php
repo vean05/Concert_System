@@ -180,8 +180,24 @@
     .pagination {
         display: flex;
         justify-content: center;
-        gap: 0.5rem;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
         margin-top: 2rem;
+        padding: 2rem 1rem;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 12px;
+    }
+
+    .pagination * {
+        margin: 0 !important;
+    }
+
+    .pagination nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
     }
 
     .pagination a, .pagination span {
@@ -191,6 +207,7 @@
         text-decoration: none;
         color: #5BA3C0;
         transition: all 0.3s ease;
+        font-size: 0.9rem;
     }
 
     .pagination a:hover {
@@ -202,6 +219,12 @@
         background: #5BA3C0;
         color: white;
         border-color: #5BA3C0;
+    }
+
+    .pagination .disabled span {
+        color: #ccc;
+        cursor: not-allowed;
+        opacity: 0.6;
     }
 
     .empty-state {
