@@ -456,91 +456,89 @@
     @if($concerts->count() > 0)
         <div class="concerts-grid-container">
             @forelse($concerts as $concert)
-                <a href="{{ route('concerts.show', $concert) }}" style="text-decoration: none; color: inherit; display: block; height: 100%;">
-                    <div class="concert-card">
-                        <!-- Heart Button - Top Right -->
-                        @auth
-                            <button type="button" class="concert-heart-btn @if(auth()->user()->hasFavourited($concert->id)) active @endif" 
-                                    onclick="toggleFavourite(event, {{ $concert->id }}, this);" 
-                                    title="Add to favourites">
-                                <i class="fas fa-heart"></i>
-                            </button>
+                <div class="concert-card" onclick="window.location.href='{{ route('concerts.show', $concert) }}'" style="cursor: pointer;">
+                    <!-- Heart Button - Top Right -->
+                    @auth
+                        <button type="button" class="concert-heart-btn @if(auth()->user()->hasFavourited($concert->id)) active @endif" 
+                                onclick="toggleFavourite(event, {{ $concert->id }}, this);" 
+                                title="Add to favourites">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    @else
+                        <button type="button" class="concert-heart-btn" disabled 
+                                title="Please log in to add to favourites"
+                                style="opacity: 0.5; cursor: not-allowed;">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    @endauth
+
+                    <!-- Card Header with Image -->
+                    <div class="concert-card-header {{ $concert->image_path ? 'has-image' : '' }}">
+                        @if($concert->image_path)
+                            <img src="{{ asset('storage/' . $concert->image_path) }}" alt="{{ $concert->title }}">
                         @else
-                            <button type="button" class="concert-heart-btn" disabled 
-                                    title="Please log in to add to favourites"
-                                    style="opacity: 0.5; cursor: not-allowed;">
-                                <i class="fas fa-heart"></i>
-                            </button>
-                        @endauth
+                            <i class="fas fa-microphone"></i>
+                        @endif
+                    </div>
 
-                        <!-- Card Header with Image -->
-                        <div class="concert-card-header {{ $concert->image_path ? 'has-image' : '' }}">
-                            @if($concert->image_path)
-                                <img src="{{ asset('storage/' . $concert->image_path) }}" alt="{{ $concert->title }}">
-                            @else
-                                <i class="fas fa-microphone"></i>
-                            @endif
-                        </div>
+                    <!-- Card Body -->
+                    <div class="concert-card-body">
+                        <h4 class="concert-title" title="{{ $concert->title }}">{{ $concert->title }}</h4>
+                        <p class="concert-artist">
+                            <i class="fas fa-user-music"></i> {{ $concert->artist }}
+                        </p>
 
-                        <!-- Card Body -->
-                        <div class="concert-card-body">
-                            <h4 class="concert-title" title="{{ $concert->title }}">{{ $concert->title }}</h4>
-                            <p class="concert-artist">
-                                <i class="fas fa-user-music"></i> {{ $concert->artist }}
-                            </p>
-
-                            <!-- Concert Details -->
-                            <div class="concert-details">
-                                <div class="concert-detail-item">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    <span>{{ \Carbon\Carbon::parse($concert->date)->format('M d, Y') }}</span>
-                                </div>
-                                <div class="concert-detail-item">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>{{ $concert->venue }}</span>
-                                </div>
-                                <div class="concert-detail-item">
-                                    <i class="fas fa-dollar-sign"></i>
-                                    <span>${{ number_format($concert->ticket_price, 2) }}</span>
-                                </div>
-
-                                <!-- Availability Badge -->
-                                @php
-                                    $bookedTickets = $concert->orders()
-                                        ->where('status', 'confirmed')
-                                        ->sum('quantity');
-                                    $availableTickets = $concert->total_ticket - $bookedTickets;
-                                @endphp
-
-                                <div class="ticket-availability @if($availableTickets <= 0) sold-out @endif">
-                                    @if($availableTickets > 0)
-                                        <i class="fas fa-check-circle"></i> {{ $availableTickets }} Available
-                                    @else
-                                        <i class="fas fa-times-circle"></i> Sold Out
-                                    @endif
-                                </div>
+                        <!-- Concert Details -->
+                        <div class="concert-details">
+                            <div class="concert-detail-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>{{ \Carbon\Carbon::parse($concert->date)->format('M d, Y') }}</span>
+                            </div>
+                            <div class="concert-detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>{{ $concert->venue }}</span>
+                            </div>
+                            <div class="concert-detail-item">
+                                <i class="fas fa-dollar-sign"></i>
+                                <span>${{ number_format($concert->ticket_price, 2) }}</span>
                             </div>
 
-                            <!-- Admin Edit/Delete Buttons -->
-                            @auth
-                                @if(auth()->user()->role === 'admin' && auth()->user()->id === $concert->created_by)
-                                    <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
-                                        <a href="{{ route('concerts.edit', $concert) }}" class="btn-edit" onclick="event.stopPropagation();">
-                                            <i class="fas fa-edit"></i> Edit
-                                        </a>
-                                        <form action="{{ route('concerts.destroy', $concert) }}" method="POST" style="flex: 1;" onclick="event.stopPropagation();">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn-delete w-100" onclick="return confirm('Are you sure you want to delete this concert?')">
-                                                <i class="fas fa-trash"></i> Delete
-                                            </button>
-                                        </form>
-                                    </div>
+                            <!-- Availability Badge -->
+                            @php
+                                $bookedTickets = $concert->orders()
+                                    ->where('status', 'confirmed')
+                                    ->sum('quantity');
+                                $availableTickets = $concert->total_ticket - $bookedTickets;
+                            @endphp
+
+                            <div class="ticket-availability @if($availableTickets <= 0) sold-out @endif">
+                                @if($availableTickets > 0)
+                                    <i class="fas fa-check-circle"></i> {{ $availableTickets }} Available
+                                @else
+                                    <i class="fas fa-times-circle"></i> Sold Out
                                 @endif
-                            @endauth
+                            </div>
                         </div>
+
+                        <!-- Admin Edit/Delete Buttons -->
+                        @auth
+                            @if(auth()->user()->role === 'admin' && auth()->user()->id === $concert->created_by)
+                                <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
+                                    <a href="{{ route('concerts.edit', $concert) }}" class="btn-edit" onclick="event.stopPropagation();">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    <form action="{{ route('concerts.destroy', $concert) }}" method="POST" style="flex: 1;" onclick="event.stopPropagation();">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-delete w-100" onclick="return confirm('Are you sure you want to delete this concert?')">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            @endif
+                        @endauth
                     </div>
-                </a>
+                </div>
             @empty
                 <div class="empty-state" style="grid-column: 1 / -1;">
                     <i class="fas fa-music"></i>
