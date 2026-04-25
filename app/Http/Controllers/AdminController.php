@@ -121,7 +121,7 @@ class AdminController extends Controller
     {
         $totalConcerts = Concert::count();
         $totalUsers = User::count();
-        $totalOrders = \App\Models\Order::count() ?? 0;
+        $totalTicketsSold = \App\Models\Order::where('status', 'confirmed')->sum('quantity') ?? 0;
         $totalReviews = \App\Models\Review::count() ?? 0;
 
         // Concerts by month (last 12 months)
@@ -131,9 +131,11 @@ class AdminController extends Controller
             ->orderBy('month')
             ->get() ?? collect();
 
-        // Most popular concerts (by order count)
-        $popularConcerts = Concert::withCount('orders')
-            ->orderByDesc('orders_count')
+        // Most popular concerts (by tickets sold)
+        $popularConcerts = Concert::withSum(['orders as tickets_sold' => function($query) {
+                $query->where('status', 'confirmed');
+            }], 'quantity')
+            ->orderByDesc('tickets_sold')
             ->take(5)
             ->get() ?? collect();
 
@@ -144,19 +146,19 @@ class AdminController extends Controller
             ->get() ?? collect();
 
         // Calculate max values for progress bars
-        $maxOrders = $popularConcerts->isNotEmpty() ? $popularConcerts->first()->orders_count : 1;
+        $maxTickets = $popularConcerts->isNotEmpty() ? $popularConcerts->first()->tickets_sold : 1;
         $maxReviews = $reviewedConcerts->isNotEmpty() ? $reviewedConcerts->first()->reviews_count : 1;
         $maxConcertsPerMonth = $concertsByMonth->isNotEmpty() ? $concertsByMonth->max('count') : 1;
 
         return view('admin.analytics', compact(
             'totalConcerts',
             'totalUsers',
-            'totalOrders',
+            'totalTicketsSold',
             'totalReviews',
             'concertsByMonth',
             'popularConcerts',
             'reviewedConcerts',
-            'maxOrders',
+            'maxTickets',
             'maxReviews',
             'maxConcertsPerMonth'
         ));

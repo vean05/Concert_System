@@ -169,8 +169,8 @@
                 <p class="number">{{ $totalUsers }}</p>
             </div>
             <div class="stat-card">
-                <h3>Total Orders</h3>
-                <p class="number">{{ $totalOrders }}</p>
+                <h3>Total Tickets Sold</h3>
+                <p class="number">{{ $totalTicketsSold }}</p>
             </div>
             <div class="stat-card">
                 <h3>Total Reviews</h3>
@@ -180,7 +180,7 @@
 
         <!-- Most Popular Concerts -->
         <div class="section-card">
-            <h2><i class="fas fa-crown" style="color: #6BB6D6;"></i> Most Popular Concerts (by orders)</h2>
+            <h2><i class="fas fa-crown" style="color: #6BB6D6;"></i> Most Popular Concerts (by tickets sold)</h2>
             @if($popularConcerts && is_countable($popularConcerts) && count($popularConcerts) > 0)
                 <div class="table-responsive">
                     <table>
@@ -189,7 +189,7 @@
                                 <th width="50">Rank</th>
                                 <th>Concert Title</th>
                                 <th>Artist</th>
-                                <th>Orders</th>
+                                <th>Tickets Sold</th>
                                 <th>Popularity</th>
                             </tr>
                         </thead>
@@ -199,11 +199,11 @@
                                     <td><span class="rank">{{ $index + 1 }}</span></td>
                                     <td><strong>{{ $concert->title }}</strong></td>
                                     <td>{{ $concert->artist }}</td>
-                                    <td>{{ $concert->orders_count }}</td>
+                                    <td>{{ $concert->tickets_sold }}</td>
                                     <td>
                                         <div class="progress-bar">
                                             <div class="progress-fill"
-                                                style="width: {{ ($concert->orders_count / $popularConcerts->first()->orders_count * 100) }}%">
+                                                style="width: {{ $maxTickets > 0 ? ($concert->tickets_sold / $maxTickets * 100) : 0 }}%">
                                             </div>
                                         </div>
                                     </td>
@@ -215,7 +215,7 @@
             @else
                 <div class="empty-state">
                     <i class="fas fa-inbox"></i>
-                    <p>No order data available yet.</p>
+                    <p>No tickets sold yet.</p>
                 </div>
             @endif
         </div>
@@ -245,7 +245,7 @@
                                     <td>
                                         <div class="progress-bar">
                                             <div class="progress-fill"
-                                                style="width: {{ ($concert->reviews_count / $reviewedConcerts->first()->reviews_count * 100) }}%">
+                                                style="width: {{ $reviewedConcerts->first()->reviews_count > 0 ? ($concert->reviews_count / $reviewedConcerts->first()->reviews_count * 100) : 0 }}%">
                                             </div>
                                         </div>
                                     </td>
@@ -284,7 +284,7 @@
                                     <td>
                                         <div class="progress-bar">
                                             <div class="progress-fill"
-                                                style="width: {{ ($item->count / $concertsByMonth->max('count') * 100) }}%"></div>
+                                                style="width: {{ $concertsByMonth->max('count') > 0 ? ($item->count / $concertsByMonth->max('count') * 100) : 0 }}%"></div>
                                         </div>
                                     </td>
                                 </tr>
@@ -327,7 +327,7 @@
                     <ul style="list-style: none; padding: 0; margin: 0;">
                         <li style="padding: 0.5rem 0; color: #4a5568;">
                             <i class="fas fa-circle" style="color: #6BB6D6; margin-right: 0.5rem;"></i>
-                            Total orders: <strong>{{ $totalOrders }}</strong>
+                            Total tickets sold: <strong>{{ $totalTicketsSold }}</strong>
                         </li>
                         <li style="padding: 0.5rem 0; color: #4a5568;">
                             <i class="fas fa-circle" style="color: #777777; margin-right: 0.5rem;"></i>
