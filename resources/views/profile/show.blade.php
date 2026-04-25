@@ -285,8 +285,19 @@
     .empty-message {
         text-align: center;
         padding: 2rem;
-        color: #666;
+        color: #999;
         font-style: italic;
+        background: rgba(200, 200, 200, 0.05);
+        border-radius: 8px;
+        border: 1px dashed rgba(200, 200, 200, 0.3);
+        margin: 1rem 0;
+    }
+
+    .empty-message i {
+        font-size: 2rem;
+        color: #D3A5A5;
+        display: block;
+        margin-bottom: 0.5rem;
     }
 
     @media (max-width: 768px) {
