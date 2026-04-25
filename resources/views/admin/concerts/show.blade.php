@@ -216,7 +216,7 @@
 </style>
 
 <div class="admin-detail-page container">
-    <a href="{{ route('admin.concerts.index') }}" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #5BA3C0; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+    <a href="javascript:void(0);" onclick="window.history.back();" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #5BA3C0; text-decoration: none; font-weight: 600; transition: all 0.3s ease; cursor: pointer;">
         <i class="fas fa-arrow-left"></i> Back
     </a>
 

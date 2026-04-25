@@ -273,7 +273,7 @@
 
 <div class="admin-page container">
     <!-- Back Button -->
-    <a href="{{ route('admin.dashboard') }}" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #5BA3C0; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+    <a href="javascript:void(0);" onclick="window.history.back();" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #5BA3C0; text-decoration: none; font-weight: 600; transition: all 0.3s ease; cursor: pointer;">
         <i class="fas fa-arrow-left"></i> Back
     </a>
 
@@ -364,9 +364,6 @@
                                     <div class="actions">
                                         <a href="{{ route('admin.concerts.show', $concert) }}" class="btn-action btn-view" title="View">
                                             <i class="fas fa-eye"></i> View
-                                        </a>
-                                        <a href="{{ route('concerts.edit', $concert) }}" class="btn-action btn-edit" title="Edit">
-                                            <i class="fas fa-edit"></i> Edit
                                         </a>
                                         <form action="{{ route('admin.concerts.delete', $concert) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure? This action cannot be undone.');">
                                             @csrf

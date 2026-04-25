@@ -13,35 +13,16 @@ class ProfileController extends Controller
     public function show()
     {
         $user = auth()->user();
+        
+        // Redirect admin users to admin panel
+        if ($user->is_admin) {
+            return redirect()->route('admin.dashboard');
+        }
+        
         $orders = $user->orders()->with('concert')->latest()->paginate(10);
         $reviews = $user->reviews()->with('concert')->latest()->paginate(10);
 
-        // Admin-specific data
-        $publishedConcerts = null;
-        $upcomingConcerts = null;
-        $totalPublished = 0;
-        $adminReviews = null;
-        $totalAdminReviews = 0;
-
-        if ($user->is_admin) {
-            $publishedConcerts = Concert::where('created_by', $user->id)->latest()->get();
-            $totalPublished = $publishedConcerts->count();
-            $upcomingConcerts = Concert::where('created_by', $user->id)
-                ->where('date', '>=', now())
-                ->where('date', '<=', now()->addMonth())
-                ->orderBy('date')
-                ->get();
-
-            // Reviews on admin's published concerts
-            $concertIds = $publishedConcerts->pluck('id');
-            $adminReviews = \App\Models\Review::with(['user', 'concert'])
-                ->whereIn('concert_id', $concertIds)
-                ->latest()
-                ->get();
-            $totalAdminReviews = $adminReviews->count();
-        }
-
-        return view('profile.show', compact('user', 'orders', 'reviews', 'publishedConcerts', 'upcomingConcerts', 'totalPublished', 'adminReviews', 'totalAdminReviews'));
+        return view('profile.show', compact('user', 'orders', 'reviews'));
     }
 
     /**
@@ -73,7 +54,14 @@ class ProfileController extends Controller
      */
     public function orders()
     {
-        $orders = auth()->user()->orders()->with('concert')->latest()->paginate(15);
+        $user = auth()->user();
+        
+        // Redirect admin users to admin panel
+        if ($user->is_admin) {
+            return redirect()->route('admin.dashboard');
+        }
+        
+        $orders = $user->orders()->with('concert')->latest()->paginate(15);
         return view('profile.orders', compact('orders'));
     }
 
@@ -82,7 +70,14 @@ class ProfileController extends Controller
      */
     public function reviews()
     {
-        $reviews = auth()->user()->reviews()->with('concert')->latest()->paginate(15);
+        $user = auth()->user();
+        
+        // Redirect admin users to admin panel
+        if ($user->is_admin) {
+            return redirect()->route('admin.dashboard');
+        }
+        
+        $reviews = $user->reviews()->with('concert')->latest()->paginate(15);
         return view('profile.reviews', compact('reviews'));
     }
 

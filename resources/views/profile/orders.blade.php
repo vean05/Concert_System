@@ -329,7 +329,7 @@
 
                 <!-- Status and Actions -->
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-                    <span class="status-badge @if($order->status === 'confirmed') status-confirmed @else status-cancelled @endif">
+                    <span class="status-badge {{ $order->status === 'confirmed' ? 'status-confirmed' : 'status-cancelled' }}">
                         {{ ucfirst($order->status) }}
                     </span>
 

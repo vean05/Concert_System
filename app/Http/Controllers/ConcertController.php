@@ -134,12 +134,7 @@ class ConcertController extends Controller
 
         $concert->update($data);
 
-        // Redirect to admin panel if user is admin
-        if (auth()->user()->is_admin) {
-            return redirect()->route('admin.concerts.show', $concert)->with('success', 'Concert updated successfully!');
-        }
-
-        return redirect()->route('concerts.show', $concert)->with('success', 'Concert updated successfully!');
+        return redirect()->back()->with('success', 'Concert updated successfully!');
     }
 
     /**

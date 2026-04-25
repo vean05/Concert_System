@@ -180,7 +180,7 @@
     <!-- Most Popular Concerts -->
     <div class="section-card">
         <h2><i class="fas fa-crown" style="color: #6BB6D6;"></i> Most Popular Concerts (by orders)</h2>
-        @if($popularConcerts->count() > 0)
+        @if($popularConcerts && is_countable($popularConcerts) && count($popularConcerts) > 0)
             <div class="table-responsive">
                 <table>
                     <thead>
@@ -201,7 +201,7 @@
                                 <td>{{ $concert->orders_count }}</td>
                                 <td>
                                     <div class="progress-bar">
-                                        <div class="progress-fill" style="width: {{ ($concert->orders_count / $popularConcerts->first()->orders_count * 100) }}%"></div>
+                                        <div class="progress-fill" style="width: {{ $maxOrders > 0 ? ($concert->orders_count / $maxOrders * 100) : 0 }}%"></div>
                                     </div>
                                 </td>
                             </tr>
@@ -220,7 +220,7 @@
     <!-- Most Reviewed Concerts -->
     <div class="section-card">
         <h2><i class="fas fa-star" style="color: #6BB6D6;"></i> Most Reviewed Concerts</h2>
-        @if($reviewedConcerts->count() > 0)
+        @if($reviewedConcerts && is_countable($reviewedConcerts) && count($reviewedConcerts) > 0)
             <div class="table-responsive">
                 <table>
                     <thead>
@@ -241,7 +241,7 @@
                                 <td>{{ $concert->reviews_count }}</td>
                                 <td>
                                     <div class="progress-bar">
-                                        <div class="progress-fill" style="width: {{ ($concert->reviews_count / $reviewedConcerts->first()->reviews_count * 100) }}%"></div>
+                                        <div class="progress-fill" style="width: {{ $maxReviews > 0 ? ($concert->reviews_count / $maxReviews * 100) : 0 }}%"></div>
                                     </div>
                                 </td>
                             </tr>
@@ -260,7 +260,7 @@
     <!-- Concerts by Month -->
     <div class="section-card">
         <h2><i class="fas fa-calendar-alt" style="color: #5BA3C0;"></i> Concerts Created by Month (Last 12 Months)</h2>
-        @if($concertsByMonth->count() > 0)
+        @if($concertsByMonth && is_countable($concertsByMonth) && count($concertsByMonth) > 0)
             <div style="margin-top: 1.5rem;">
                 <table>
                     <thead>
@@ -277,7 +277,7 @@
                                 <td>{{ $item->count }}</td>
                                 <td>
                                     <div class="progress-bar">
-                                        <div class="progress-fill" style="width: {{ ($item->count / $concertsByMonth->max('count') * 100) }}%"></div>
+                                        <div class="progress-fill" style="width: {{ $maxConcertsPerMonth > 0 ? ($item->count / $maxConcertsPerMonth * 100) : 0 }}%"></div>
                                     </div>
                                 </td>
                             </tr>

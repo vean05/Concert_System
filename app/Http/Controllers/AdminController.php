@@ -129,19 +129,24 @@ class AdminController extends Controller
             ->where('created_at', '>=', now()->subMonths(12))
             ->groupBy('month')
             ->orderBy('month')
-            ->get();
+            ->get() ?? collect();
 
         // Most popular concerts (by order count)
         $popularConcerts = Concert::withCount('orders')
             ->orderByDesc('orders_count')
             ->take(5)
-            ->get();
+            ->get() ?? collect();
 
         // Most reviewed concerts
         $reviewedConcerts = Concert::withCount('reviews')
             ->orderByDesc('reviews_count')
             ->take(5)
-            ->get();
+            ->get() ?? collect();
+
+        // Calculate max values for progress bars
+        $maxOrders = $popularConcerts->isNotEmpty() ? $popularConcerts->first()->orders_count : 1;
+        $maxReviews = $reviewedConcerts->isNotEmpty() ? $reviewedConcerts->first()->reviews_count : 1;
+        $maxConcertsPerMonth = $concertsByMonth->isNotEmpty() ? $concertsByMonth->max('count') : 1;
 
         return view('admin.analytics', compact(
             'totalConcerts',
@@ -150,7 +155,23 @@ class AdminController extends Controller
             'totalReviews',
             'concertsByMonth',
             'popularConcerts',
-            'reviewedConcerts'
+            'reviewedConcerts',
+            'maxOrders',
+            'maxReviews',
+            'maxConcertsPerMonth'
         ));
+    }
+
+    /**
+     * Show concert reviews
+     */
+    public function concertReviews(Request $request)
+    {
+        $reviews = \App\Models\Review::with('user', 'concert')
+            ->whereHas('concert')
+            ->orderBy('created_at', 'desc')
+            ->paginate(15);
+
+        return view('admin.concert-reviews', compact('reviews'));
     }
 }

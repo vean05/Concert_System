@@ -181,6 +181,7 @@
         <a href="{{ route('admin.dashboard') }}" class="active"><i class="fas fa-home"></i> Dashboard</a>
         <a href="{{ route('admin.concerts.index') }}"><i class="fas fa-music"></i> Concerts</a>
         <a href="{{ route('admin.users.index') }}"><i class="fas fa-users"></i> Users</a>
+        <a href="{{ route('admin.concert_reviews') }}"><i class="fas fa-comments"></i> Reviews</a>
         <a href="{{ route('admin.analytics') }}"><i class="fas fa-chart-bar"></i> Analytics</a>
     </div>
 
@@ -223,9 +224,6 @@
                                 <a href="{{ route('admin.concerts.show', $concert) }}" class="btn-small btn-view">
                                     <i class="fas fa-eye"></i> View
                                 </a>
-                                <a href="{{ route('concerts.edit', $concert) }}" class="btn-small btn-edit">
-                                    <i class="fas fa-edit"></i> Edit
-                                </a>
                             </td>
                         </tr>
                     @empty
@@ -262,9 +260,6 @@
                             <td>
                                 <a href="{{ route('admin.concerts.show', $concert) }}" class="btn-small btn-view">
                                     <i class="fas fa-eye"></i> View
-                                </a>
-                                <a href="{{ route('concerts.edit', $concert) }}" class="btn-small btn-edit">
-                                    <i class="fas fa-edit"></i> Edit
                                 </a>
                             </td>
                         </tr>
