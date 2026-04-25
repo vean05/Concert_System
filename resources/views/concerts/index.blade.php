@@ -519,24 +519,6 @@
                                 @endif
                             </div>
                         </div>
-
-                        <!-- Admin Edit/Delete Buttons -->
-                        @auth
-                            @if(auth()->user()->role === 'admin' && auth()->user()->id === $concert->created_by)
-                                <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
-                                    <a href="{{ route('concerts.edit', $concert) }}" class="btn-edit" onclick="event.stopPropagation();">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </a>
-                                    <form action="{{ route('concerts.destroy', $concert) }}" method="POST" style="flex: 1;" onclick="event.stopPropagation();">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn-delete w-100" onclick="return confirm('Are you sure you want to delete this concert?')">
-                                            <i class="fas fa-trash"></i> Delete
-                                        </button>
-                                    </form>
-                                </div>
-                            @endif
-                        @endauth
                     </div>
                 </div>
             @empty
