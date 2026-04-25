@@ -425,6 +425,8 @@
                         name="date" 
                         class="form-control filter-input" 
                         value="{{ request('date') }}"
+                        min="{{ date('Y-m-d') }}"
+                        max="{{ date('Y-m-d', strtotime('+5 years')) }}"
                     >
                 </div>
                 <div class="col-md-3">

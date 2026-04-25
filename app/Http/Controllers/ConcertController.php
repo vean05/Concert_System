@@ -166,6 +166,13 @@ class ConcertController extends Controller
      */
     public function filter(Request $request)
     {
+        // Validate input
+        $request->validate([
+            'artist' => 'nullable|string|max:255',
+            'date' => 'nullable|date|after:yesterday',
+            'venue' => 'nullable|string|max:255',
+        ]);
+
         $query = Concert::query();
 
         // Search by artist or title
