@@ -343,8 +343,10 @@
                                 <i class="fas fa-user-circle"></i> {{ Auth::user()->name }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                @if(!auth()->user()->is_admin)
                                 <li><a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a></li>
                                 <li><hr class="dropdown-divider"></li>
+                                @endif
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf

@@ -1,6 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
+!/public/storage/concerts
 /storage/*.key
 /vendor
 .env

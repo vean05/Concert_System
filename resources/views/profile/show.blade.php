@@ -319,27 +319,15 @@
                     <i class="fas fa-badge"></i> {{ ucfirst($user->role) }}
                 </div>
                 <div class="profile-nav">
-                    @if($user->is_admin)
-                        <a href="{{ route('profile.published_concerts') }}" class="profile-nav-btn concerts-btn">
-                            <i class="fas fa-music"></i> Published Concerts
-                        </a>
-                    @else
-                        <a href="{{ route('profile.orders') }}" class="profile-nav-btn orders-btn">
-                            <i class="fas fa-shopping-cart"></i> My Orders
-                        </a>
-                    @endif
-                    @if($user->is_admin)
-                        <a href="{{ route('profile.admin_reviews') }}" class="profile-nav-btn reviews-btn">
-                            <i class="fas fa-comments"></i> Concert Reviews
-                        </a>
-                    @else
-                        <a href="{{ route('profile.reviews') }}" class="profile-nav-btn reviews-btn">
-                            <i class="fas fa-star"></i> My Reviews
-                        </a>
-                        <a href="{{ route('payment_cards.index') }}" class="profile-nav-btn payment-btn">
-                            <i class="fas fa-credit-card"></i> Payment Card
-                        </a>
-                    @endif
+                    <a href="{{ route('profile.orders') }}" class="profile-nav-btn orders-btn">
+                        <i class="fas fa-shopping-cart"></i> My Orders
+                    </a>
+                    <a href="{{ route('profile.reviews') }}" class="profile-nav-btn reviews-btn">
+                        <i class="fas fa-star"></i> My Reviews
+                    </a>
+                    <a href="{{ route('payment_cards.index') }}" class="profile-nav-btn payment-btn">
+                        <i class="fas fa-credit-card"></i> Payment Card
+                    </a>
                     <a href="{{ route('profile.edit') }}" class="profile-nav-btn account-btn">
                         <i class="fas fa-cog"></i> Manage Account
                     </a>
@@ -353,87 +341,21 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon">
-                        @if($user->is_admin)
-                            <i class="fas fa-music"></i>
-                        @else
-                            <i class="fas fa-ticket-alt"></i>
-                        @endif
+                        <i class="fas fa-ticket-alt"></i>
                     </div>
-                    @if($user->is_admin)
-                        <div class="stat-value">{{ $totalPublished }}</div>
-                        <div class="stat-label">Total Published Concerts</div>
-                    @else
-                        <div class="stat-value">{{ $orders->count() }}</div>
-                        <div class="stat-label">Total Orders</div>
-                    @endif
+                    <div class="stat-value">{{ $orders->count() }}</div>
+                    <div class="stat-label">Total Orders</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">
                         <i class="fas fa-star"></i>
                     </div>
-                    @if($user->is_admin)
-                        <div class="stat-value">{{ $totalAdminReviews }}</div>
-                        <div class="stat-label">Reviews on My Concerts</div>
-                    @else
-                        <div class="stat-value">{{ $reviews->count() }}</div>
-                        <div class="stat-label">Reviews Written</div>
-                    @endif
+                    <div class="stat-value">{{ $reviews->count() }}</div>
+                    <div class="stat-label">Reviews Written</div>
                 </div>
             </div>
 
-            @if($user->is_admin)
-            <!-- Recent Concerts (upcoming within 1 month) -->
-            <div class="section-card">
-                <h3 class="section-title">
-                    <i class="fas fa-calendar-alt"></i> Recent Concerts
-                    <small style="font-size:0.8rem; font-weight:400; color:#999; margin-left:0.5rem;">(Upcoming within 1 month)</small>
-                </h3>
-
-                @forelse($upcomingConcerts as $concert)
-                    <div class="item-card">
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <div>
-                                <div class="item-title">{{ $concert->title }}</div>
-                                <div class="item-meta">
-                                    <i class="fas fa-user-music"></i> {{ $concert->artist }}
-                                    &nbsp;·&nbsp;
-                                    <i class="fas fa-map-marker-alt"></i> {{ $concert->venue }}
-                                    &nbsp;·&nbsp;
-                                    <i class="fas fa-calendar"></i> {{ $concert->date->format('M d, Y') }}
-                                </div>
-                            </div>
-                            <div style="display:flex; gap:0.5rem; flex-shrink:0;">
-                                <a href="{{ route('admin.concerts.show', $concert) }}" class="view-all-btn" style="background:linear-gradient(135deg,#5BA3C0,#4A8FA3);">
-                                    <i class="fas fa-eye"></i> View
-                                </a>
-                                <a href="{{ route('concerts.edit', $concert) }}" class="view-all-btn" style="background:linear-gradient(135deg,#6BB6D6,#5BA3C0);">
-                                    <i class="fas fa-edit"></i> Edit
-                                </a>
-                                <form action="{{ route('admin.concerts.delete', $concert) }}" method="POST" onsubmit="return confirm('Delete this concert?');" style="margin:0;">
-                                    @csrf @method('DELETE')
-                                    <button type="submit" class="view-all-btn" style="background:linear-gradient(135deg,#D9A5A5,#C98E8E); border:none; cursor:pointer;">
-                                        <i class="fas fa-trash"></i> Delete
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                    <div class="empty-message">
-                        <i class="fas fa-calendar-check"></i> No concerts opening within the next month.
-                    </div>
-                @endforelse
-
-                @if($totalPublished > 0)
-                    <div style="text-align:center; margin-top:1.5rem;">
-                        <a href="{{ route('profile.published_concerts') }}" class="view-all-btn">
-                            View All Published Concerts
-                        </a>
-                    </div>
-                @endif
-            </div>
-            @else
-            <!-- Recent Orders (for regular users) -->
+            <!-- Recent Orders -->
             <div class="section-card">
                 <h3 class="section-title">
                     <i class="fas fa-receipt"></i> Recent Orders
@@ -476,7 +398,6 @@
                     </div>
                 @endif
             </div>
-            @endif
 
             <!-- Recent Reviews -->
             <div class="section-card">
@@ -484,93 +405,41 @@
                     <i class="fas fa-comments"></i> Recent Reviews
                 </h3>
 
-                @if($user->is_admin)
-                    {{-- Admin: show reviews on their concerts --}}
-                    @forelse($adminReviews->take(5) as $review)
-                        <div class="item-card">
-                            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem;">
-                                <div style="flex:1;">
-                                    {{-- Who --}}
-                                    <div style="font-weight:700; color:#2c3e50; margin-bottom:0.3rem;">
-                                        <i class="fas fa-user" style="color:#5BA3C0;"></i>
-                                        {{ $review->user->name ?? 'Unknown User' }}
-                                    </div>
-                                    {{-- Which concert --}}
-                                    <div class="item-meta">
-                                        <i class="fas fa-music"></i>
-                                        <a href="{{ route('concerts.show', $review->concert) }}" style="color:#5BA3C0; text-decoration:none;">
-                                            {{ $review->concert->title }}
-                                        </a>
-                                    </div>
-                                    {{-- Rating --}}
-                                    <div class="rating-display" style="margin-bottom:0.4rem;">
-                                        @for($i = 0; $i < $review->rating; $i++)
-                                            <i class="fas fa-star"></i>
-                                        @endfor
-                                        <span style="color:#666; margin-left:0.4rem; font-size:0.85rem;">({{ $review->rating }}/5)</span>
-                                    </div>
-                                    {{-- Comment --}}
-                                    <div class="item-meta" style="font-style:italic;">
-                                        "{{ Str::limit($review->comment, 120) }}"
-                                    </div>
-                                </div>
-                                <small style="color:#999; white-space:nowrap;">
-                                    <i class="fas fa-clock"></i> {{ $review->created_at->diffForHumans() }}
-                                </small>
-                            </div>
-                        </div>
-                    @empty
-                        <div class="empty-message">
-                            <i class="fas fa-star"></i> No reviews on your concerts yet.
-                        </div>
-                    @endforelse
-
-                    @if($totalAdminReviews > 5)
-                        <div style="text-align:center; margin-top:1.5rem;">
-                            <a href="{{ route('profile.admin_reviews') }}" class="view-all-btn">
-                                View All Reviews
+                @forelse($reviews->take(5) as $review)
+                    <div class="item-card">
+                        <div class="item-title">
+                            <a href="{{ route('concerts.show', $review->concert) }}">
+                                {{ $review->concert->title }}
                             </a>
                         </div>
-                    @endif
+                        <div class="rating-display">
+                            @for($i = 0; $i < $review->rating; $i++)
+                                <i class="fas fa-star"></i>
+                            @endfor
+                            <span style="color: #666; margin-left: 0.5rem;">({{ $review->rating }}/5)</span>
+                        </div>
+                        <div class="item-meta">
+                            @php
+                                $comment = strlen($review->comment) > 100 ? substr($review->comment, 0, 100) . '...' : $review->comment;
+                            @endphp
+                            "{{ $comment }}"
+                        </div>
+                        <small style="color: #999;">
+                            <i class="fas fa-clock"></i> {{ $review->created_at->diffForHumans() }}
+                        </small>
+                    </div>
+                @empty
+                    <div class="empty-message">
+                        <i class="fas fa-star"></i> You haven't written any reviews yet.
+                    </div>
+                @endforelse
 
-                @else
-                    {{-- Regular user: show their own reviews --}}
-                    @forelse($reviews->take(5) as $review)
-                        <div class="item-card">
-                            <div class="item-title">
-                                <a href="{{ route('concerts.show', $review->concert) }}">
-                                    {{ $review->concert->title }}
-                                </a>
-                            </div>
-                            <div class="rating-display">
-                                @for($i = 0; $i < $review->rating; $i++)
-                                    <i class="fas fa-star"></i>
-                                @endfor
-                                <span style="color: #666; margin-left: 0.5rem;">({{ $review->rating }}/5)</span>
-                            </div>
-                            <div class="item-meta">
-                                @php
-                                    $comment = strlen($review->comment) > 100 ? substr($review->comment, 0, 100) . '...' : $review->comment;
-                                @endphp
-                                "{{ $comment }}"
-                            </div>
-                            <small style="color: #999;">
-                                <i class="fas fa-clock"></i> {{ $review->created_at->diffForHumans() }}
-                            </small>
-                        </div>
-                    @empty
-                        <div class="empty-message">
-                            <i class="fas fa-star"></i> You haven't written any reviews yet.
-                        </div>
-                    @endforelse
-
-                    @if($reviews->count() > 5)
-                        <div style="text-align: center; margin-top: 1.5rem;">
-                            <a href="{{ route('profile.reviews') }}" class="view-all-btn">
-                                View All Reviews
-                            </a>
-                        </div>
-                    @endif
+                @if($reviews->count() > 5)
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="{{ route('profile.reviews') }}" class="view-all-btn">
+                            View All Reviews
+                        </a>
+                    </div>
                 @endif
             </div>
         </div>

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class AdminUserSeeder extends Seeder
 {
@@ -14,14 +15,18 @@ class AdminUserSeeder extends Seeder
      */
     public function run()
     {
-        // Make the first user an admin
-        $user = User::query()->first();
-        
-        if ($user) {
-            $user->update(['is_admin' => true]);
-            $this->command->info("User '{$user->name}' has been set as admin!");
-        } else {
-            $this->command->warn('No users found. Please create a user first.');
-        }
+        // Create or update the admin user
+        $adminUser = User::updateOrCreate(
+            ['email' => 'admin@gmail.com'],
+            [
+                'name' => 'Admin',
+                'password' => Hash::make('admin12345'),
+                'is_admin' => true,
+                'role' => 'admin',
+                'email_verified_at' => now(),
+            ]
+        );
+
+        $this->command->info("Admin user '{$adminUser->name}' (admin@gmail.com) has been created/updated!");
     }
 }

@@ -134,12 +134,7 @@ class ConcertController extends Controller
 
         $concert->update($data);
 
-        // Redirect to admin panel if user is admin
-        if (auth()->user()->is_admin) {
-            return redirect()->route('admin.concerts.show', $concert)->with('success', 'Concert updated successfully!');
-        }
-
-        return redirect()->route('concerts.show', $concert)->with('success', 'Concert updated successfully!');
+        return redirect()->back()->with('success', 'Concert updated successfully!');
     }
 
     /**
@@ -167,16 +162,34 @@ class ConcertController extends Controller
     }
 
     /**
-     * Filter concerts by date or venue.
+     * Filter concerts by date, venue, or artist.
      */
     public function filter(Request $request)
     {
+        // Validate input
+        $request->validate([
+            'artist' => 'nullable|string|max:255',
+            'date' => 'nullable|date|after:yesterday',
+            'venue' => 'nullable|string|max:255',
+        ]);
+
         $query = Concert::query();
 
+        // Search by artist or title
+        if ($request->has('artist') && $request->artist) {
+            $artist = $request->artist;
+            $query->where(function ($q) use ($artist) {
+                $q->where('artist', 'like', "%{$artist}%")
+                  ->orWhere('title', 'like', "%{$artist}%");
+            });
+        }
+
+        // Filter by date
         if ($request->has('date') && $request->date) {
             $query->where('date', $request->date);
         }
 
+        // Filter by venue
         if ($request->has('venue') && $request->venue) {
             $query->where('venue', 'like', "%{$request->venue}%");
         }

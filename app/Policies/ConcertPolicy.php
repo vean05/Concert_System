@@ -53,7 +53,7 @@ class ConcertPolicy
      */
     public function update(User $user, Concert $concert)
     {
-        return $user->role === 'admin' && $user->id === $concert->created_by;
+        return $user->role === 'admin';
     }
 
     /**

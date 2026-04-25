@@ -410,7 +410,7 @@
                 <button type="submit" class="btn-submit">
                     <i class="fas fa-save"></i> Update Concert
                 </button>
-                <a href="{{ route('concerts.show', $concert) }}" class="btn-cancel">
+                <a href="javascript:void(0);" onclick="window.history.back();" class="btn-cancel" style="cursor: pointer;">
                     <i class="fas fa-times"></i> Cancel
                 </a>
             </div>

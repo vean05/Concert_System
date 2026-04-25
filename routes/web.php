@@ -108,6 +108,9 @@ Route::middleware(['auth', 'verified', 'is_admin'])->prefix('admin')->name('admi
     
     // Analytics
     Route::get('/analytics', [AdminController::class, 'analytics'])->name('analytics');
+    
+    // Concert Reviews
+    Route::get('/concert-reviews', [AdminController::class, 'concertReviews'])->name('concert_reviews');
 });
 
 require __DIR__.'/auth.php';

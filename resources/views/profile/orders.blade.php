@@ -312,7 +312,7 @@
                         </div>
                         <div class="order-detail-text">
                             <h6>Tickets</h6>
-                            <p>{{ $order->quantity }} @if($order->quantity > 1) tickets @else ticket @endif</p>
+                            <p>{{ $order->quantity }} @if($order->quantity > 1)tickets@else ticket@endif</p>
                         </div>
                     </div>
 
@@ -329,7 +329,7 @@
 
                 <!-- Status and Actions -->
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-                    <span class="status-badge @if($order->status === 'confirmed') status-confirmed @else status-cancelled @endif">
+                    <span class="status-badge {{ $order->status === 'confirmed' ? 'status-confirmed' : 'status-cancelled' }}">
                         {{ ucfirst($order->status) }}
                     </span>
 

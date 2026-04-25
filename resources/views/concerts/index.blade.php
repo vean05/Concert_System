@@ -14,6 +14,7 @@
         border: 1px solid rgba(100, 116, 139, 0.1);
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         height: 100%;
+        min-height: 520px;
         display: flex;
         flex-direction: column;
         position: relative;
@@ -320,6 +321,27 @@
         letter-spacing: -1px;
     }
 
+    /* Grid Layout for Concerts */
+    .concerts-grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    @media (max-width: 1200px) {
+        .concerts-grid-container {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        }
+    }
+
+    @media (max-width: 768px) {
+        .concerts-grid-container {
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+    }
+
     .pagination {
         margin-top: 3rem;
         gap: 0.5rem;
@@ -381,13 +403,6 @@
     <!-- Header with Create Button -->
     <div class="header-section">
         <h1><i class="fas fa-music" style="color: #D3A5A5;"></i> Upcoming Concerts</h1>
-        @auth
-            @if(auth()->user()->role === 'admin')
-                <a href="{{ route('concerts.create') }}" class="btn-create">
-                    <i class="fas fa-plus"></i> Add Concert
-                </a>
-            @endif
-        @endauth
     </div>
 
     <!-- Search and Filter Section -->
@@ -410,6 +425,8 @@
                         name="date" 
                         class="form-control filter-input" 
                         value="{{ request('date') }}"
+                        min="{{ date('Y-m-d') }}"
+                        max="{{ date('Y-m-d', strtotime('+5 years')) }}"
                     >
                 </div>
                 <div class="col-md-3">
@@ -431,14 +448,10 @@
     </div>
 
     <!-- Concerts Grid -->
-    @forelse($concerts as $concert)
-        @if($loop->first)
-            <div class="row g-4">
-        @endif
-
-        <div class="col-lg-3 col-md-6">
-            <a href="{{ route('concerts.show', $concert) }}" style="text-decoration: none; color: inherit; display: block; height: 100%;">
-                <div class="concert-card">
+    @if($concerts->count() > 0)
+        <div class="concerts-grid-container">
+            @forelse($concerts as $concert)
+                <div class="concert-card" onclick="window.location.href='{{ route('concerts.show', $concert) }}'" style="cursor: pointer;">
                     <!-- Heart Button - Top Right -->
                     @auth
                         <button type="button" class="concert-heart-btn @if(auth()->user()->hasFavourited($concert->id)) active @endif" 
@@ -501,50 +514,30 @@
                                 @endif
                             </div>
                         </div>
-
-                        <!-- Admin Edit/Delete Buttons -->
-                        @auth
-                            @if(auth()->user()->role === 'admin' && auth()->user()->id === $concert->created_by)
-                                <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
-                                    <a href="{{ route('concerts.edit', $concert) }}" class="btn-edit" onclick="event.stopPropagation();">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </a>
-                                    <form action="{{ route('concerts.destroy', $concert) }}" method="POST" style="flex: 1;" onclick="event.stopPropagation();">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn-delete w-100" onclick="return confirm('Are you sure you want to delete this concert?')">
-                                            <i class="fas fa-trash"></i> Delete
-                                        </button>
-                                    </form>
-                                </div>
-                            @endif
-                        @endauth
                     </div>
                 </div>
-            </a>
+            @empty
+                <div class="empty-state" style="grid-column: 1 / -1;">
+                    <i class="fas fa-music"></i>
+                    <h3>No Concerts Found</h3>
+                    <p>There are currently no concerts available. Check back soon for upcoming events!</p>
+                </div>
+            @endforelse
         </div>
-
-        @if($loop->last)
-            </div>
-        @elseif($loop->iteration % 4 == 0)
-            </div>
-            <div class="row g-4">
-        @endif
-
-    @empty
-        <div class="empty-state col-12">
+    @else
+        <div class="empty-state">
             <i class="fas fa-music"></i>
             <h3>No Concerts Found</h3>
             <p>There are currently no concerts available. Check back soon for upcoming events!</p>
         </div>
-    @endforelse
+    @endif
 
     <!-- Pagination -->
-    <div class="row mt-5">
-        <div class="col-12">
+    @if($concerts->hasPages())
+        <div style="display: flex; justify-content: center;">
             {{ $concerts->links() }}
         </div>
-    </div>
+    @endif
 </div>
 
 <script>

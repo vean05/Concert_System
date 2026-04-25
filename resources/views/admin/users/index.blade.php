@@ -180,17 +180,25 @@
     .pagination {
         display: flex;
         justify-content: center;
-        gap: 0.5rem;
-        margin-top: 2rem;
+        gap: 0.25rem;
+        margin-top: 1.5rem;
+        font-size: 0.9rem;
+        flex-wrap: wrap;
     }
 
     .pagination a, .pagination span {
-        padding: 0.5rem 0.75rem;
+        padding: 0.25rem 0.5rem;
         border: 1px solid #e0e0e0;
-        border-radius: 6px;
+        border-radius: 4px;
         text-decoration: none;
         color: #5BA3C0;
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
+        min-width: 2rem;
+        text-align: center;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
     }
 
     .pagination a:hover {
@@ -202,6 +210,21 @@
         background: #5BA3C0;
         color: white;
         border-color: #5BA3C0;
+    }
+
+    /* Hide Previous and Next text/arrows */
+    .pagination a[rel="prev"]::before,
+    .pagination a[rel="next"]::after {
+        display: none;
+    }
+
+    .pagination a span {
+        font-size: 0.8rem;
+    }
+
+    .pagination .disabled span {
+        color: #ccc;
+        cursor: not-allowed;
     }
 
     .empty-state {

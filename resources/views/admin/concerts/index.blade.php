@@ -234,17 +234,25 @@
     .pagination {
         display: flex;
         justify-content: center;
-        gap: 0.5rem;
-        margin-top: 2rem;
+        gap: 0.25rem;
+        margin-top: 1.5rem;
+        font-size: 0.9rem;
+        flex-wrap: wrap;
     }
 
     .pagination a, .pagination span {
-        padding: 0.5rem 0.75rem;
+        padding: 0.25rem 0.5rem;
         border: 1px solid #e0e0e0;
-        border-radius: 6px;
+        border-radius: 4px;
         text-decoration: none;
         color: #5BA3C0;
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
+        min-width: 2rem;
+        text-align: center;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
     }
 
     .pagination a:hover {
@@ -256,6 +264,21 @@
         background: #5BA3C0;
         color: white;
         border-color: #5BA3C0;
+    }
+
+    /* Hide Previous and Next text/arrows */
+    .pagination a[rel="prev"]::before,
+    .pagination a[rel="next"]::after {
+        display: none;
+    }
+
+    .pagination a span {
+        font-size: 0.8rem;
+    }
+
+    .pagination .disabled span {
+        color: #ccc;
+        cursor: not-allowed;
     }
 
     .empty-state {
@@ -273,7 +296,7 @@
 
 <div class="admin-page container">
     <!-- Back Button -->
-    <a href="{{ route('admin.dashboard') }}" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #5BA3C0; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+    <a href="javascript:void(0);" onclick="window.history.back();" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #5BA3C0; text-decoration: none; font-weight: 600; transition: all 0.3s ease; cursor: pointer;">
         <i class="fas fa-arrow-left"></i> Back
     </a>
 
@@ -364,9 +387,6 @@
                                     <div class="actions">
                                         <a href="{{ route('admin.concerts.show', $concert) }}" class="btn-action btn-view" title="View">
                                             <i class="fas fa-eye"></i> View
-                                        </a>
-                                        <a href="{{ route('concerts.edit', $concert) }}" class="btn-action btn-edit" title="Edit">
-                                            <i class="fas fa-edit"></i> Edit
                                         </a>
                                         <form action="{{ route('admin.concerts.delete', $concert) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure? This action cannot be undone.');">
                                             @csrf
