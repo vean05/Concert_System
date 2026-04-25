@@ -312,7 +312,7 @@
                         </div>
                         <div class="order-detail-text">
                             <h6>Tickets</h6>
-                            <p>{{ $order->quantity }} @if($order->quantity > 1)tickets@else ticket@endif</p>
+                            <p>{{ $order->quantity }} @if($order->quantity > 1) tickets @else ticket @endif</p>
                         </div>
                     </div>
 

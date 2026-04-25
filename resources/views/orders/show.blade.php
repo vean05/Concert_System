@@ -151,6 +151,39 @@
         font-size: 1.5rem;
     }
 
+    /* Payment card chip display */
+    .payment-card-display {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    .card-chip-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        flex-shrink: 0;
+    }
+
+    .card-chip-visa {
+        background: linear-gradient(135deg, #1a1f71 0%, #2d3bb5 100%);
+        color: white;
+    }
+
+    .card-chip-mastercard {
+        background: linear-gradient(135deg, #eb001b 0%, #f79e1b 100%);
+        color: white;
+    }
+
+    .card-chip-default {
+        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
+        color: white;
+    }
+
     .concert-link {
         color: #5BA3C0;
         text-decoration: none;
@@ -214,6 +247,132 @@
     .btn-cancel-order:hover {
         transform: translateY(-2px);
         box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
+    }
+
+    /* ── Cancel Confirmation Modal ── */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.55);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(3px);
+    }
+
+    .modal-overlay.active {
+        display: flex;
+    }
+
+    .modal-box {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+        padding: 2.5rem;
+        max-width: 480px;
+        width: 90%;
+        animation: modalSlideIn 0.25s ease;
+    }
+
+    @keyframes modalSlideIn {
+        from { transform: translateY(-30px); opacity: 0; }
+        to   { transform: translateY(0);     opacity: 1; }
+    }
+
+    .modal-icon {
+        width: 64px;
+        height: 64px;
+        background: linear-gradient(135deg, #fff3f3 0%, #fde8e8 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.2rem;
+        font-size: 1.8rem;
+        color: #dc3545;
+    }
+
+    .modal-box h4 {
+        text-align: center;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+    }
+
+    .modal-box p.modal-sub {
+        text-align: center;
+        color: #666;
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .modal-refund-info {
+        background: linear-gradient(135deg, #e7f5ff 0%, #cce5ff 100%);
+        border: 2px solid #b3d9ff;
+        border-radius: 10px;
+        padding: 1rem 1.2rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    .modal-refund-info i {
+        font-size: 1.4rem;
+        color: #004e89;
+        flex-shrink: 0;
+    }
+
+    .modal-refund-info .refund-text {
+        font-size: 0.9rem;
+        color: #004e89;
+        font-weight: 600;
+        line-height: 1.5;
+    }
+
+    .modal-refund-info .refund-text span {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 400;
+        color: #336b95;
+        margin-top: 0.2rem;
+    }
+
+    .modal-actions {
+        display: flex;
+        gap: 0.8rem;
+    }
+
+    .modal-btn {
+        flex: 1;
+        padding: 0.8rem;
+        border-radius: 8px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+    }
+
+    .modal-btn-keep {
+        background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+        color: white;
+    }
+
+    .modal-btn-keep:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(108,117,125,0.3);
+    }
+
+    .modal-btn-confirm {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        color: white;
+    }
+
+    .modal-btn-confirm:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(220,53,69,0.3);
     }
 
     @media (max-width: 768px) {
@@ -320,6 +479,45 @@
                 </div>
             </div>
 
+            <!-- Payment Method -->
+            <div class="detail-section">
+                <h3 class="detail-section-title">
+                    <i class="fas fa-credit-card"></i> Payment Method
+                </h3>
+
+                <div class="detail-row full" style="margin-bottom: 0;">
+                    <div class="detail-item-box">
+                        @if($order->paymentCard)
+                            @php
+                                $cardType = strtolower($order->paymentCard->card_type);
+                                $lastFour = substr($order->paymentCard->card_number, -4);
+                                $chipClass = $cardType === 'visa' ? 'card-chip-visa'
+                                           : ($cardType === 'mastercard' ? 'card-chip-mastercard' : 'card-chip-default');
+                                $cardIcon  = $cardType === 'visa' ? 'fab fa-cc-visa'
+                                           : ($cardType === 'mastercard' ? 'fab fa-cc-mastercard' : 'fas fa-credit-card');
+                            @endphp
+                            <h6>Card Used</h6>
+                            <div class="payment-card-display">
+                                <div class="card-chip-icon {{ $chipClass }}">
+                                    <i class="{{ $cardIcon }}"></i>
+                                </div>
+                                <div>
+                                    <p style="letter-spacing: 0.12em; font-family: monospace; font-size: 1rem;">
+                                        •••• •••• •••• {{ $lastFour }}
+                                    </p>
+                                    <small style="color:#888; font-weight:500; font-size:0.8rem;">
+                                        {{ ucfirst($order->paymentCard->card_type) }} &nbsp;|&nbsp; {{ $order->paymentCard->full_name }}
+                                    </small>
+                                </div>
+                            </div>
+                        @else
+                            <h6>Card Used</h6>
+                            <p style="color:#999;">— Card info not available —</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
             <!-- Price Summary -->
             <div class="detail-section detail-row full" style="margin: 0; padding-top: 1.5rem; border-top: 2px solid #f0f0f0;">
                 <div class="detail-item-box" style="background: linear-gradient(135deg, #e7f5ff 0%, #cce5ff 100%); border: 2px solid #b3d9ff;">
@@ -337,16 +535,72 @@
                     <i class="fas fa-eye"></i> View Concert
                 </a>
                 @if($order->status === 'confirmed')
-                    <form action="{{ route('orders.cancel', $order) }}" method="POST" style="flex: 1;">
-                        @csrf
-                        @method('PUT')
-                        <button type="submit" class="btn-cancel-order" style="width: 100%;" onclick="return confirm('Are you sure you want to cancel this order?')">
-                            <i class="fas fa-times-circle"></i> Cancel Order
-                        </button>
-                    </form>
+                    <button type="button" class="btn-cancel-order" id="openCancelModal">
+                        <i class="fas fa-times-circle"></i> Cancel Order
+                    </button>
                 @endif
             </div>
         </div>
     </div>
 </div>
+
+{{-- ── Cancel Confirmation Modal ── --}}
+@if($order->status === 'confirmed')
+<div class="modal-overlay" id="cancelModal">
+    <div class="modal-box">
+        <div class="modal-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <h4>Cancel This Order?</h4>
+        <p class="modal-sub">This action cannot be undone. Your refund will be processed to the card used for payment.</p>
+
+        @if($order->paymentCard)
+            @php
+                $mCardType = strtolower($order->paymentCard->card_type);
+                $mLastFour = substr($order->paymentCard->card_number, -4);
+                $mCardIcon = $mCardType === 'visa' ? 'fab fa-cc-visa'
+                           : ($mCardType === 'mastercard' ? 'fab fa-cc-mastercard' : 'fas fa-credit-card');
+                $mChipClass = $mCardType === 'visa' ? 'card-chip-visa'
+                            : ($mCardType === 'mastercard' ? 'card-chip-mastercard' : 'card-chip-default');
+            @endphp
+            <div class="modal-refund-info">
+                <div class="card-chip-icon {{ $mChipClass }}" style="width:36px;height:36px;font-size:1.1rem;">
+                    <i class="{{ $mCardIcon }}"></i>
+                </div>
+                <div class="refund-text">
+                    Refund of <strong>${{ number_format($order->total_price, 2) }}</strong>
+                    → {{ ucfirst($order->paymentCard->card_type) }} ending in {{ $mLastFour }}
+                    <span>Cardholder: {{ $order->paymentCard->full_name }}</span>
+                </div>
+            </div>
+        @endif
+
+        <div class="modal-actions">
+            <button type="button" class="modal-btn modal-btn-keep" id="closeCancelModal">
+                <i class="fas fa-arrow-left"></i> Keep Order
+            </button>
+            <form action="{{ route('orders.cancel', $order) }}" method="POST" style="flex:1;margin:0;">
+                @csrf
+                @method('PUT')
+                <button type="submit" class="modal-btn modal-btn-confirm" style="width:100%;">
+                    <i class="fas fa-times-circle"></i> Confirm Cancel
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('openCancelModal').addEventListener('click', function () {
+        document.getElementById('cancelModal').classList.add('active');
+    });
+    document.getElementById('closeCancelModal').addEventListener('click', function () {
+        document.getElementById('cancelModal').classList.remove('active');
+    });
+    // Close on overlay click
+    document.getElementById('cancelModal').addEventListener('click', function (e) {
+        if (e.target === this) this.classList.remove('active');
+    });
+</script>
+@endif
 @endsection

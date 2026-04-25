@@ -15,6 +15,7 @@ class Order extends Model
         'quantity',
         'total_price',
         'status',
+        'payment_card_id',
     ];
 
     /**
@@ -31,5 +32,13 @@ class Order extends Model
     public function concert()
     {
         return $this->belongsTo(Concert::class);
+    }
+
+    /**
+     * Get the payment card used for this order.
+     */
+    public function paymentCard()
+    {
+        return $this->belongsTo(PaymentCard::class);
     }
 }

@@ -201,7 +201,7 @@
                                 <td>{{ $concert->orders_count }}</td>
                                 <td>
                                     <div class="progress-bar">
-                                        <div class="progress-fill" style="width: {{ ($concert->orders_count / $popularConcerts->first()->orders_count * 100) }}%"></div>
+                                        <div class="progress-fill" style="width: {{ $popularConcerts->first()->orders_count > 0 ? ($concert->orders_count / $popularConcerts->first()->orders_count * 100) : 0 }}%"></div>
                                     </div>
                                 </td>
                             </tr>
@@ -241,7 +241,7 @@
                                 <td>{{ $concert->reviews_count }}</td>
                                 <td>
                                     <div class="progress-bar">
-                                        <div class="progress-fill" style="width: {{ ($concert->reviews_count / $reviewedConcerts->first()->reviews_count * 100) }}%"></div>
+                                        <div class="progress-fill" style="width: {{ $reviewedConcerts->first()->reviews_count > 0 ? ($concert->reviews_count / $reviewedConcerts->first()->reviews_count * 100) : 0 }}%"></div>
                                     </div>
                                 </td>
                             </tr>
@@ -277,7 +277,7 @@
                                 <td>{{ $item->count }}</td>
                                 <td>
                                     <div class="progress-bar">
-                                        <div class="progress-fill" style="width: {{ ($item->count / $concertsByMonth->max('count') * 100) }}%"></div>
+                                        <div class="progress-fill" style="width: {{ $concertsByMonth->max('count') > 0 ? ($item->count / $concertsByMonth->max('count') * 100) : 0 }}%"></div>
                                     </div>
                                 </td>
                             </tr>

@@ -50,16 +50,18 @@ class OrderController extends Controller
             'quantity' => $validated['quantity'],
             'total_price' => $totalPrice,
             'status' => 'confirmed',
+            'payment_card_id' => $card->id,
         ]);
 
         // Generate dynamic success message
         $lastFour = substr($card->card_number, -4);
+        $cardType = ucfirst($card->card_type);
         $formattedPrice = number_format($totalPrice, 2);
-        $successMsg = "Booking successful! Card ending in {$lastFour} was charged \${$formattedPrice}.";
+        $successMsg = "Booking successful! {$cardType} ending in {$lastFour} was charged \${$formattedPrice}.";
 
         // Store message in session
         session()->flash('success', $successMsg);
-        
+
         // Store last viewed concert in cookie
         cookie('last_concert', $concert->id, 60 * 24 * 7); // 7 days
 
@@ -81,6 +83,7 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         $this->authorize('view', $order);
+        $order->load('paymentCard');
         return view('orders.show', compact('order'));
     }
 
@@ -95,8 +98,20 @@ class OrderController extends Controller
             return redirect()->back()->with('error', 'This order is already cancelled!');
         }
 
+        // Build refund message using the card linked to the order
+        $order->load('paymentCard');
+        if ($order->paymentCard) {
+            $lastFour  = substr($order->paymentCard->card_number, -4);
+            $cardType  = ucfirst($order->paymentCard->card_type);
+            $amount    = number_format($order->total_price, 2);
+            $refundMsg = "Order cancelled. Refund of \${$amount} successfully sent to {$cardType} ending in {$lastFour}.";
+        } else {
+            $refundMsg = 'Order cancelled successfully!';
+        }
+
         $order->update(['status' => 'cancelled']);
 
-        return redirect()->route('orders.index')->with('success', 'Order cancelled successfully!');
+        return redirect()->route('orders.index')->with('success', $refundMsg);
     }
 }
+
