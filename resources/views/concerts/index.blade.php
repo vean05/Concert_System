@@ -403,13 +403,6 @@
     <!-- Header with Create Button -->
     <div class="header-section">
         <h1><i class="fas fa-music" style="color: #D3A5A5;"></i> Upcoming Concerts</h1>
-        @auth
-            @if(auth()->user()->role === 'admin')
-                <a href="{{ route('concerts.create') }}" class="btn-create">
-                    <i class="fas fa-plus"></i> Add Concert
-                </a>
-            @endif
-        @endauth
     </div>
 
     <!-- Search and Filter Section -->
