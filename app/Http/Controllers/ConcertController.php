@@ -162,16 +162,27 @@ class ConcertController extends Controller
     }
 
     /**
-     * Filter concerts by date or venue.
+     * Filter concerts by date, venue, or artist.
      */
     public function filter(Request $request)
     {
         $query = Concert::query();
 
+        // Search by artist or title
+        if ($request->has('artist') && $request->artist) {
+            $artist = $request->artist;
+            $query->where(function ($q) use ($artist) {
+                $q->where('artist', 'like', "%{$artist}%")
+                  ->orWhere('title', 'like', "%{$artist}%");
+            });
+        }
+
+        // Filter by date
         if ($request->has('date') && $request->date) {
             $query->where('date', $request->date);
         }
 
+        // Filter by venue
         if ($request->has('venue') && $request->venue) {
             $query->where('venue', 'like', "%{$request->venue}%");
         }
