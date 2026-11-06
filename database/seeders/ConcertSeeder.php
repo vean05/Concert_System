@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Concert;
+use App\Models\SeatSection;
+use App\Services\SeatingService;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 
@@ -14,7 +16,7 @@ class ConcertSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(SeatingService $seating)
     {
         // Create an admin user if not exists
         $adminUser = User::where('email', 'admin@example.com')->first();
@@ -23,7 +25,7 @@ class ConcertSeeder extends Seeder
                 'name' => 'Admin User',
                 'email' => 'admin@example.com',
                 'password' => bcrypt('password'),
-                'role' => 'admin'
+                'is_admin' => true,
             ]);
         }
 
@@ -119,8 +121,15 @@ class ConcertSeeder extends Seeder
             ],
         ];
 
-        foreach ($concerts as $concert) {
-            Concert::create($concert);
+        foreach ($concerts as $data) {
+            $concert = Concert::create($data);
+            $price = (float) $data['ticket_price'];
+
+            $seating->sync($concert, [
+                ['name' => 'VIP Front Row', 'type' => SeatSection::SEATED, 'price' => $price * 3, 'capacity' => 200],
+                ['name' => 'Reserved Seating', 'type' => SeatSection::SEATED, 'price' => $price * 1.5, 'capacity' => 1000],
+                ['name' => 'General Admission', 'type' => SeatSection::STANDING, 'price' => $price, 'capacity' => $data['total_ticket'] - 1200],
+            ]);
         }
     }
 }

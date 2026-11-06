@@ -3,22 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\Concert;
+use App\Models\Order;
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
+    private const SORTABLE_COLUMNS = ['date', 'title', 'artist', 'venue', 'created_at'];
+
     /**
      * Dashboard - Show admin overview
      */
     public function dashboard()
     {
-        $totalConcerts = Concert::count();
-        $totalUsers = User::count();
-        $recentConcerts = Concert::with('creator')->latest()->take(10)->get();
-        $upcomingConcerts = Concert::where('date', '>=', now())->with('creator')->orderBy('date')->take(5)->get();
+        $stats = [
+            'concerts' => Concert::count(),
+            'upcoming' => Concert::upcoming()->count(),
+            'users' => User::count(),
+            'tickets' => (int) Order::where('status', Order::CONFIRMED)->sum('quantity'),
+            'revenue' => (float) Order::where('status', Order::CONFIRMED)->sum('total_price'),
+        ];
+        $upcomingConcerts = Concert::upcoming()->withTicketsSold()->orderBy('date')->take(5)->get();
+        $recentOrders = Order::with('user', 'concert')->latest()->take(6)->get();
 
-        return view('admin.dashboard', compact('totalConcerts', 'totalUsers', 'recentConcerts', 'upcomingConcerts'));
+        return view('admin.dashboard', compact('stats', 'upcomingConcerts', 'recentOrders'));
     }
 
     /**
@@ -26,30 +36,24 @@ class AdminController extends Controller
      */
     public function concerts(Request $request)
     {
-        $query = Concert::with('creator', 'orders', 'reviews');
+        $sortBy = in_array($request->get('sort_by'), self::SORTABLE_COLUMNS, true) ? $request->get('sort_by') : 'date';
+        $sortOrder = $request->get('sort_order') === 'desc' ? 'desc' : 'asc';
 
-        // Search
-        if ($request->has('search') && $request->search) {
-            $search = $request->search;
-            $query->where('title', 'like', "%{$search}%")
-                  ->orWhere('artist', 'like', "%{$search}%")
-                  ->orWhere('venue', 'like', "%{$search}%");
-        }
+        $concerts = Concert::with('creator')
+            ->withTicketsSold()
+            ->withCount('reviews')
+            ->when($request->search, function ($query, $search) {
+                $query->where(function ($query) use ($search) {
+                    $query->where('title', 'like', "%{$search}%")
+                        ->orWhere('artist', 'like', "%{$search}%")
+                        ->orWhere('venue', 'like', "%{$search}%");
+                });
+            })
+            ->orderBy($sortBy, $sortOrder)
+            ->paginate(15)
+            ->withQueryString();
 
-        // Filter by creator
-        if ($request->has('creator_id') && $request->creator_id) {
-            $query->where('created_by', $request->creator_id);
-        }
-
-        // Sort
-        $sortBy = $request->get('sort_by', 'date');
-        $sortOrder = $request->get('sort_order', 'asc');
-        $query->orderBy($sortBy, $sortOrder);
-
-        $concerts = $query->paginate(15);
-        $creators = User::has('concerts')->get();
-
-        return view('admin.concerts.index', compact('concerts', 'creators'));
+        return view('admin.concerts.index', compact('concerts'));
     }
 
     /**
@@ -57,29 +61,26 @@ class AdminController extends Controller
      */
     public function showConcert(Concert $concert)
     {
-        $concert->load('creator', 'orders', 'reviews');
-        $seatingAreas = json_decode($concert->seating_areas, true) ?? [];
+        $concert->load(['creator', 'reviews.user', 'sections' => function ($sections) {
+            $sections->withSold();
+        }]);
+        $orders = $concert->orders()->with('user')->latest()->paginate(10);
 
-        return view('admin.concerts.show', compact('concert', 'seatingAreas'));
+        return view('admin.concerts.show', compact('concert', 'orders'));
     }
 
     /**
-     * Delete a concert (admin only, authorization in policy)
+     * Delete a concert; its tickets, orders, reviews and favourites go with it.
      */
     public function deleteConcert(Concert $concert)
     {
         $this->authorize('delete', $concert);
 
-        // Delete associated orders and reviews
-        $concert->orders()->delete();
-        $concert->reviews()->delete();
-        $concert->favouritedBy()->detach();
-
-        // Delete image if exists
-        if ($concert->image_path && \Storage::disk('public')->exists($concert->image_path)) {
-            \Storage::disk('public')->delete($concert->image_path);
+        if ($concert->image_path) {
+            Storage::disk('public')->delete($concert->image_path);
         }
 
+        // Foreign keys cascade to orders, reviews, favourites, sections and seats.
         $concert->delete();
 
         return redirect()->route('admin.concerts.index')->with('success', 'Concert deleted successfully!');
@@ -90,16 +91,16 @@ class AdminController extends Controller
      */
     public function users(Request $request)
     {
-        $query = User::withCount('concerts', 'orders', 'reviews', 'favouriteConcerts');
-
-        // Search
-        if ($request->has('search') && $request->search) {
-            $search = $request->search;
-            $query->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%");
-        }
-
-        $users = $query->paginate(20);
+        $users = User::withCount('orders', 'reviews', 'favouriteConcerts')
+            ->when($request->search, function ($query, $search) {
+                $query->where(function ($query) use ($search) {
+                    $query->where('name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%");
+                });
+            })
+            ->orderBy('name')
+            ->paginate(20)
+            ->withQueryString();
 
         return view('admin.users.index', compact('users'));
     }
@@ -109,7 +110,7 @@ class AdminController extends Controller
      */
     public function showUser(User $user)
     {
-        $user->load('concerts', 'orders', 'reviews', 'favouriteConcerts');
+        $user->load(['orders.concert', 'reviews.concert', 'favouriteConcerts']);
 
         return view('admin.users.show', compact('user'));
     }
@@ -119,60 +120,49 @@ class AdminController extends Controller
      */
     public function analytics()
     {
-        $totalConcerts = Concert::count();
-        $totalUsers = User::count();
-        $totalTicketsSold = \App\Models\Order::where('status', 'confirmed')->sum('quantity') ?? 0;
-        $totalReviews = \App\Models\Review::count() ?? 0;
+        $confirmedOrders = Order::where('status', Order::CONFIRMED);
 
-        // Concerts by month (last 12 months)
-        $concertsByMonth = Concert::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, COUNT(*) as count')
-            ->where('created_at', '>=', now()->subMonths(12))
-            ->groupBy('month')
-            ->orderBy('month')
-            ->get() ?? collect();
+        $stats = [
+            'concerts' => Concert::count(),
+            'users' => User::count(),
+            'tickets' => (int) (clone $confirmedOrders)->sum('quantity'),
+            'revenue' => (float) (clone $confirmedOrders)->sum('total_price'),
+            'reviews' => Review::count(),
+            'average_rating' => round((float) Review::avg('rating'), 1),
+        ];
 
-        // Most popular concerts (by tickets sold)
-        $popularConcerts = Concert::withSum(['orders as tickets_sold' => function($query) {
-                $query->where('status', 'confirmed');
-            }], 'quantity')
-            ->orderByDesc('tickets_sold')
-            ->take(5)
-            ->get() ?? collect();
+        // Grouped in PHP so this does not depend on MySQL's DATE_FORMAT.
+        $salesByMonth = (clone $confirmedOrders)
+            ->where('created_at', '>=', now()->subMonths(11)->startOfMonth())
+            ->get(['total_price', 'quantity', 'created_at'])
+            ->groupBy(function ($order) {
+                return $order->created_at->format('Y-m');
+            });
 
-        // Most reviewed concerts
-        $reviewedConcerts = Concert::withCount('reviews')
-            ->orderByDesc('reviews_count')
-            ->take(5)
-            ->get() ?? collect();
+        $months = collect(range(11, 0))->map(function ($monthsAgo) use ($salesByMonth) {
+            $month = now()->startOfMonth()->subMonths($monthsAgo);
+            $orders = $salesByMonth->get($month->format('Y-m'), collect());
 
-        // Calculate max values for progress bars
-        $maxTickets = $popularConcerts->isNotEmpty() ? $popularConcerts->first()->tickets_sold : 1;
-        $maxReviews = $reviewedConcerts->isNotEmpty() ? $reviewedConcerts->first()->reviews_count : 1;
-        $maxConcertsPerMonth = $concertsByMonth->isNotEmpty() ? $concertsByMonth->max('count') : 1;
+            return [
+                'label' => $month->format('M y'),
+                'tickets' => (int) $orders->sum('quantity'),
+                'revenue' => (float) $orders->sum('total_price'),
+            ];
+        });
 
-        return view('admin.analytics', compact(
-            'totalConcerts',
-            'totalUsers',
-            'totalTicketsSold',
-            'totalReviews',
-            'concertsByMonth',
-            'popularConcerts',
-            'reviewedConcerts',
-            'maxTickets',
-            'maxReviews',
-            'maxConcertsPerMonth'
-        ));
+        $popularConcerts = Concert::withTicketsSold()->orderByDesc('tickets_sold')->take(5)->get();
+        $reviewedConcerts = Concert::withCount('reviews')->withAvg('reviews', 'rating')
+            ->orderByDesc('reviews_count')->take(5)->get();
+
+        return view('admin.analytics', compact('stats', 'months', 'popularConcerts', 'reviewedConcerts'));
     }
 
     /**
      * Show concert reviews
      */
-    public function concertReviews(Request $request)
+    public function concertReviews()
     {
-        $reviews = \App\Models\Review::with('user', 'concert')
-            ->whereHas('concert')
-            ->orderBy('created_at', 'desc')
-            ->paginate(15);
+        $reviews = Review::with('user', 'concert')->latest()->paginate(15);
 
         return view('admin.concert-reviews', compact('reviews'));
     }

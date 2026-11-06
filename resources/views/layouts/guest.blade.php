@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+@extends('layouts.app')
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
-
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-
-    </head>
-    <body>
-        <div class="font-sans text-gray-900 antialiased">
-            {{ $slot }}
+@section('content')
+    <div class="auth-shell">
+        <div class="auth-art">
+            <img src="{{ asset(config('media.scenes.stage.photo') ?: 'images/hero-concert-bg.jpg') }}" alt="">
+            <h2 class="shout">@yield('art', 'See it live.')</h2>
         </div>
-    </body>
-</html>
+        <div class="auth-form">
+            <div>
+                @yield('form')
+            </div>
+        </div>
+    </div>
+@endsection

@@ -41,7 +41,7 @@ class ConcertPolicy
      */
     public function create(User $user)
     {
-        return $user->role === 'admin';
+        return $user->is_admin;
     }
 
     /**
@@ -53,7 +53,7 @@ class ConcertPolicy
      */
     public function update(User $user, Concert $concert)
     {
-        return $user->role === 'admin';
+        return $user->is_admin;
     }
 
     /**
@@ -65,7 +65,7 @@ class ConcertPolicy
      */
     public function delete(User $user, Concert $concert)
     {
-        return $user->role === 'admin' && $user->id === $concert->created_by;
+        return $user->is_admin;
     }
 
     /**
@@ -77,7 +77,7 @@ class ConcertPolicy
      */
     public function restore(User $user, Concert $concert)
     {
-        return $user->role === 'admin';
+        return $user->is_admin;
     }
 
     /**
@@ -89,6 +89,6 @@ class ConcertPolicy
      */
     public function forceDelete(User $user, Concert $concert)
     {
-        return $user->role === 'admin';
+        return $user->is_admin;
     }
 }

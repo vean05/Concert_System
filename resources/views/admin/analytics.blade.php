@@ -1,344 +1,63 @@
 @extends('layouts.app')
 
-@section('title', 'Analytics - Admin - ConcertHub')
+@section('title', 'Analytics')
 
 @section('content')
-    <style>
-        .admin-page {
-            padding: 2rem 0;
-        }
+    @php
+        $maxMonthRevenue = max($months->max('revenue'), 1);
+        $maxTickets = max($popularConcerts->max(function ($concert) { return $concert->ticketsSold(); }), 1);
+        $maxReviews = max($reviewedConcerts->max('reviews_count'), 1);
+    @endphp
 
-        .admin-header {
-            margin-bottom: 2rem;
-        }
+    <div class="page">
+        <div class="container">
+            <div class="page-head"><h1>Analytics</h1></div>
+            @include('admin._nav')
 
-        .admin-header h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #1a1a2e;
-            margin: 0;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.12);
-            text-align: center;
-        }
-
-        .stat-card h3 {
-            font-size: 0.9rem;
-            color: #666;
-            margin: 0 0 1rem 0;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .stat-card .number {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #5BA3C0;
-            margin: 0;
-        }
-
-        .section-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.12);
-            margin-bottom: 2rem;
-        }
-
-        .section-card h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1a1a2e;
-            margin: 0 0 1.5rem 0;
-        }
-
-        .chart-container {
-            position: relative;
-            height: 300px;
-            margin-bottom: 2rem;
-        }
-
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        thead {
-            background: linear-gradient(135deg, #f8f9fa 0%, #f0f4f8 100%);
-        }
-
-        th {
-            padding: 1rem;
-            text-align: left;
-            font-weight: 700;
-            color: #1a1a2e;
-            border-bottom: 2px solid #e0e0e0;
-        }
-
-        td {
-            padding: 1rem;
-            border-bottom: 1px solid #f0f0f0;
-            color: #4a5568;
-        }
-
-        tbody tr:hover {
-            background: rgba(200, 200, 200, 0.05);
-        }
-
-        .rank {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
-            color: white;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 30px;
-            font-weight: 700;
-            margin-right: 1rem;
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: #e0e0e0;
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 0.5rem 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #5BA3C0 0%, #4A8FA3 100%);
-            border-radius: 4px;
-            transition: width 0.3s ease;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 2rem;
-            color: #999;
-        }
-
-        .empty-state i {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
-        }
-    </style>
-
-    <div class="admin-page container">
-        <!-- Back Button -->
-        <a href="javascript:history.back()" class="back-link"
-            style="display: inline-block; margin-bottom: 1.5rem; color: #5BA3C0; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
-            <i class="fas fa-arrow-left"></i> Back
-        </a>
-
-        <!-- Header -->
-        <div class="admin-header">
-            <h1><i class="fas fa-chart-bar" style="color: #5BA3C0;"></i> Analytics Dashboard</h1>
-        </div>
-
-        <!-- Overall Statistics -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <h3>Total Concerts</h3>
-                <p class="number">{{ $totalConcerts }}</p>
+            <div class="stat-grid">
+                <div class="stat"><strong>${{ number_format($stats['revenue'], 2) }}</strong><span class="small-label">Revenue</span></div>
+                <div class="stat"><strong>{{ number_format($stats['tickets']) }}</strong><span class="small-label">Tickets sold</span></div>
+                <div class="stat"><strong>{{ number_format($stats['concerts']) }}</strong><span class="small-label">Concerts</span></div>
+                <div class="stat"><strong>{{ number_format($stats['users']) }}</strong><span class="small-label">Users</span></div>
+                <div class="stat"><strong>{{ $stats['reviews'] ? $stats['average_rating'] : '–' }}</strong><span class="small-label">Avg rating, {{ $stats['reviews'] }} {{ \Illuminate\Support\Str::plural('review', $stats['reviews']) }}</span></div>
             </div>
-            <div class="stat-card">
-                <h3>Total Users</h3>
-                <p class="number">{{ $totalUsers }}</p>
-            </div>
-            <div class="stat-card">
-                <h3>Total Tickets Sold</h3>
-                <p class="number">{{ $totalTicketsSold }}</p>
-            </div>
-            <div class="stat-card">
-                <h3>Total Reviews</h3>
-                <p class="number">{{ $totalReviews }}</p>
-            </div>
-        </div>
 
-        <!-- Most Popular Concerts -->
-        <div class="section-card">
-            <h2><i class="fas fa-crown" style="color: #6BB6D6;"></i> Most Popular Concerts (by tickets sold)</h2>
-            @if($popularConcerts && is_countable($popularConcerts) && count($popularConcerts) > 0)
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th width="50">Rank</th>
-                                <th>Concert Title</th>
-                                <th>Artist</th>
-                                <th>Tickets Sold</th>
-                                <th>Popularity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($popularConcerts as $index => $concert)
-                                <tr>
-                                    <td><span class="rank">{{ $index + 1 }}</span></td>
-                                    <td><strong>{{ $concert->title }}</strong></td>
-                                    <td>{{ $concert->artist }}</td>
-                                    <td>{{ $concert->tickets_sold }}</td>
-                                    <td>
-                                        <div class="progress-bar">
-                                            <div class="progress-fill"
-                                                style="width: {{ $maxTickets > 0 ? ($concert->tickets_sold / $maxTickets * 100) : 0 }}%">
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+            <section class="panel">
+                <h2>Revenue, last 12 months</h2>
+                <div class="bar-chart" role="img" aria-label="Monthly revenue for the last 12 months">
+                    @foreach($months as $month)
+                        <div title="{{ $month['label'] }}: ${{ number_format($month['revenue'], 2) }}, {{ $month['tickets'] }} tickets">
+                            <i style="height: {{ round($month['revenue'] / $maxMonthRevenue * 88) }}%"></i>
+                            <span>{{ $month['label'] }}</span>
+                        </div>
+                    @endforeach
                 </div>
-            @else
-                <div class="empty-state">
-                    <i class="fas fa-inbox"></i>
-                    <p>No tickets sold yet.</p>
-                </div>
-            @endif
-        </div>
+            </section>
 
-        <!-- Most Reviewed Concerts -->
-        <div class="section-card">
-            <h2><i class="fas fa-star" style="color: #6BB6D6;"></i> Most Reviewed Concerts</h2>
-            @if($reviewedConcerts && is_countable($reviewedConcerts) && count($reviewedConcerts) > 0)
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th width="50">Rank</th>
-                                <th>Concert Title</th>
-                                <th>Artist</th>
-                                <th>Reviews</th>
-                                <th>Review Rate</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($reviewedConcerts as $index => $concert)
-                                <tr>
-                                    <td><span class="rank">{{ $index + 1 }}</span></td>
-                                    <td><strong>{{ $concert->title }}</strong></td>
-                                    <td>{{ $concert->artist }}</td>
-                                    <td>{{ $concert->reviews_count }}</td>
-                                    <td>
-                                        <div class="progress-bar">
-                                            <div class="progress-fill"
-                                                style="width: {{ $reviewedConcerts->first()->reviews_count > 0 ? ($concert->reviews_count / $reviewedConcerts->first()->reviews_count * 100) : 0 }}%">
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+            <div class="row g-4 mt-1">
+                <div class="col-lg-6">
+                    <section class="panel h-100">
+                        <h2>Best sellers</h2>
+                        @foreach($popularConcerts as $concert)
+                            <div class="bar-row">
+                                <a class="text-truncate" href="{{ route('admin.concerts.show', $concert) }}">{{ $concert->title }}</a>
+                                <div class="meter"><span style="width: {{ round($concert->ticketsSold() / $maxTickets * 100) }}%"></span></div>
+                                <span class="mono text-end">{{ number_format($concert->ticketsSold()) }}</span>
+                            </div>
+                        @endforeach
+                    </section>
                 </div>
-            @else
-                <div class="empty-state">
-                    <i class="fas fa-comments"></i>
-                    <p>No review data available yet.</p>
-                </div>
-            @endif
-        </div>
-
-        <!-- Concerts by Month -->
-        <div class="section-card">
-            <h2><i class="fas fa-calendar-alt" style="color: #5BA3C0;"></i> Concerts Created by Month (Last 12 Months)</h2>
-            @if($concertsByMonth && is_countable($concertsByMonth) && count($concertsByMonth) > 0)
-                <div style="margin-top: 1.5rem;">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Month</th>
-                                <th>Concerts Created</th>
-                                <th>Trend</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($concertsByMonth as $item)
-                                <tr>
-                                    <td><strong>{{ \Carbon\Carbon::createFromFormat('Y-m', $item->month)->format('F Y') }}</strong>
-                                    </td>
-                                    <td>{{ $item->count }}</td>
-                                    <td>
-                                        <div class="progress-bar">
-                                            <div class="progress-fill"
-                                                style="width: {{ $concertsByMonth->max('count') > 0 ? ($item->count / $concertsByMonth->max('count') * 100) : 0 }}%"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            @else
-                <div class="empty-state">
-                    <i class="fas fa-chart-bar"></i>
-                    <p>No concert creation data available yet.</p>
-                </div>
-            @endif
-        </div>
-
-        <!-- Quick Summary -->
-        <div class="section-card">
-            <h2><i class="fas fa-info-circle" style="color: #5BA3C0;"></i> Quick Summary</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
-                <div>
-                    <h4 style="margin: 0 0 1rem 0; color: #5BA3C0;">System Overview</h4>
-                    <ul style="list-style: none; padding: 0; margin: 0;">
-                        <li style="padding: 0.5rem 0; color: #4a5568;">
-                            <i class="fas fa-circle" style="color: #5BA3C0; margin-right: 0.5rem;"></i>
-                            Average concerts per user:
-                            <strong>{{ $totalConcerts > 0 && $totalUsers > 0 ? round($totalConcerts / $totalUsers, 2) : 0 }}</strong>
-                        </li>
-                        <li style="padding: 0.5rem 0; color: #4a5568;">
-                            <i class="fas fa-circle" style="color: #5BA3C0; margin-right: 0.5rem;"></i>
-                            Total users: <strong>{{ $totalUsers }}</strong>
-                        </li>
-                        <li style="padding: 0.5rem 0; color: #4a5568;">
-                            <i class="fas fa-circle" style="color: #5BA3C0; margin-right: 0.5rem;"></i>
-                            Active concerts: <strong>{{ \App\Models\Concert::where('date', '>=', now())->count() }}</strong>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 style="margin: 0 0 1rem 0; color: #5BA3C0;">Engagement Metrics</h4>
-                    <ul style="list-style: none; padding: 0; margin: 0;">
-                        <li style="padding: 0.5rem 0; color: #4a5568;">
-                            <i class="fas fa-circle" style="color: #6BB6D6; margin-right: 0.5rem;"></i>
-                            Total tickets sold: <strong>{{ $totalTicketsSold }}</strong>
-                        </li>
-                        <li style="padding: 0.5rem 0; color: #4a5568;">
-                            <i class="fas fa-circle" style="color: #777777; margin-right: 0.5rem;"></i>
-                            Total reviews: <strong>{{ $totalReviews }}</strong>
-                        </li>
-                        <li style="padding: 0.5rem 0; color: #4a5568;">
-                            <i class="fas fa-circle" style="color: #A8D8E8; margin-right: 0.5rem;"></i>
-                            Average reviews per concert:
-                            <strong>{{ $totalConcerts > 0 ? round($totalReviews / $totalConcerts, 2) : 0 }}</strong>
-                        </li>
-                    </ul>
+                <div class="col-lg-6">
+                    <section class="panel h-100">
+                        <h2>Most reviewed</h2>
+                        @foreach($reviewedConcerts as $concert)
+                            <div class="bar-row">
+                                <a class="text-truncate" href="{{ route('admin.concerts.show', $concert) }}">{{ $concert->title }}</a>
+                                <div class="meter" style="--swatch: var(--accent)"><span style="width: {{ round($concert->reviews_count / $maxReviews * 100) }}%"></span></div>
+                                <span class="mono text-end">{{ $concert->reviews_count }}</span>
+                            </div>
+                        @endforeach
+                    </section>
                 </div>
             </div>
         </div>

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\BookingException;
 use App\Models\Concert;
 use App\Models\Order;
+use App\Models\User;
+use App\Services\BookingService;
+use App\Services\TicketPassService;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -13,59 +17,57 @@ class OrderController extends Controller
      */
     public function create(Concert $concert)
     {
-        $paymentCards = auth()->user()->paymentCards()->get();
+        abort_unless($concert->is_published, 404);
+
+        if (! $concert->canBeBooked()) {
+            return redirect()->route('concerts.show', $concert)->with('error', $concert->isUpcoming()
+                ? 'This concert is sold out.'
+                : 'Booking is closed: this concert has already taken place.');
+        }
+
+        if ($concert->hasSeatMap()) {
+            return redirect()->route('seats.show', $concert);
+        }
+
+        $concert->load(['sections' => function ($sections) {
+            $sections->withSold();
+        }]);
+        $paymentCards = auth()->user()->paymentCards()->latest()->get();
+
         return view('orders.create', compact('concert', 'paymentCards'));
     }
 
     /**
      * Store a new booking order.
      */
-    public function store(Request $request, Concert $concert)
+    public function store(Request $request, Concert $concert, BookingService $booking)
     {
+        abort_unless($concert->is_published, 404);
+
         $validated = $request->validate([
-            'quantity' => 'required|integer|min:1|max:100',
-            'payment_card_id' => 'required|exists:payment_cards,id',
+            'tickets' => 'required|array',
+            'tickets.*' => 'integer|min:0|max:100',
+            'payment_card_id' => 'required|integer',
+        ], [
+            'payment_card_id.required' => 'Choose a payment card.',
         ]);
 
-        // Verify the user owns the card
         $card = auth()->user()->paymentCards()->find($validated['payment_card_id']);
-        if (!$card) {
-            return redirect()->back()->with('error', 'Invalid payment card selected!');
+
+        if (! $card) {
+            return back()->withInput()->with('error', 'Invalid payment card selected!');
         }
 
-        // Check if enough tickets are available
-        $availableTickets = $concert->total_ticket - Order::where('concert_id', $concert->id)
-            ->where('status', 'confirmed')
-            ->sum('quantity');
-
-        if ($validated['quantity'] > $availableTickets) {
-            return redirect()->back()->with('error', 'Not enough tickets available!');
+        try {
+            $order = $booking->place(auth()->user(), $concert, $validated['tickets'], $card);
+        } catch (BookingException $e) {
+            return back()->withInput()->with('error', $e->getMessage());
         }
 
-        $totalPrice = $concert->ticket_price * $validated['quantity'];
+        $charged = number_format($order->total_price, 2);
 
-        Order::create([
-            'user_id' => auth()->id(),
-            'concert_id' => $concert->id,
-            'quantity' => $validated['quantity'],
-            'total_price' => $totalPrice,
-            'status' => 'confirmed',
-            'payment_card_id' => $card->id,
-        ]);
-
-        // Generate dynamic success message
-        $lastFour = substr($card->card_number, -4);
-        $cardType = ucfirst($card->card_type);
-        $formattedPrice = number_format($totalPrice, 2);
-        $successMsg = "Booking successful! {$cardType} ending in {$lastFour} was charged \${$formattedPrice}.";
-
-        // Store message in session
-        session()->flash('success', $successMsg);
-
-        // Store last viewed concert in cookie
-        cookie('last_concert', $concert->id, 60 * 24 * 7); // 7 days
-
-        return redirect()->route('orders.index')->with('success', $successMsg);
+        return redirect()->route('orders.show', $order)
+            ->with('success', "Booking confirmed! {$card->brand} ending in {$card->last_four} was charged \${$charged}.");
     }
 
     /**
@@ -73,7 +75,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = auth()->user()->orders()->with('concert')->paginate(10);
+        $orders = auth()->user()->orders()->with('concert')->latest()->paginate(10);
+
         return view('orders.index', compact('orders'));
     }
 
@@ -83,35 +86,68 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         $this->authorize('view', $order);
-        $order->load('paymentCard');
+        $order->load('paymentCard', 'concert', 'items');
+
         return view('orders.show', compact('order'));
+    }
+
+    /**
+     * The ticket's current door code. It changes every half minute.
+     */
+    public function pass(Order $order, TicketPassService $passes)
+    {
+        $this->authorize('view', $order);
+        abort_if($order->status === Order::CANCELLED, 410);
+
+        return response()->json([
+            'code' => $passes->code($order),
+            'seconds_left' => $passes->secondsLeft(),
+            'period' => TicketPassService::SECONDS,
+            'checked_in_at' => optional($order->checked_in_at)->format('H:i, d M'),
+        ]);
+    }
+
+    /**
+     * Send the tickets to another ConcertHub account.
+     */
+    public function transfer(Request $request, Order $order, BookingService $booking)
+    {
+        $this->authorize('update', $order);
+
+        $validated = $request->validate(['email' => 'required|email']);
+        $recipient = User::where('email', $validated['email'])->first();
+
+        if (! $recipient) {
+            return back()->with('error', 'There is no ConcertHub account with that email.');
+        }
+
+        try {
+            $booking->transfer($order, $recipient);
+        } catch (BookingException $e) {
+            return back()->with('error', $e->getMessage());
+        }
+
+        return redirect()->route('orders.index')->with('success', "Tickets sent to {$recipient->name}.");
     }
 
     /**
      * Cancel an order.
      */
-    public function cancel(Order $order)
+    public function cancel(Order $order, BookingService $booking)
     {
         $this->authorize('update', $order);
 
-        if ($order->status === 'cancelled') {
-            return redirect()->back()->with('error', 'This order is already cancelled!');
+        try {
+            $booking->cancel($order);
+        } catch (BookingException $e) {
+            return back()->with('error', $e->getMessage());
         }
 
-        // Build refund message using the card linked to the order
-        $order->load('paymentCard');
-        if ($order->paymentCard) {
-            $lastFour  = substr($order->paymentCard->card_number, -4);
-            $cardType  = ucfirst($order->paymentCard->card_type);
-            $amount    = number_format($order->total_price, 2);
-            $refundMsg = "Order cancelled. Refund of \${$amount} successfully sent to {$cardType} ending in {$lastFour}.";
-        } else {
-            $refundMsg = 'Order cancelled successfully!';
-        }
+        $amount = number_format($order->total_price, 2);
+        $card = $order->paymentCard;
 
-        $order->update(['status' => 'cancelled']);
-
-        return redirect()->route('orders.index')->with('success', $refundMsg);
+        return redirect()->route('orders.index')->with('success', $card
+            ? "Order cancelled. Refund of \${$amount} sent to {$card->brand} ending in {$card->last_four}."
+            : 'Order cancelled successfully!');
     }
 }
-

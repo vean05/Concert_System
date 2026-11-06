@@ -1,369 +1,77 @@
 @extends('layouts.app')
 
-@section('title', $concert->title . ' - Admin - ConcertHub')
+@section('title', $concert->title)
 
 @section('content')
-<style>
-    .admin-detail-page {
-        padding: 2rem 0;
-    }
-
-    .back-link {
-        display: inline-block;
-        margin-bottom: 1.5rem;
-        color: #5BA3C0;
-        text-decoration: none;
-        font-weight: 600;
-        transition: all 0.3s ease;
-    }
-
-    .back-link:hover {
-        transform: translateX(-5px);
-        color: #4A8FA3;
-    }
-
-    .detail-header {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-        margin-bottom: 2rem;
-    }
-
-    .detail-image {
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(200, 200, 200, 0.6);
-        border-radius: 12px;
-        padding: 1rem;
-        box-shadow: 0 8px 32px rgba(100, 100, 100, 0.12);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .detail-image img {
-        max-width: 100%;
-        border-radius: 8px;
-        max-height: 400px;
-        object-fit: cover;
-    }
-
-    .no-image {
-        color: #999;
-        text-align: center;
-    }
-
-    .detail-info {
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(200, 200, 200, 0.6);
-        border-radius: 12px;
-        padding: 2rem;
-        box-shadow: 0 8px 32px rgba(100, 100, 100, 0.12);
-    }
-
-    .detail-info h1 {
-        font-size: 2rem;
-        color: #1a1a2e;
-        margin: 0 0 1rem 0;
-    }
-
-    .info-row {
-        display: flex;
-        margin-bottom: 1.5rem;
-        padding-bottom: 1.5rem;
-        border-bottom: 1px solid #f0f0f0;
-    }
-
-    .info-row:last-child {
-        border-bottom: none;
-        margin-bottom: 0;
-        padding-bottom: 0;
-    }
-
-    .info-label {
-        font-weight: 700;
-        color: #5BA3C0;
-        min-width: 120px;
-        margin-right: 1rem;
-    }
-
-    .info-value {
-        color: #4a5568;
-        flex: 1;
-    }
-
-    .actions {
-        display: flex;
-        gap: 1rem;
-        margin-top: 2rem;
-        padding-top: 2rem;
-        border-top: 2px solid #f0f0f0;
-    }
-
-    .btn {
-        padding: 0.8rem 1.5rem;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: 600;
-        border: none;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        flex: 1;
-        text-align: center;
-    }
-
-    .btn-edit {
-        background: linear-gradient(135deg, #6BB6D6 0%, #5BA3C0 100%);
-        color: white;
-    }
-
-    .btn-edit:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(91, 163, 192, 0.3);
-    }
-
-    .btn-delete {
-        background: linear-gradient(135deg, #D9A5A5 0%, #C98E8E 100%);
-        color: white;
-    }
-
-    .btn-delete:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(217, 165, 165, 0.3);
-    }
-
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 1rem;
-        margin-bottom: 2rem;
-    }
-
-    .stat-item {
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(200, 200, 200, 0.6);
-        border-radius: 12px;
-        padding: 1.5rem;
-        text-align: center;
-        box-shadow: 0 8px 32px rgba(100, 100, 100, 0.12);
-    }
-
-    .stat-item .label {
-        font-size: 0.9rem;
-        color: #666;
-        margin-bottom: 0.5rem;
-    }
-
-    .stat-item .value {
-        font-size: 2rem;
-        font-weight: 700;
-        color: #5BA3C0;
-    }
-
-    .section-card {
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(200, 200, 200, 0.6);
-        border-radius: 12px;
-        padding: 2rem;
-        box-shadow: 0 8px 32px rgba(100, 100, 100, 0.12);
-        margin-bottom: 2rem;
-    }
-
-    .section-card h2 {
-        font-size: 1.5rem;
-        color: #1a1a2e;
-        margin: 0 0 1.5rem 0;
-    }
-
-    .description {
-        line-height: 1.6;
-        color: #4a5568;
-        white-space: pre-wrap;
-    }
-
-    .tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-
-    .tag {
-        background: #e8f2f8;
-        border: 1px solid #b8dce9;
-        color: #5BA3C0;
-        padding: 0.5rem 1rem;
-        border-radius: 20px;
-        font-size: 0.9rem;
-        font-weight: 600;
-    }
-
-    @media (max-width: 768px) {
-        .detail-header {
-            grid-template-columns: 1fr;
-        }
-
-        .actions {
-            flex-direction: column;
-        }
-
-        .btn {
-            flex: unset;
-        }
-    }
-</style>
-
-<div class="admin-detail-page container">
-    <a href="javascript:void(0);" onclick="window.history.back();" class="back-link" style="display: inline-block; margin-bottom: 1.5rem; color: #5BA3C0; text-decoration: none; font-weight: 600; transition: all 0.3s ease; cursor: pointer;">
-        <i class="fas fa-arrow-left"></i> Back
-    </a>
-
-    <!-- Main Details -->
-    <div class="detail-header">
-        <div class="detail-image">
-            @if($concert->image_path)
-                <img src="{{ asset('storage/' . $concert->image_path) }}" alt="{{ $concert->title }}">
-            @else
-                <div class="no-image">
-                    <i class="fas fa-image" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
-                    <p>No image available</p>
+    <div class="page">
+        <div class="container">
+            <a class="back-link" href="{{ route('admin.concerts.index') }}"><i class="fas fa-arrow-left"></i> Concerts</a>
+            <div class="page-head">
+                <div>
+                    <h1>{{ $concert->title }}</h1>
+                    @unless($concert->is_published)
+                        <span class="status status--low">Hidden from the public site</span>
+                    @endunless
+                    <p>{{ $concert->artist }} · {{ $concert->date->format('d M Y') }} · {{ $concert->venue }}</p>
                 </div>
-            @endif
-        </div>
-
-        <div class="detail-info">
-            <h1>{{ $concert->title }}</h1>
-            
-            <div class="info-row">
-                <span class="info-label"><i class="fas fa-user-music"></i> Artist</span>
-                <span class="info-value">{{ $concert->artist }}</span>
+                <div class="d-flex gap-2">
+                    <a class="btn btn-ghost" href="{{ route('concerts.show', $concert) }}">View page</a>
+                    <a class="btn btn-accent" href="{{ route('admin.concerts.edit', $concert) }}">Edit</a>
+                    <form action="{{ route('admin.concerts.delete', $concert) }}" method="POST"
+                          data-confirm="Delete {{ $concert->title }}? This also removes its orders and reviews.">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger-ghost" type="submit">Delete</button>
+                    </form>
+                </div>
             </div>
 
-            <div class="info-row">
-                <span class="info-label"><i class="fas fa-map-marker-alt"></i> Venue</span>
-                <span class="info-value">{{ $concert->venue }}</span>
+            <div class="stat-grid">
+                <div class="stat"><strong>{{ number_format($concert->ticketsSold()) }}</strong><span class="small-label">of {{ number_format($concert->total_ticket) }} sold</span></div>
+                <div class="stat"><strong>${{ number_format($concert->ticket_price, 2) }}</strong><span class="small-label">From price</span></div>
+                <div class="stat"><strong>{{ $concert->reviews->count() }}</strong><span class="small-label">Reviews</span></div>
             </div>
 
-            <div class="info-row">
-                <span class="info-label"><i class="fas fa-calendar-alt"></i> Date</span>
-                <span class="info-value">{{ $concert->date->format('F d, Y \a\t h:i A') }}</span>
-            </div>
-
-            <div class="info-row">
-                <span class="info-label"><i class="fas fa-dollar-sign"></i> Price</span>
-                <span class="info-value">${{ $concert->ticket_price }}</span>
-            </div>
-
-            <div class="info-row">
-                <span class="info-label"><i class="fas fa-user"></i> Creator</span>
-                <span class="info-value">{{ $concert->creator->name ?? 'Unknown' }}</span>
-            </div>
-
-            <div class="actions">
-                <a href="{{ route('concerts.edit', $concert) }}" class="btn btn-edit">
-                    <i class="fas fa-edit"></i> Edit Concert
-                </a>
-                <form action="{{ route('admin.concerts.delete', $concert) }}" method="POST" style="flex: 1;" onsubmit="return confirm('Are you sure? This action cannot be undone.');">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-delete" style="width: 100%;">
-                        <i class="fas fa-trash"></i> Delete Concert
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Statistics -->
-    <div class="stats-grid">
-        <div class="stat-item">
-            <div class="label">Total Tickets</div>
-            <div class="value">{{ $concert->total_ticket }}</div>
-        </div>
-        <div class="stat-item">
-            <div class="label">Tickets Sold</div>
-            <div class="value">{{ $concert->orders->count() }}</div>
-        </div>
-        <div class="stat-item">
-            <div class="label">Reviews</div>
-            <div class="value">{{ $concert->reviews->count() }}</div>
-        </div>
-        <div class="stat-item">
-            <div class="label">Favourited By</div>
-            <div class="value">{{ $concert->favouritedBy()->count() }}</div>
-        </div>
-    </div>
-
-    <!-- Description -->
-    <div class="section-card">
-        <h2><i class="fas fa-align-left" style="color: #5BA3C0;"></i> Description</h2>
-        <div class="description">{{ $concert->description }}</div>
-    </div>
-
-    <!-- Seating Areas -->
-    @if($seatingAreas)
-        <div class="section-card">
-            <h2><i class="fas fa-chair" style="color: #5BA3C0;"></i> Seating Areas</h2>
-            <div class="tags">
-                @foreach($seatingAreas as $area)
-                    <span class="tag">{{ $area }}</span>
-                @endforeach
-            </div>
-        </div>
-    @endif
-
-    <!-- Recent Orders -->
-    @if($concert->orders->count() > 0)
-        <div class="section-card">
-            <h2><i class="fas fa-shopping-cart" style="color: #5BA3C0;"></i> Recent Orders (Last 10)</h2>
-            <div style="overflow-x: auto;">
-                <table style="width: 100%; border-collapse: collapse;">
-                    <thead style="background: #f8f9fa;">
-                        <tr>
-                            <th style="padding: 1rem; text-align: left; font-weight: 700; border-bottom: 2px solid #e0e0e0;">Order ID</th>
-                            <th style="padding: 1rem; text-align: left; font-weight: 700; border-bottom: 2px solid #e0e0e0;">Customer</th>
-                            <th style="padding: 1rem; text-align: left; font-weight: 700; border-bottom: 2px solid #e0e0e0;">Quantity</th>
-                            <th style="padding: 1rem; text-align: left; font-weight: 700; border-bottom: 2px solid #e0e0e0;">Total</th>
-                            <th style="padding: 1rem; text-align: left; font-weight: 700; border-bottom: 2px solid #e0e0e0;">Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($concert->orders->take(10) as $order)
-                            <tr style="border-bottom: 1px solid #f0f0f0;">
-                                <td style="padding: 1rem;">#{{ $order->id }}</td>
-                                <td style="padding: 1rem;">{{ $order->user->name ?? 'Unknown' }}</td>
-                                <td style="padding: 1rem;">{{ $order->quantity }}</td>
-                                <td style="padding: 1rem;">${{ $order->total_price }}</td>
-                                <td style="padding: 1rem;">{{ $order->created_at->format('M d, Y') }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    @endif
-
-    <!-- Recent Reviews -->
-    @if($concert->reviews->count() > 0)
-        <div class="section-card">
-            <h2><i class="fas fa-star" style="color: #5BA3C0;"></i> Recent Reviews (Last 5)</h2>
-            @foreach($concert->reviews->take(5) as $review)
-                <div style="margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #f0f0f0;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                        <strong>{{ $review->user->name ?? 'Anonymous' }}</strong>
-                        <span style="color: #B0B0B0;">
-                            @for($i = 0; $i < $review->rating; $i++)
-                                <i class="fas fa-star"></i>
-                            @endfor
-                        </span>
+            <section class="panel">
+                <h2>Ticket types</h2>
+                @foreach($concert->sections as $section)
+                    @php $percent = $section->capacity ? round($section->soldCount() / $section->capacity * 100) : 100; @endphp
+                    <div class="tier-row" style="--swatch: {{ $section->color }}">
+                        <span class="tier-swatch" style="background: {{ $section->color }}"></span>
+                        <div>
+                            <h4>{{ $section->name }}</h4>
+                            <div class="muted">{{ ucfirst($section->type) }} · {{ number_format($section->soldCount()) }} of {{ number_format($section->capacity) }} sold</div>
+                            <div class="meter" aria-hidden="true"><span style="width: {{ $percent }}%"></span></div>
+                        </div>
+                        <span class="price">${{ number_format($section->price, 2) }}</span>
                     </div>
-                    <p style="color: #4a5568; margin: 0;">{{ $review->comment }}</p>
-                    <small style="color: #999;">{{ $review->created_at->format('M d, Y') }}</small>
-                </div>
-            @endforeach
+                @endforeach
+            </section>
+
+            <section class="panel">
+                <h2>Orders</h2>
+                @if($orders->isEmpty())
+                    <p class="muted mb-0">No orders yet.</p>
+                @else
+                    <div class="table-wrap">
+                        <table class="data-table">
+                            <thead><tr><th>Order</th><th>Customer</th><th>Tickets</th><th>Total</th><th>Status</th></tr></thead>
+                            <tbody>
+                                @foreach($orders as $order)
+                                    <tr>
+                                        <td class="mono">{{ $order->reference }}</td>
+                                        <td><a href="{{ route('admin.users.show', $order->user) }}">{{ $order->user->name }}</a></td>
+                                        <td class="mono">{{ $order->quantity }}</td>
+                                        <td class="mono">${{ number_format($order->total_price, 2) }}</td>
+                                        <td><span class="status {{ $order->status === 'cancelled' ? 'status--off' : 'status--ok' }}">{{ $order->status }}</span></td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    {{ $orders->links() }}
+                @endif
+            </section>
         </div>
-    @endif
-</div>
+    </div>
 @endsection

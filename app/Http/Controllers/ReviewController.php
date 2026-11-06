@@ -13,7 +13,7 @@ class ReviewController extends Controller
      */
     public function create(Concert $concert)
     {
-        return view('reviews.create', compact('concert'));
+        return $this->rejectIfNotAllowed($concert) ?? view('reviews.create', compact('concert'));
     }
 
     /**
@@ -21,19 +21,10 @@ class ReviewController extends Controller
      */
     public function store(Request $request, Concert $concert)
     {
-        $validated = $request->validate([
-            'rating' => 'required|integer|min:1|max:5',
-            'comment' => 'required|string|max:1000',
-        ]);
+        $validated = $request->validate($this->rules());
 
-        // Check if user has purchased a ticket for this concert
-        $hasPurchased = auth()->user()->orders()
-            ->where('concert_id', $concert->id)
-            ->where('status', 'confirmed')
-            ->exists();
-
-        if (!$hasPurchased) {
-            return redirect()->back()->with('error', 'You must purchase a ticket to review this concert!');
+        if ($rejection = $this->rejectIfNotAllowed($concert)) {
+            return $rejection;
         }
 
         Review::create([
@@ -64,12 +55,7 @@ class ReviewController extends Controller
     {
         $this->authorize('update', $review);
 
-        $validated = $request->validate([
-            'rating' => 'required|integer|min:1|max:5',
-            'comment' => 'required|string|max:1000',
-        ]);
-
-        $review->update($validated);
+        $review->update($request->validate($this->rules()));
 
         return redirect()->route('concerts.show', $review->concert)->with('success', 'Review updated successfully!');
     }
@@ -84,5 +70,37 @@ class ReviewController extends Controller
         $review->delete();
 
         return redirect()->route('concerts.show', $concert)->with('success', 'Review deleted successfully!');
+    }
+
+    private function rules(): array
+    {
+        return [
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'required|string|max:1000',
+        ];
+    }
+
+    /**
+     * Each buyer gets one review per concert.
+     */
+    private function rejectIfNotAllowed(Concert $concert)
+    {
+        $user = auth()->user();
+
+        $existing = $user->reviews()->where('concert_id', $concert->id)->first();
+        if ($existing) {
+            return redirect()->route('reviews.edit', $existing)->with('error', 'You have already reviewed this concert. You can edit your review here.');
+        }
+
+        $hasPurchased = $user->orders()
+            ->where('concert_id', $concert->id)
+            ->where('status', 'confirmed')
+            ->exists();
+
+        if (! $hasPurchased) {
+            return redirect()->route('concerts.show', $concert)->with('error', 'You must purchase a ticket to review this concert!');
+        }
+
+        return null;
     }
 }
