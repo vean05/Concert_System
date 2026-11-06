@@ -37,4 +37,19 @@ class PaymentCard extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getLastFourAttribute(): string
+    {
+        return substr($this->card_number, -4);
+    }
+
+    /**
+     * Cards added through the form store "visa"/"master"; older rows hold full names.
+     */
+    public function getBrandAttribute(): string
+    {
+        $brands = ['visa' => 'Visa', 'master' => 'Mastercard', 'mastercard' => 'Mastercard'];
+
+        return $brands[strtolower($this->card_type)] ?? $this->card_type;
+    }
 }

@@ -3,45 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Concert;
-use Illuminate\Http\Request;
 
 class FavouriteController extends Controller
 {
     /**
-     * Toggle favourite status for a concert
+     * Show the user's favourite concerts.
      */
-    public function toggle(Request $request, Concert $concert)
+    public function index()
     {
-        $user = auth()->user();
+        $concerts = auth()->user()->favouriteConcerts()->published()->withTicketsSold()->upcomingFirst()->paginate(12);
 
-        if (!$user) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
-        // Check if already favourited
-        if ($user->hasFavourited($concert->id)) {
-            // Remove from favourites
-            $user->favouriteConcerts()->detach($concert->id);
-            return response()->json(['status' => 'unfavourited', 'message' => 'Removed from favourites']);
-        } else {
-            // Add to favourites
-            $user->favouriteConcerts()->attach($concert->id);
-            return response()->json(['status' => 'favourited', 'message' => 'Added to favourites']);
-        }
+        return view('concerts.favourites', compact('concerts'));
     }
 
     /**
-     * Get user's favourite concerts
+     * Toggle favourite status for a concert.
      */
-    public function getFavourites()
+    public function toggle(Concert $concert)
     {
-        $user = auth()->user();
+        $changes = auth()->user()->favouriteConcerts()->toggle($concert->id);
+        $favourited = ! empty($changes['attached']);
 
-        if (!$user) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
-        $favourites = $user->favouriteConcerts()->get();
-        return response()->json($favourites);
+        return response()->json([
+            'status' => $favourited ? 'favourited' : 'unfavourited',
+            'message' => $favourited ? 'Added to favourites' : 'Removed from favourites',
+        ]);
     }
 }

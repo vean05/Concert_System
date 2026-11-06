@@ -1,39 +1,21 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.guest')
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
-        </div>
+@section('title', 'Verify email')
 
-        @if (session('status') == 'verification-link-sent')
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ __('A new verification link has been sent to the email address you provided during registration.') }}
-            </div>
-        @endif
+@section('form')
+    <h1>Verify email</h1>
+    <p class="muted mb-4">Click the link we emailed you to finish signing up. Need another one?</p>
 
-        <div class="mt-4 flex items-center justify-between">
-            <form method="POST" action="{{ route('verification.send') }}">
-                @csrf
+    @if(session('status') === 'verification-link-sent')
+        <div class="alert alert-success">A new verification link has been sent to your email address.</div>
+    @endif
 
-                <div>
-                    <x-button>
-                        {{ __('Resend Verification Email') }}
-                    </x-button>
-                </div>
-            </form>
-
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-
-                <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    {{ __('Log Out') }}
-                </button>
-            </form>
-        </div>
-    </x-auth-card>
-</x-guest-layout>
+    <form method="POST" action="{{ route('verification.send') }}">
+        @csrf
+        <button class="btn btn-accent w-100" type="submit">Resend verification email</button>
+    </form>
+    <form class="mt-2" method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button class="btn btn-ghost w-100" type="submit">Log out</button>
+    </form>
+@endsection

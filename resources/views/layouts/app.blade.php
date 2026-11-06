@@ -1,435 +1,121 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html class="no-js" lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="light">
 <head>
     <meta charset="utf-8">
+    <script>document.documentElement.classList.remove('no-js');</script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'ConcertHub') - Find & Book Concert Tickets</title>
+    <title>@yield('title', 'Find & Book Concert Tickets') · ConcertHub</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Geist:wght@400..700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        :root {
-            --primary: #5BA3C0;
-            --primary-dark: #4A8FA3;
-            --secondary: #7CB5D4;
-            --dark: #1a1a2e;
-            --light: #f5f7fa;
-            --text-dark: #2c3e50;
-            --accent: #6BB6D6;
-        }
-
-        * {
-            font-family: 'Poppins', sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: linear-gradient(135deg, #ffffff 0%, #f0f5f9 50%, #e8f2f8 100%);
-            color: var(--text-dark);
-            overflow-x: hidden;
-            min-height: 100vh;
-            position: relative;
-        }
-
-        /* 背景装饰 - 蓝色柔和背景 */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(91, 163, 192, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(107, 182, 214, 0.05) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        main {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Navbar Styling - 玻璃态效果 */
-        .navbar {
-            background: rgba(255, 255, 255, 0.9) !important;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 4px 20px 0 rgba(31, 38, 135, 0.08);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .navbar-brand {
-            font-size: 1.6rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #5BA3C0 0%, #2c3e50 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.5px;
-        }
-
-        .navbar-nav .nav-link {
-            color: #2c3e50 !important;
-            font-weight: 500;
-            margin: 0 0.8rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-
-        .navbar-nav .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #5BA3C0, #6BB6D6);
-            transition: width 0.3s ease;
-        }
-
-        .navbar-nav .nav-link:hover::after,
-        .navbar-nav .nav-link.active::after {
-            width: 100%;
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: var(--primary) !important;
-            transform: translateY(-2px);
-        }
-
-        /* Alert Messages - 高级效果 */
-        .alert-success {
-            background: rgba(91, 163, 192, 0.1);
-            border: 1px solid rgba(107, 182, 214, 0.3);
-            color: #2c3e50;
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            padding: 1.5rem;
-            font-weight: 500;
-        }
-
-        .alert-danger {
-            background: rgba(220, 120, 120, 0.1);
-            border: 1px solid rgba(200, 100, 100, 0.3);
-            color: #8b3a3a;
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            padding: 1.5rem;
-            font-weight: 500;
-        }
-
-        /* Premium Buttons */
-        .btn {
-            border-radius: 12px;
-            font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: none;
-            text-transform: none;
-            letter-spacing: 0.3px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        /* Primary Button */
-        .btn-primary {
-            background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
-            color: white;
-            box-shadow: 0 8px 24px rgba(91, 163, 192, 0.3);
-            padding: 0.7rem 1.8rem;
-            border-radius: 12px;
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #4A8FA3 0%, #3A7A8A 100%);
-            transform: translateY(-4px);
-            box-shadow: 0 16px 40px rgba(91, 163, 192, 0.45);
-            color: white;
-        }
-
-        .btn-primary:active {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(91, 163, 192, 0.3);
-        }
-
-        /* Auth Buttons - 高级样式 */
-        .btn-auth {
-            border-radius: 12px;
-            font-weight: 600;
-            padding: 0.7rem 1.8rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-login {
-            border: 2px solid rgba(91, 163, 192, 0.5);
-            color: #5BA3C0;
-            background: rgba(107, 182, 214, 0.05);
-            backdrop-filter: blur(10px);
-        }
-
-        .btn-login:hover {
-            background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
-            color: white;
-            border-color: #5BA3C0;
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(91, 163, 192, 0.35);
-        }
-
-        .btn-register {
-            background: rgba(107, 182, 214, 0.15);
-            color: #5BA3C0;
-            border: 2px solid rgba(107, 182, 214, 0.2);
-            backdrop-filter: blur(10px);
-            font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .btn-register:hover {
-            transform: translateY(-4px);
-            background: linear-gradient(135deg, #5BA3C0, #6BB6D6);
-            border-color: rgba(91, 163, 192, 0.5);
-            color: white;
-            box-shadow: 0 8px 24px rgba(91, 163, 192, 0.3);
-        }
-
-        /* Secondary Button */
-        .btn-secondary {
-            background: rgba(100, 116, 139, 0.1);
-            color: #0f172a;
-            border: 1px solid rgba(100, 116, 139, 0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(100, 116, 139, 0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-            color: #0f172a;
-        }
-
-        /* Outline Button */
-        .btn-outline-light {
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            color: white;
-        }
-
-        .btn-outline-light:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-
-        /* Footer - 高级样式 */
-        .footer {
-            background: rgba(30, 30, 40, 0.8);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.8);
-            padding: 4rem 0 2rem;
-            margin-top: 5rem;
-        }
-
-        .footer a {
-            color: var(--accent);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .footer a:hover {
-            color: #4A8FA3;
-            transform: translateX(2px);
-        }
-
-        /* 平滑的过渡效果 */
-        .transition-smooth {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .navbar-brand {
-                font-size: 1.3rem;
-            }
-
-            .btn-auth {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.9rem;
-            }
-
-            .navbar-nav .nav-link {
-                margin: 0.3rem 0;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/theme.css') }}">
+    @stack('head')
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light">
+<body class="@yield('body_class')">
+    @unless(View::hasSection('bare'))
+    <nav class="navbar navbar-expand-lg site-nav" aria-label="Main">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('home') }}">
-                <i class="fas fa-music"></i> ConcertHub
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+            <a class="brand" href="{{ route('home') }}">Concert<span>Hub</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav" aria-controls="siteNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    @if(!auth()->check() || !auth()->user()->is_admin)
+            <div class="collapse navbar-collapse" id="siteNav">
+                <form class="nav-search" action="{{ route('concerts.index') }}" method="GET" role="search">
+                    <i class="fas fa-magnifying-glass"></i>
+                    <input type="search" name="q" value="{{ request()->routeIs('concerts.index') ? request('q') : '' }}" placeholder="Search artists or tours" aria-label="Search artists or tours">
+                </form>
+                <ul class="navbar-nav ms-auto align-items-lg-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('concerts.index') }}">Browse Concerts</a>
+                        <a class="nav-link {{ request()->routeIs('concerts.index', 'concerts.show') ? 'active' : '' }}" href="{{ route('concerts.index') }}">Concerts</a>
                     </li>
-                    @endif
-
                     @auth
-                        @if(!auth()->user()->is_admin)
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('orders.index') }}">My Orders</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('profile.show') }}">Profile</a>
-                        </li>
-                        @endif
-
                         @if(auth()->user()->is_admin)
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.dashboard') }}" style="color: #5BA3C0; font-weight: 600;">
-                                    <i class="fas fa-cogs"></i> Admin
-                                </a>
+                                <a class="nav-link {{ request()->routeIs('admin.*') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">Admin</a>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('orders.index', 'orders.show') ? 'active' : '' }}" href="{{ route('orders.index') }}">My Tickets</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('concerts.favourites') ? 'active' : '' }}" href="{{ route('concerts.favourites') }}">Favourites</a>
                             </li>
                         @endif
-
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
-                                <i class="fas fa-user-circle"></i> {{ Auth::user()->name }}
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ auth()->user()->name }}
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                @if(!auth()->user()->is_admin)
-                                <li><a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a></li>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                @unless(auth()->user()->is_admin)
+                                    <li><a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('payment_cards.index') }}">Payment cards</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('profile.reviews') }}">My reviews</a></li>
+                                @else
+                                    <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Account settings</a></li>
+                                @endunless
                                 <li><hr class="dropdown-divider"></li>
-                                @endif
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
-                                        <button type="submit" class="dropdown-item">Logout</button>
+                                        <button type="submit" class="dropdown-item">Log out</button>
                                     </form>
                                 </li>
                             </ul>
                         </li>
                     @else
-                        <li class="nav-item">
-                            <a class="btn btn-login btn-auth me-2" href="{{ route('login') }}">Sign In</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-register btn-auth" href="{{ route('register') }}">Sign Up</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Sign in</a></li>
+                        <li class="nav-item ms-lg-2"><a class="btn btn-accent btn-sm" href="{{ route('register') }}">Sign up</a></li>
                     @endauth
                 </ul>
             </div>
         </div>
     </nav>
+    @endunless
 
-    <!-- Page Content -->
     <main>
-        @if(session('success'))
-            <div class="container mt-4">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <i class="fas fa-check-circle"></i> {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        @endif
-
-        @if(session('error'))
-            <div class="container mt-4">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
+        @if(session('success') || session('error'))
+            <div class="container pt-3 flash">
+                <div class="alert alert-{{ session('success') ? 'success' : 'danger' }} alert-dismissible fade show mb-0" role="alert">
+                    {{ session('success') ?? session('error') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
         @endif
 
         @yield('content')
+
+        <div class="mini-player" id="miniPlayer" hidden>
+            <img id="miniArt" alt="">
+            <div class="text-truncate">
+                <strong id="miniTitle"></strong>
+                <small id="miniArtist"></small>
+            </div>
+            <a id="miniLink" target="_blank" rel="noopener" aria-label="Open on Apple Music" title="Open on Apple Music"><i class="fab fa-apple"></i></a>
+            <button type="button" id="miniToggle" aria-label="Pause"><i class="fas fa-pause"></i></button>
+            <button type="button" id="miniClose" aria-label="Close player"><i class="fas fa-xmark"></i></button>
+            <div class="mini-player__bar"><i id="miniBar"></i></div>
+        </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row mb-4">
-                <div class="col-md-3 mb-3">
-                    <h5><i class="fas fa-music"></i> ConcertHub</h5>
-                    <p>Your ultimate destination for concert tickets.</p>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <h6>Quick Links</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="{{ route('concerts.index') }}">Browse Concerts</a></li>
-                        <li><a href="{{ route('home') }}">Home</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <h6>Support</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <h6>Follow Us</h6>
-                    <a href="#" class="me-3"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
+    @unless(View::hasSection('bare'))
+        <footer class="site-footer">
+            <div class="container d-flex flex-wrap justify-content-between gap-2">
+                <span>&copy; {{ date('Y') }} ConcertHub</span>
+                <span class="d-flex gap-3">
+                    <a href="{{ route('concerts.index') }}">Browse concerts</a>
+                    <a href="{{ route('credits') }}">Photo credits</a>
+                </span>
             </div>
-            <hr style="border-color: rgba(255,255,255,0.1)">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <p>&copy; 2024 ConcertHub. All rights reserved.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+        </footer>
+    @endunless
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('js/site.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>

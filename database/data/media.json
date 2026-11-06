@@ -1,0 +1,778 @@
+{
+ "artists": {
+  "Taylor Swift": {
+   "photo": "images/artists/taylor-swift.jpg",
+   "credit": {
+    "author": "BrigidLIS",
+    "licence": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_Eras_Tour_London_20240819_1989era.jpg"
+   },
+   "songs": [
+    {
+     "title": "Patient Zero",
+     "album": "The Life of a Showgirl: The Encore",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ec/c8/21/ecc821bd-1252-51fe-08f0-f3d548dcc91b/mzaf_18965391367399255.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a0/dd/fd/a0ddfd72-ee9e-f046-6466-a5dbefc696fa/26UM1IM21436.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/patient-zero/6814997249?i=6814997425&uo=4"
+    },
+    {
+     "title": "I Knew It, I Knew You (From \"Toy Story 5\")",
+     "album": "I Knew It, I Knew You (From \"Toy Story 5\") - Single",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/73/76/42/737642e6-c478-bed7-f11f-efee96072450/mzaf_5163950318414409594.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/34/35/6c/34356cb4-bd0b-3bac-b118-1a6d7264dc64/26UMGIM69942.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/i-knew-it-i-knew-you-from-toy-story-5/6775527442?i=6775527443&uo=4"
+    },
+    {
+     "title": "Blank Space",
+     "album": "1989",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/97/b4/f6/97b4f65f-f334-771c-a4f5-5e7b9b42634f/mzaf_17056874752218225925.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/89/4a/4a/894a4ab9-b0b0-9ea5-ca41-8da0b9b79453/14UMDIM03405.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/blank-space/1440935467?i=1440935808&uo=4"
+    },
+    {
+     "title": "Shake It Off",
+     "album": "1989",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/04/86/32/048632f7-a5c5-0f5d-6213-a9e89c3a99b3/mzaf_8458239339293825693.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/89/4a/4a/894a4ab9-b0b0-9ea5-ca41-8da0b9b79453/14UMDIM03405.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/shake-it-off/1440935467?i=1440936016&uo=4"
+    },
+    {
+     "title": "Cruel Summer",
+     "album": "Lover",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/44/af/81/44af8168-9609-1b85-5048-ada08dceacf3/mzaf_1341699644335558812.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/49/3d/ab/493dab54-f920-9043-6181-80993b8116c9/19UMGIM53909.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/cruel-summer/1468058165?i=1468058171&uo=4"
+    }
+   ],
+   "video": {
+    "title": "Patient Zero",
+    "url": "https://video-ssl.itunes.apple.com/itunes-assets/Video211/v4/ab/95/75/ab957546-ca4e-7cdc-55b0-794f353b965b/mzvf_13314649353253829794.1920w.h264lc.U.p.m4v",
+    "link": "https://music.apple.com/us/music-video/patient-zero/6816241368?uo=4",
+    "poster": "https://is1-ssl.mzstatic.com/image/thumb/Video221/v4/02/21/39/022139aa-083d-21c1-f0b9-cb7dc630dc98/26UM1IM22083.crop.jpg/1200x1200bb.jpg"
+   }
+  },
+  "The Weeknd": {
+   "photo": "images/artists/the-weeknd.jpg",
+   "credit": {
+    "author": "Zakarie Faibis",
+    "licence": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Concert_The_Weeknd_Paris_17.jpg"
+   },
+   "songs": [
+    {
+     "title": "Call Out My Name",
+     "album": "My Dear Melancholy,",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/d1/2f/3d/d12f3d43-a2e2-eba4-8db5-91f3f3c13f5a/mzaf_8470584399239689698.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/2a/aa/b4/2aaab42a-a4cb-a600-4a25-d78961495960/18UMGIM17204.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/call-out-my-name/1363309866?i=1363310482&uo=4"
+    },
+    {
+     "title": "Die For You",
+     "album": "Starboy",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/50/50/1a/50501a86-bd74-e90d-8a56-68c9b5e6e7d6/mzaf_4588197682084244913.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/e2/61/f8/e261f8c1-73db-9a7a-c89e-1068f19970e0/16UMGIM67863.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/die-for-you/1440871397?i=1440872304&uo=4"
+    },
+    {
+     "title": "One Of The Girls",
+     "album": "The Idol Episode 4 (Music from the HBO Original Series) - Single",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/9e/2f/1f/9e2f1f11-20a8-767a-0e33-9029028a7024/mzaf_1603981766065362477.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/db/28/e7/db28e7c3-f53a-76c8-eaa4-d92a22e4f160/23UMGIM72115.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/one-of-the-girls/1693891133?i=1693891139&uo=4"
+    },
+    {
+     "title": "I Feel It Coming (feat. Daft Punk)",
+     "album": "Starboy",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/71/af/e0/71afe07f-aae7-c4f0-db02-c05be07591d2/mzaf_5960554915698764959.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/e2/61/f8/e261f8c1-73db-9a7a-c89e-1068f19970e0/16UMGIM67863.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/i-feel-it-coming-feat-daft-punk/1440871397?i=1440872309&uo=4"
+    },
+    {
+     "title": "Coming Down",
+     "album": "Trilogy",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/d3/19/4a/d3194ac4-730a-b12b-b04f-e95bab0416a4/mzaf_4133956479160019549.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/66/d5/13/66d513dd-3cb0-b86b-4d11-1fbab2e6a639/12UMGIM54989.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/coming-down/1714908584?i=1714908991&uo=4"
+    }
+   ],
+   "video": {
+    "title": "Power is Power [from \"For the Throne\" (Music Inspired by the HBO Series Game of Thrones)]",
+    "url": "https://video-ssl.itunes.apple.com/itunes-assets/Video113/v4/02/e0/fd/02e0fd73-ca00-102e-41a4-14f3035c2a42/mzvf_8025002074179610450.1920w.h264lc.U.p.m4v",
+    "link": "https://music.apple.com/us/music-video/power-is-power-from-for-the-throne-music-inspired-by/1462491062?uo=4",
+    "poster": "https://is1-ssl.mzstatic.com/image/thumb/Video123/v4/ef/df/31/efdf31bb-f381-a098-271a-308496f648d9/8864476924930101VIC.jpg/1200x1200bb.jpg"
+   }
+  },
+  "Beyoncé": {
+   "photo": "images/artists/beyonce.jpg",
+   "credit": {
+    "author": "Raph_PH",
+    "licence": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Beyonc%C3%A9_performing_%22America_Has_a_Problem%22_-_Tottenham_Hotspur_Stadium_-_1st_June_2023_(100_of_118)_(52945300587)_(cropped).jpg"
+   },
+   "songs": [
+    {
+     "title": "Crazy In Love Medley (Audio from The Beyonce Experience Live)",
+     "album": "The Beyonce Experience Live Audio",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/de/fc/1f/defc1f13-1669-2d7d-64d4-12f8d1028704/mzaf_15005786328249338294.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Features/1f/77/2a/dj.dinppgrw.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/crazy-in-love-medley-audio-from-the-beyonce-experience-live/268305666?i=268305685&uo=4"
+    },
+    {
+     "title": "Dangerously In Love Medley (Audio from The Beyonce Experience Live)",
+     "album": "The Beyonce Experience Live Audio",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f8/c1/e4/f8c1e43d-c27b-29bd-2372-13c731130804/mzaf_1925918846146790104.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Features/1f/77/2a/dj.dinppgrw.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/dangerously-in-love-medley-audio-from-the-beyonce/268305666?i=268305797&uo=4"
+    },
+    {
+     "title": "Get Me Bodied (Audio from The Beyonce Experience Live)",
+     "album": "The Beyonce Experience Live Audio",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/25/9e/58/259e5815-084f-281d-bf73-777951d2fa7a/mzaf_16946743426140685544.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Features/1f/77/2a/dj.dinppgrw.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/get-me-bodied-audio-from-the-beyonce-experience-live/268305666?i=268306326&uo=4"
+    },
+    {
+     "title": "Beautiful Liar (Audio from The Beyonce Experience Live)",
+     "album": "The Beyonce Experience Live Audio",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/03/06/28/030628bb-2558-6b87-6b52-ff0a2279d021/mzaf_1410888992425422017.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Features/1f/77/2a/dj.dinppgrw.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/beautiful-liar-audio-from-the-beyonce-experience-live/268305666?i=268305757&uo=4"
+    },
+    {
+     "title": "Upgrade U (Audio from The Beyonce Experience Live)",
+     "album": "The Beyonce Experience Live Audio",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/95/40/3b/95403b8a-3dca-28b1-c551-d6c12f6c7b28/mzaf_2871386536958267942.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Features/1f/77/2a/dj.dinppgrw.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/upgrade-u-audio-from-the-beyonce-experience-live/268305666?i=268306226&uo=4"
+    }
+   ],
+   "video": {
+    "title": "Haunted",
+    "url": "https://video-ssl.itunes.apple.com/itunes-assets/Video221/v4/fd/7b/4c/fd7b4c09-7aa4-8ab8-94b4-372cd551ee33/mzvf_16353146814964094958.1920w.h264lc.U.p.m4v",
+    "link": "https://music.apple.com/us/music-video/haunted/939778224?uo=4",
+    "poster": "https://is1-ssl.mzstatic.com/image/thumb/Video6/v4/6d/b2/14/6db2147f-01b3-b360-9bce-b5bb3777e849/dj.bseioxuh.jpg/1200x1200bb.jpg"
+   }
+  },
+  "Coldplay": {
+   "photo": "images/artists/coldplay.jpg",
+   "credit": {
+    "author": "El Sombrerero",
+    "licence": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Coldplay_at_Mexico_City_2022_02.jpg"
+   },
+   "songs": [
+    {
+     "title": "Yellow",
+     "album": "Parachutes",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/66/f3/1a/66f31a76-a6ed-cb4c-f353-23310a7ae9a8/mzaf_10593596652344378873.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f5/93/8c/f5938c49-964c-31d1-4b33-78b634f71fb7/190295978075.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/yellow/1122782080?i=1122782283&uo=4"
+    },
+    {
+     "title": "Viva La Vida",
+     "album": "Viva La Vida or Death and All His Friends",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/a3/30/8e/a3308eed-d8b7-e0b3-f09d-5e1b0f4d660a/mzaf_8517946447501075134.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/52/aa/85/52aa851f-15b7-6322-f91f-df84b15b7b19/190295978044.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/viva-la-vida/1122773394?i=1122773680&uo=4"
+    },
+    {
+     "title": "A Sky Full of Stars",
+     "album": "Ghost Stories",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f1/24/d0/f124d058-5d43-73ca-79e4-36f5eb42b172/mzaf_12358370529108063354.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/60/90/ad/6090adc3-8863-861d-afcc-23c55c6fe5da/dj.vmtulfyu.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/a-sky-full-of-stars/829909653?i=829910927&uo=4"
+    },
+    {
+     "title": "The Scientist",
+     "album": "A Rush of Blood to the Head",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ae/a6/27/aea62715-e6ae-9562-ba81-1f969a2ee2fa/mzaf_9054259057357054559.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/b9/b4/2a/b9b42ad1-1e25-5096-da43-497a247e69a3/190295978051.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/the-scientist/1122775993?i=1122776155&uo=4"
+    },
+    {
+     "title": "Sparks",
+     "album": "Parachutes",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/47/db/ce/47dbce82-d89c-0897-0da7-26d06ae7e2f2/mzaf_14852507599380441353.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f5/93/8c/f5938c49-964c-31d1-4b33-78b634f71fb7/190295978075.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/sparks/1122782080?i=1122782281&uo=4"
+    }
+   ],
+   "video": {
+    "title": "Higher Power",
+    "url": "https://video-ssl.itunes.apple.com/itunes-assets/Video115/v4/1b/ed/10/1bed1099-ed35-f171-4e3f-07489e1625ac/mzvf_6086100250194712584.1920w.h264lc.U.p.m4v",
+    "link": "https://music.apple.com/us/music-video/higher-power/1570815724?uo=4",
+    "poster": "https://is1-ssl.mzstatic.com/image/thumb/Video115/v4/5d/98/3f/5d983f30-afea-d18e-5d99-70127144aaae/GB0402100187.sca1.jpg/1200x1200bb.jpg"
+   }
+  },
+  "Drake": {
+   "photo": "images/artists/drake.jpg",
+   "credit": {
+    "author": "musicisentropy",
+    "licence": "CC BY-SA 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Drake_-_4972204415.jpg"
+   },
+   "songs": [
+    {
+     "title": "Stars Align (with Drake)",
+     "album": "Wildest Dreams",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c2/50/e3/c250e342-8f7c-2f61-dcc4-421a780d4515/mzaf_3179377620335584429.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/67/da/5f/67da5fd2-0862-6f53-b4ac-5757e3482f8b/93624875062.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/stars-align-with-drake/6827331403?i=6827331511&uo=4"
+    },
+    {
+     "title": "Hotline Bling",
+     "album": "Views",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d2/5f/ae/d25fae64-d2de-c08c-0871-aa0e8058488e/mzaf_5642600211656366929.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/95/f5/87/95f587f7-21c3-d5f9-d81a-4350f9caa020/16UMGIM27643.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/hotline-bling/1440842556?i=1440843974&uo=4"
+    },
+    {
+     "title": "Finesse",
+     "album": "Scorpion",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/44/53/68/4453680c-94f1-5f97-bcb9-8147f2cb56b0/mzaf_4259939450411566361.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/1f/37/43/1f374304-2e04-2be3-53ea-41dd6f0b6fb8/00602567892410.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/finesse/1418213110?i=1418213392&uo=4"
+    },
+    {
+     "title": "One Dance (feat. Wizkid & Kyla)",
+     "album": "Views",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/99/c9/02/99c90261-eee2-f9a5-f143-7496dca1583b/mzaf_3576977620384404770.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/f2/0d/8b/f20d8bff-a927-ae98-6784-20a1f51cb23e/16UMGIM27642.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/one-dance-feat-wizkid-kyla/1440841363?i=1440841384&uo=4"
+    },
+    {
+     "title": "Hold On, We're Going Home (feat. Majid Jordan)",
+     "album": "Nothing Was the Same (Deluxe)",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/6a/29/77/6a29774b-1cde-2a24-c9a7-7b69c5dff602/mzaf_13454693018547391187.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/51/61/f3/5161f3c4-2292-f035-eb68-6f95bbc9edd6/00602537542338.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/hold-on-were-going-home-feat-majid-jordan/1440829462?i=1440829630&uo=4"
+    }
+   ],
+   "video": {
+    "title": "Moment 4 Life (feat. Drake)",
+    "url": "https://video-ssl.itunes.apple.com/itunes-assets/Video112/v4/e6/c1/a2/e6c1a273-a540-0b53-40d4-71fd906ef852/mzvf_9367493778306313864.1920w.h264lc.U.p.m4v",
+    "link": "https://music.apple.com/us/music-video/moment-4-life-feat-drake/1446741240?uo=4",
+    "poster": "https://is1-ssl.mzstatic.com/image/thumb/Video122/v4/81/6d/d4/816dd403-0142-b995-3909-2c5b429ffb4e/dj.hloxqadb.jpg/1200x1200bb.jpg"
+   }
+  },
+  "Ed Sheeran": {
+   "photo": "images/artists/ed-sheeran.jpg",
+   "credit": {
+    "author": "Oviyach",
+    "licence": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Ed_Sheeran_Concert,_Bangalore,_February_2025.jpg"
+   },
+   "songs": [
+    {
+     "title": "Perfect",
+     "album": "÷ (Deluxe)",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c7/ba/bc/c7babc66-f598-aaa6-bcf6-307281795817/mzaf_16337361235117168274.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/15/e6/e8/15e6e8a4-4190-6a8b-86c3-ab4a51b88288/190295851286.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/perfect/1193701079?i=1193701400&uo=4"
+    },
+    {
+     "title": "Thinking Out Loud",
+     "album": "x (Wembley Edition)",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/78/a5/f2/78a5f25e-ad1b-718d-82ad-b82e676c1855/mzaf_6133970271589343093.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/2d/36/f9/2d36f9a7-2c3e-ce0f-7fb6-036feecb221f/825646974450.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/thinking-out-loud/1050204616?i=1050204631&uo=4"
+    },
+    {
+     "title": "Shape of You",
+     "album": "÷ (Deluxe)",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/44/c7/4f/44c74f0d-72dc-6143-d4d0-ba14d661ca0d/mzaf_9566898362556366703.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/15/e6/e8/15e6e8a4-4190-6a8b-86c3-ab4a51b88288/190295851286.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/shape-of-you/1193701079?i=1193701392&uo=4"
+    },
+    {
+     "title": "Shivers",
+     "album": "=",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a8/9f/a5/a89fa5e9-8a3b-77bb-e081-866067d3f213/mzaf_13889707114574366771.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/c5/d8/c6/c5d8c675-63e3-6632-33db-2401eabe574d/190296491412.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/shivers/1581087024?i=1581087034&uo=4"
+    },
+    {
+     "title": "Photograph",
+     "album": "x (Wembley Edition)",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/11/4f/6a/114f6ad0-165c-1e3c-8fbd-df4707d7ae26/mzaf_12480083080052535279.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/2d/36/f9/2d36f9a7-2c3e-ce0f-7fb6-036feecb221f/825646974450.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/photograph/1050204616?i=1050204626&uo=4"
+    }
+   ],
+   "video": {
+    "title": "2step (feat. Lil Baby)",
+    "url": "https://video-ssl.itunes.apple.com/itunes-assets/Video126/v4/5a/ae/37/5aae374d-4f91-19b3-f860-4e753c4e925c/mzvf_12497670035001274406.1920w.h264lc.U.p.m4v",
+    "link": "https://music.apple.com/us/music-video/2step-feat-lil-baby/1620418657?uo=4",
+    "poster": "https://is1-ssl.mzstatic.com/image/thumb/Video116/v4/7f/10/68/7f106801-2916-216e-69be-34990a7ba0e6/GB1302200436.sca1.jpg/1200x1200bb.jpg"
+   }
+  },
+  "Billie Eilish": {
+   "photo": "images/artists/billie-eilish.jpg",
+   "credit": {
+    "author": "Justin Higuchi",
+    "licence": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:ALTer_EGO_1_18_2020_(50740921802).jpg"
+   },
+   "songs": [
+    {
+     "title": "ocean eyes",
+     "album": "dont smile at me",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d6/59/2b/d6592b0b-1e7e-4743-b2e4-f2af038fd783/mzaf_7697277787797935735.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/02/1d/30/021d3036-5503-3ed3-df00-882f2833a6ae/17UM1IM17026.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/ocean-eyes/1440898929?i=1440899467&uo=4"
+    },
+    {
+     "title": "WILDFLOWER",
+     "album": "HIT ME HARD AND SOFT",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/de/c3/e8/dec3e884-7237-9622-718a-12c5f48c5ca2/mzaf_3134455671785145822.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/92/9f/69/929f69f1-9977-3a44-d674-11f70c852d1b/24UMGIM36186.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/wildflower/1739659134?i=1739659144&uo=4"
+    },
+    {
+     "title": "BIRDS OF A FEATHER",
+     "album": "HIT ME HARD AND SOFT",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/34/31/d3/3431d34e-847f-5d66-df83-0bce688d997e/mzaf_18106743962423782018.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/92/9f/69/929f69f1-9977-3a44-d674-11f70c852d1b/24UMGIM36186.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/birds-of-a-feather/1739659134?i=1739659142&uo=4"
+    },
+    {
+     "title": "lovely",
+     "album": "lovely - Single",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/1e/d8/8d/1ed88d91-fb06-b3f2-5391-afd732cc2ff9/mzaf_18444937225262929488.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/27/94/d4/2794d4fc-c3e2-2373-3e6c-dd82fd5aefe6/18UMGIM18200.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/lovely/1369379667?i=1369380479&uo=4"
+    },
+    {
+     "title": "bad guy",
+     "album": "WHEN WE ALL FALL ASLEEP, WHERE DO WE GO?",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c3/87/1f/c3871f7e-3260-d615-1c66-5fdca2c3a48f/mzaf_10721331211699880949.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/1a/37/d1/1a37d1b1-8508-54f2-f541-bf4e437dda76/19UMGIM05028.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/bad-guy/1450695723?i=1450695739&uo=4"
+    }
+   ],
+   "video": {
+    "title": "BIRDS OF A FEATHER",
+    "url": "https://video-ssl.itunes.apple.com/itunes-assets/Video221/v4/e8/34/01/e8340152-73b6-5c11-c6ef-405ff5dc89dc/mzvf_11799190641333883992.1920w.h264lc.U.p.m4v",
+    "link": "https://music.apple.com/us/music-video/birds-of-a-feather/1770887795?uo=4",
+    "poster": "https://is1-ssl.mzstatic.com/image/thumb/Video221/v4/9c/2a/6e/9c2a6e4d-1d26-d329-43d2-e039310c392d/24UMGIM80878.crop.jpg/1200x1200bb.jpg"
+   }
+  },
+  "Ariana Grande": {
+   "photo": "images/artists/ariana-grande.jpg",
+   "credit": {
+    "author": "Pure DOPE Magazine",
+    "licence": "CC BY 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Ariana_Grande_%26_Nicki_Minaj_concert_2016_2.jpg"
+   },
+   "songs": [
+    {
+     "title": "hate that i made you love me",
+     "album": "petal",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/cd/fb/65/cdfb65fe-7d80-abde-0153-d698d1e7bde1/mzaf_14991009929085569283.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/56/f4/96/56f49612-02dd-83f4-44fe-d2118cc70707/26UMGIM51129.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/hate-that-i-made-you-love-me/1895420874?i=6763656725&uo=4"
+    },
+    {
+     "title": "Love Me Harder",
+     "album": "My Everything (Bonus Tracks Edition)",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/d1/e6/a7/d1e6a783-c41d-f5db-9a66-dc32cf1b0397/mzaf_8578862161573166847.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/a5/39/86/a5398609-ad90-50d3-57ad-0f87a4df5ac4/14UMGIM28138.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/love-me-harder/1440852353?i=1440852992&uo=4"
+    },
+    {
+     "title": "The Way (feat. Mac Miller)",
+     "album": "Yours Truly",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/18/b8/8b/18b88b56-a599-4008-48b0-d23208039bb2/mzaf_69140473977489374.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/0a/19/23/0a19235d-8bcc-76d4-58ca-61a65d928587/13UAAIM68293.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/the-way-feat-mac-miller/1440860819?i=1440861225&uo=4"
+    },
+    {
+     "title": "we can't be friends (wait for your love)",
+     "album": "eternal sunshine",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ca/c3/94/cac39418-a873-d7d2-fb21-8820e9862594/mzaf_16443570300164696374.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/34/fe/a1/34fea184-6d20-3f50-b4ce-5e1501c1c5ab/24UMGIM00198.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/we-cant-be-friends-wait-for-your-love/1725877944?i=1725878242&uo=4"
+    },
+    {
+     "title": "One Last Time",
+     "album": "My Everything (Bonus Tracks Edition)",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f6/c8/85/f6c88585-c5a4-1499-7b85-838e22ce7d1a/mzaf_10594422595674150015.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/a5/39/86/a5398609-ad90-50d3-57ad-0f87a4df5ac4/14UMGIM28138.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/one-last-time/1440852353?i=1440852679&uo=4"
+    }
+   ],
+   "video": {
+    "title": "Save Your Tears (Main)",
+    "url": "https://video-ssl.itunes.apple.com/itunes-assets/Video126/v4/29/18/ff/2918ff05-1a1e-f2e5-568b-ec36721d3d81/mzvf_3547631354101689958.1920w.h264lc.U.p.m4v",
+    "link": "https://music.apple.com/us/music-video/save-your-tears-main-remix/1564340447?uo=4",
+    "poster": "https://is1-ssl.mzstatic.com/image/thumb/Video115/v4/f6/61/67/f6616710-f01b-cd12-15fc-00371160410e/21UMGIM35090.crop.jpg/1200x1200bb.jpg"
+   }
+  },
+  "Dua Lipa": {
+   "photo": "images/artists/dua-lipa.jpg",
+   "credit": {
+    "author": "ManoSolo13241324",
+    "licence": "CC0",
+    "source": "https://commons.wikimedia.org/wiki/File:Dua_Lipa_2025_2.jpg"
+   },
+   "songs": [
+    {
+     "title": "Levitating",
+     "album": "Future Nostalgia",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/59/dc/4d/59dc4dda-93ff-8f1c-c536-f005f6ea6af5/mzaf_3066686759813252385.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/6c/11/d6/6c11d681-aa3a-d59e-4c2e-f77e181026ab/190295092665.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/levitating/1538003494?i=1538003843&uo=4"
+    },
+    {
+     "title": "New Rules",
+     "album": "Dua Lipa (Deluxe)",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/6e/19/d9/6e19d9ca-1321-1eea-e797-51d7ab5b56c2/mzaf_5898999508314966855.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/c1/54/2d/c1542d45-c6c2-12ca-7308-6eacd762c562/190295807870.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/new-rules/1228739599?i=1228739609&uo=4"
+    },
+    {
+     "title": "Training Season",
+     "album": "Training Season's Over - EP",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d6/63/1f/d6631f86-e398-802f-470f-c3a1027759e4/mzaf_10400648329472023183.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/1d/86/2d1d8629-34d0-f8f6-ffe8-2eca20741d33/1200214922771.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/training-season/6805877220?i=6805877227&uo=4"
+    },
+    {
+     "title": "Dance The Night",
+     "album": "Barbie The Album",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/9d/9f/56/9d9f566f-abf6-5f10-bcdb-09e14dcace42/mzaf_10277018989080903908.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/c0/54/97/c05497aa-c19f-bf4f-de29-71edf30fbefb/075679688767.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/dance-the-night/1689238301?i=1689238922&uo=4"
+    },
+    {
+     "title": "Don't Start Now",
+     "album": "Don't Start Now - Single",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/24/3d/34/243d3413-a0fc-b229-f54a-1715ebd3a9ca/mzaf_11578996572221800393.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/41/ee/66/41ee66fa-f8dd-7e82-155a-3a1b360dc562/190295322175.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/dont-start-now/1484636581?i=1484636829&uo=4"
+    }
+   ],
+   "video": {
+    "title": "Levitating (feat. DaBaby)",
+    "url": "https://video-ssl.itunes.apple.com/itunes-assets/Video124/v4/82/73/05/82730556-6dc6-86a0-04ce-61ef9d7546c0/mzvf_10894758220765802568.1920w.h264lc.U.p.m4v",
+    "link": "https://music.apple.com/us/music-video/levitating-feat-dababy/1534312182?uo=4",
+    "poster": "https://is1-ssl.mzstatic.com/image/thumb/Video114/v4/18/f2/fc/18f2fc67-dc55-3b61-fe4f-c384bf08c53b/GB1302000726.sca1.jpg/1200x1200bb.jpg"
+   }
+  },
+  "Jay Chou": {
+   "photo": "images/artists/jay-chou.jpg",
+   "credit": {
+    "author": "Fashion123v",
+    "licence": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:2013%E5%B9%B47.27%E6%91%A9%E5%A4%A9%E8%BD%AE%E5%91%A8%E6%9D%B0%E4%BC%A6%E5%A4%A9%E6%B4%A5%E6%BC%94%E5%94%B1%E4%BC%9A.JPG"
+   },
+   "songs": [
+    {
+     "title": "祝我生日快樂 (無與倫比演唱會對唱版)",
+     "album": "愛回溫 新歌+精選",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/58/23/84/5823849b-53df-98d6-e7ea-324cdebf06e4/mzaf_7527888206281385923.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/56/60/a8/5660a842-a60f-f4b1-f3ce-b347b9e97e75/dj.vlstgdwl.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/%E7%A5%9D%E6%88%91%E7%94%9F%E6%97%A5%E5%BF%AB%E6%A8%82-%E7%84%A1%E8%88%87%E5%80%AB%E6%AF%94%E6%BC%94%E5%94%B1%E6%9C%83%E5%B0%8D%E5%94%B1%E7%89%88/1441632847?i=1441633011&uo=4"
+    },
+    {
+     "title": "屋頂",
+     "album": "有點野",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/8f/97/19/8f971911-e256-16de-890d-621daf0b1080/mzaf_2454743524119682784.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/7b/fc/93/7bfc934c-ed45-176f-d666-a76da4ba4117/COVER.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/%E5%B1%8B%E9%A0%82/1441626579?i=1441626752&uo=4"
+    },
+    {
+     "title": "抱一抱 (Live版伴奏)",
+     "album": "声生不息港乐季 (第一期 Live)",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e7/e6/a7/e7e6a72e-9481-24b7-3380-4d2263d5dfdd/mzaf_17810636716546587738.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/ce/e8/3d/cee83da9-90d2-4d88-bb57-f3146954593e/cover.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/%E6%8A%B1%E4%B8%80%E6%8A%B1-live%E7%89%88%E4%BC%B4%E5%A5%8F/1673636989?i=1673638428&uo=4"
+    },
+    {
+     "title": "千里之外 (Live)",
+     "album": "中国新歌声 第7期",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/50/5e/0f/505e0fb5-8a11-b565-dd70-f751b98a0843/mzaf_594043236819269693.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/ab/d8/e9/abd8e9d2-29c4-2158-f6b1-aeaca34cfa70/001n89ox4Zha9q_T8Gl4djGcuDd9hcUEgOr5H1.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/%E5%8D%83%E9%87%8C%E4%B9%8B%E5%A4%96-live/1601697286?i=1601697299&uo=4"
+    },
+    {
+     "title": "告白气球 (Live)",
+     "album": "中国新歌声第二季 第14期 (Live)",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/17/ec/91/17ec9102-75b9-aafb-c8b2-18b8938f8cf5/mzaf_10202833977558571235.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/68/3d/a3/683da3a6-1005-d44f-e1cd-f74e43e60c64/4710586655933.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/%E5%91%8A%E7%99%BD%E6%B0%94%E7%90%83-live/1626298192?i=1626298197&uo=4"
+    }
+   ],
+   "video": {
+    "title": "Greatest Works of Art",
+    "url": "https://video-ssl.itunes.apple.com/itunes-assets/Video116/v4/f6/1b/72/f61b7252-47c9-2ed9-b936-c144da275a70/mzvf_992409534382465800.1920w.h264lc.U.p.m4v",
+    "link": "https://music.apple.com/us/music-video/greatest-works-of-art/1726905177?uo=4",
+    "poster": "https://is1-ssl.mzstatic.com/image/thumb/Video126/v4/01/f8/46/01f846cb-cac8-c363-a8c2-30f212204357/23UM1IM68172.crop.jpg/1200x1200bb.jpg"
+   }
+  },
+  "Calvin Harris": {
+   "photo": "images/artists/calvin-harris.jpg",
+   "credit": {
+    "author": "Carlos Delgado",
+    "licence": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Calvin_Harris_-_Rock_in_Rio_Madrid_2012_-_12.jpg"
+   },
+   "songs": [
+    {
+     "title": "Feel So Close (Radio Edit)",
+     "album": "18 Months",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/98/dd/64/98dd6479-1897-c0de-00a8-083853b68650/mzaf_4134237101880966720.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/ab/af/22/abaf2296-ed4d-6da2-c24d-503cfdfa4c1f/0617465356858.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/feel-so-close-radio-edit/1713469222?i=1713469225&uo=4"
+    },
+    {
+     "title": "Sweet Nothing (feat. Florence Welch)",
+     "album": "18 Months",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/7c/4f/29/7c4f29d9-dd3d-a8d7-c94c-f539483af020/mzaf_10783552103505495188.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/ab/af/22/abaf2296-ed4d-6da2-c24d-503cfdfa4c1f/0617465356858.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/sweet-nothing-feat-florence-welch/1713469222?i=1713469232&uo=4"
+    },
+    {
+     "title": "Summer",
+     "album": "Motion",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c3/32/f1/c332f138-aa3c-52b8-c414-e85111b58bf5/mzaf_12226515580236242706.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/da/50/cc/da50cc80-3515-a38d-369b-0d700ffd249d/886444820448.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/summer/922876176?i=922876189&uo=4"
+    },
+    {
+     "title": "How Deep Is Your Love",
+     "album": "How Deep Is Your Love - Single",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/18/5f/ac/185fac75-50f2-9369-e00e-a901d8eef571/mzaf_2487812233239225711.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/04/5c/85/045c85d9-94cb-a9c7-f39b-aa5b7e803c04/dj.dkdebfmh.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/how-deep-is-your-love/1001677304?i=1001677305&uo=4"
+    },
+    {
+     "title": "Outside (feat. Ellie Goulding)",
+     "album": "Motion",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/82/9b/ad/829bad2c-bc33-019d-4efc-542fbb1c5a63/mzaf_18088172290124678789.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/da/50/cc/da50cc80-3515-a38d-369b-0d700ffd249d/886444820448.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/outside-feat-ellie-goulding/922876176?i=922876187&uo=4"
+    }
+   ],
+   "video": {
+    "title": "One Kiss",
+    "url": "https://video-ssl.itunes.apple.com/itunes-assets/Video118/v4/06/bd/f7/06bdf7ce-88af-b25e-90d6-12e1445a8074/mzvf_526711567092368802.1920w.h264lc.U.p.m4v",
+    "link": "https://music.apple.com/us/music-video/one-kiss/1378223162?uo=4",
+    "poster": "https://is1-ssl.mzstatic.com/image/thumb/Video128/v4/36/98/84/369884cb-6e7e-496c-2846-f5f5794cbcdd/dj.engoglnv.jpg/1200x1200bb.jpg"
+   }
+  },
+  "Arctic Monkeys": {
+   "photo": "images/artists/arctic-monkeys.jpg",
+   "credit": {
+    "author": "Bill Ebbesen",
+    "licence": "CC BY 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Arctic_Monkeys_-_Orange_Stage_-_Roskilde_Festival_2014.jpg"
+   },
+   "songs": [
+    {
+     "title": "Do I Wanna Know?",
+     "album": "AM",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/71/cb/ba/71cbbaa1-016b-0e73-dfc2-9f4ede9ddfc0/mzaf_16266777024198047150.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/69/9c/b5/699cb5d6-115c-ff73-9d26-e57ea4350d72/887828031795.png/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/do-i-wanna-know/663097964?i=663097965&uo=4"
+    },
+    {
+     "title": "505",
+     "album": "Favourite Worst Nightmare",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d1/0d/ab/d10dabc8-cceb-e718-401f-01516b009460/mzaf_13845311225859403599.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/82/90/14/829014ad-a301-62ab-bee6-f4cca4457411/mzi.hozudery.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/505/251499221?i=251499791&uo=4"
+    },
+    {
+     "title": "I Wanna Be Yours",
+     "album": "AM",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/8b/0c/df/8b0cdfe6-f619-1ab0-366a-73be84c04dec/mzaf_14055369509528206797.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/69/9c/b5/699cb5d6-115c-ff73-9d26-e57ea4350d72/887828031795.png/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/i-wanna-be-yours/663097964?i=663098065&uo=4"
+    },
+    {
+     "title": "Why'd You Only Call Me When You're High?",
+     "album": "AM",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/82/0a/62/820a62a1-a210-6c6d-6a3f-ec39294b32a4/mzaf_12218643389409810677.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/69/9c/b5/699cb5d6-115c-ff73-9d26-e57ea4350d72/887828031795.png/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/whyd-you-only-call-me-when-youre-high/663097964?i=663098056&uo=4"
+    },
+    {
+     "title": "R U Mine?",
+     "album": "AM",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/6f/80/9f/6f809f2b-b960-90c1-f618-4e1d1fec11fa/mzaf_3957424487272184184.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/69/9c/b5/699cb5d6-115c-ff73-9d26-e57ea4350d72/887828031795.png/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/r-u-mine/663097964?i=663097966&uo=4"
+    }
+   ],
+   "video": {
+    "title": "Body Paint",
+    "url": "https://video-ssl.itunes.apple.com/itunes-assets/Video112/v4/bf/db/f9/bfdbf95d-a1cd-e897-293b-f16c266b8fad/mzvf_2892840790480931799.1920w.h264lc.U.p.m4v",
+    "link": "https://music.apple.com/us/music-video/body-paint/1647590632?uo=4",
+    "poster": "https://is1-ssl.mzstatic.com/image/thumb/Video122/v4/86/3a/5d/863a5d02-7089-f06d-0a63-11b2db6b6f59/814271025057_GBA322200207.jpg/1200x1200bb.jpg"
+   }
+  },
+  "Tame Impala": {
+   "photo": "images/artists/tame-impala.jpg",
+   "credit": {
+    "author": "Abby Gillardi",
+    "licence": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Tame_Impala-3760_(18222291464).jpg"
+   },
+   "songs": [
+    {
+     "title": "Let It Happen",
+     "album": "Currents",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/77/68/1f/77681ffc-56e6-813c-e1bc-d94a9b5893c1/mzaf_570579359857462588.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/a8/2e/b4/a82eb490-f30a-a321-461a-0383c88fec95/15UMGIM23316.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/let-it-happen/1440838039?i=1440838060&uo=4"
+    },
+    {
+     "title": "Borderline",
+     "album": "The Slow Rush",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e5/b6/05/e5b605d9-5a44-e981-d9be-2c434cb61de4/mzaf_16402977899153564031.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/65/e3/e7/65e3e740-b69f-f5cb-f2e6-7dedb5265ac9/19UMGIM96748.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/borderline/1497230760?i=1497230972&uo=4"
+    },
+    {
+     "title": "New Person, Same Old Mistakes",
+     "album": "Currents",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/55/9b/44/559b443e-06b6-bc62-f3f7-5f21a37971b0/mzaf_16483469776306833254.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/a8/2e/b4/a82eb490-f30a-a321-461a-0383c88fec95/15UMGIM23316.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/new-person-same-old-mistakes/1440838039?i=1440838708&uo=4"
+    },
+    {
+     "title": "Flower In A Hurricane [From GTAVI: Original Score]",
+     "album": "Grand Theft Auto VI: Original Score",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/90/45/f3/9045f3ba-0596-f413-63e7-e8c81d46f5a1/mzaf_4139139643336062905.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a0/6d/08/a06d082b-9322-3ede-f6aa-fe3e7b9b386f/5056556188568_cover.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/flower-in-a-hurricane-from-gtavi-original-score/6827656134?i=6827658231&uo=4"
+    },
+    {
+     "title": "Eventually",
+     "album": "Currents",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b5/3d/94/b53d94cc-50ce-f392-3084-d2959d0fa5bd/mzaf_6442612610758366337.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/a8/2e/b4/a82eb490-f30a-a321-461a-0383c88fec95/15UMGIM23316.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/eventually/1440838039?i=1440838298&uo=4"
+    }
+   ],
+   "video": {
+    "title": "Half Full Glass Of Wine",
+    "url": "https://video-ssl.itunes.apple.com/itunes-assets/Video113/v4/e1/a8/12/e1a81296-19cd-e4ba-601d-c285a1268ee4/mzvf_3054215689975321407.720w.h264lc.U.p.m4v",
+    "link": "https://music.apple.com/us/music-video/half-full-glass-of-wine/1467221039?uo=4",
+    "poster": "https://is1-ssl.mzstatic.com/image/thumb/Video113/v4/7e/b6/76/7eb6763e-87f8-f0b7-0aac-7021a5a4d93a/19UMGIM41407_.crop.jpg/1200x1200bb.jpg"
+   }
+  },
+  "Norah Jones": {
+   "photo": "images/artists/norah-jones.jpg",
+   "credit": {
+    "author": "Jeroen Breeschoten",
+    "licence": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Norah_Jones_2_(North_Sea_Jazz_09-07-2010).jpg"
+   },
+   "songs": [
+    {
+     "title": "Don't Know Why",
+     "album": "Come Away with Me (Remastered)",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ec/40/1b/ec401b94-f065-e718-5594-ba454534e9fb/mzaf_5073922107001451440.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/a0/a0/8d/a0a08df2-390b-ad05-0d32-6673bcf7a2a9/13UABIM02784.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/dont-know-why/1624173298?i=1624173757&uo=4"
+    },
+    {
+     "title": "Come Away with Me",
+     "album": "Come Away with Me (Remastered)",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/9d/a3/e0/9da3e061-4232-d2b1-ff70-754629f37bef/mzaf_8831322408586665295.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/a0/a0/8d/a0a08df2-390b-ad05-0d32-6673bcf7a2a9/13UABIM02784.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/come-away-with-me/1624173298?i=1624174098&uo=4"
+    },
+    {
+     "title": "Sunrise",
+     "album": "Feels Like Home",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/2d/50/49/2d5049cd-24d9-73a9-b0f2-2a69cfec5337/mzaf_10789591133834750192.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/16/bf/bd/16bfbd53-3e83-c840-bdf6-053326af381b/05099946404855.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/sunrise/721258539?i=721258700&uo=4"
+    },
+    {
+     "title": "Turn Me On",
+     "album": "Come Away with Me (Remastered)",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a8/0a/fd/a80afdbe-daed-ef07-119a-041377a01cba/mzaf_16936423843271419818.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/a0/a0/8d/a0a08df2-390b-ad05-0d32-6673bcf7a2a9/13UABIM02784.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/turn-me-on/1624173298?i=1624174335&uo=4"
+    },
+    {
+     "title": "The Long Day Is Over",
+     "album": "Come Away with Me (Remastered)",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/7e/7c/0e/7e7c0e63-b374-f048-eb60-13b26d421ff5/mzaf_13057275367452417549.plus.aac.p.m4a",
+     "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/a0/a0/8d/a0a08df2-390b-ad05-0d32-6673bcf7a2a9/13UABIM02784.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/the-long-day-is-over/1624173298?i=1624174976&uo=4"
+    }
+   ],
+   "video": {
+    "title": "Christmas Calling (Jolly Jones)",
+    "url": "https://video-ssl.itunes.apple.com/itunes-assets/Video126/v4/cd/76/cb/cd76cb81-0d01-ba0d-8102-fd281477ac04/mzvf_6920592338352387377.1920w.h264lc.U.p.m4v",
+    "link": "https://music.apple.com/us/music-video/christmas-calling-jolly-jones/1597849016?uo=4",
+    "poster": "https://is1-ssl.mzstatic.com/image/thumb/Video126/v4/82/46/58/824658c2-685e-5d4e-dcf3-836fe77d9064/21UM1IM48052.crop.jpg/1200x1200bb.jpg"
+   }
+  }
+ },
+ "venues": {
+  "Madison Square Garden": {
+   "photo": "images/venues/madison-square-garden.jpg",
+   "credit": {
+    "author": "Jonathan Schilling",
+    "licence": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:The_Brothers_performing_Dreams_at_MSG_in_2025.jpg"
+   }
+  },
+  "Axiata Arena": {
+   "photo": "images/venues/axiata-arena.jpg",
+   "credit": {
+    "author": "*angys*",
+    "licence": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Axiata_Arena,_Bukit_Jalil_(220713).jpg"
+   }
+  },
+  "Tokyo Dome": {
+   "photo": "images/venues/tokyo-dome.jpg",
+   "credit": {
+    "author": "Douglas Paul Perkins",
+    "licence": "CC BY 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:AKB48_Tokyo_Dome_2.jpg"
+   }
+  },
+  "Wembley Arena": {
+   "photo": "images/venues/wembley-arena.jpg",
+   "credit": {
+    "author": "EG Focus",
+    "licence": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Wembley_Arena_with_Olympic_rings.jpg"
+   }
+  },
+  "Hollywood Bowl": {
+   "photo": "images/venues/hollywood-bowl.jpg",
+   "credit": {
+    "author": "Eric Chan from Hollywood, United States",
+    "licence": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Hollywood_Bowl_at_night.jpg"
+   }
+  },
+  "Royal Albert Hall": {
+   "photo": "images/venues/royal-albert-hall.jpg",
+   "credit": {
+    "author": "Colin",
+    "licence": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Royal_Albert_Hall_-_Central_View_169.jpg"
+   }
+  }
+ },
+ "scenes": {
+  "stage": {
+   "photo": "images/scenes/stage.jpg",
+   "credit": {
+    "author": "PinkBeachPlanet",
+    "licence": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Beach-Please-2022-crowd-stage-lights-night-performance.jpg"
+   }
+  }
+ }
+}

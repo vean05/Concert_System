@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PaymentCard;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PaymentCardController extends Controller
@@ -9,6 +11,7 @@ class PaymentCardController extends Controller
     public function index()
     {
         $cards = auth()->user()->paymentCards()->latest()->get();
+
         return view('payment_cards.index', compact('cards'));
     }
 
@@ -19,68 +22,54 @@ class PaymentCardController extends Controller
 
     public function store(Request $request)
     {
-        // Server-side validation to ensure data integrity
-        $validated = $request->validate([
-            'card_type' => 'required|in:visa,master',
-            'card_number' => ['required', 'regex:/^[0-9]+$/'],
-            'expiry_date' => ['required', 'regex:/^(0[1-9]|1[0-2])\/\d{2}$/'],
-            'cvv' => ['required', 'regex:/^[0-9]+$/'],
-            'full_name' => 'required|string|max:255',
-            'country' => 'required|string|max:255',
-            'address' => 'required|string',
-        ]);
-
-        auth()->user()->paymentCards()->create($validated);
+        auth()->user()->paymentCards()->create($request->validate($this->rules()));
 
         return redirect()->route('payment_cards.index')->with('success', 'Payment card added successfully.');
     }
 
+    /**
+     * Add a card from the checkout page without leaving it.
+     * Validation failures return Laravel's standard 422 JSON for fetch requests.
+     */
     public function storeAjax(Request $request)
     {
-        try {
-            $validated = $request->validate([
-                'card_type' => 'required|in:visa,master',
-                'card_number' => ['required', 'regex:/^[0-9]+$/'],
-                'expiry_date' => ['required', 'regex:/^(0[1-9]|1[0-2])\/\d{2}$/'],
-                'cvv' => ['required', 'regex:/^[0-9]+$/'],
-                'full_name' => 'required|string|max:255',
-                'country' => 'required|string|max:255',
-                'address' => 'required|string',
-            ]);
+        $card = auth()->user()->paymentCards()->create($request->validate($this->rules()));
 
-            $card = auth()->user()->paymentCards()->create($validated);
-
-            return response()->json([
-                'success' => true,
-                'card' => [
-                    'id' => $card->id,
-                    'card_type' => $card->card_type,
-                    'last_four' => substr($request->card_number, -4),
-                    'expiry_date' => $card->expiry_date
-                ]
-            ]);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json([
-                'success' => false,
-                'errors' => $e->errors()
-            ], 422);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while saving the card.'
-            ], 500);
-        }
+        return response()->json([
+            'success' => true,
+            'card' => [
+                'id' => $card->id,
+                'brand' => $card->brand,
+                'last_four' => $card->last_four,
+                'expiry_date' => $card->expiry_date,
+            ],
+        ]);
     }
 
-    public function destroy(\App\Models\PaymentCard $paymentCard)
+    public function destroy(PaymentCard $paymentCard)
     {
-        // Check if the user owns the card
-        if ($paymentCard->user_id !== auth()->id()) {
-            abort(403);
-        }
+        abort_unless($paymentCard->user_id === auth()->id(), 403);
 
         $paymentCard->delete();
 
         return redirect()->route('payment_cards.index')->with('success', 'Payment card deleted successfully.');
+    }
+
+    private function rules(): array
+    {
+        return [
+            'card_type' => 'required|in:visa,master',
+            'card_number' => ['required', 'regex:/^[0-9]{13,19}$/'],
+            'expiry_date' => ['required', 'regex:/^(0[1-9]|1[0-2])\/\d{2}$/', function ($attribute, $value, $fail) {
+                if (preg_match('/^(0[1-9]|1[0-2])\/\d{2}$/', $value)
+                    && Carbon::createFromFormat('!m/y', $value)->endOfMonth()->isPast()) {
+                    $fail('This card has expired.');
+                }
+            }],
+            'cvv' => ['required', 'regex:/^[0-9]{3,4}$/'],
+            'full_name' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
+            'address' => 'required|string|max:500',
+        ];
     }
 }

@@ -1,606 +1,129 @@
 @extends('layouts.app')
 
-@section('title', 'Order Details - ConcertHub')
+@section('title', 'Order ' . $order->reference)
 
 @section('content')
-<style>
-    .order-detail-container {
-        padding: 2rem 0;
-    }
+    @php
+        $concert = $order->concert;
+        $cancelled = $order->status === 'cancelled';
+        $received = $order->isTransferred();
+    @endphp
 
-    .order-detail-header {
-        margin-bottom: 2rem;
-    }
+    <div class="page">
+        <div class="container" style="max-width: 980px">
+            <a class="back-link" href="{{ route('orders.index') }}"><i class="fas fa-arrow-left"></i> My tickets</a>
 
-    .order-detail-header h1 {
-        font-size: 2rem;
-        font-weight: 700;
-        color: #2c3e50;
-        margin: 0;
-    }
-
-    .order-detail-card {
-        background: white;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    }
-
-    .order-detail-header-section {
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        padding: 2rem;
-        border-bottom: 2px solid #f0f0f0;
-    }
-
-    .order-header-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-    }
-
-    .order-header-item {
-        display: flex;
-        align-items: center;
-    }
-
-    .order-header-icon {
-        width: 50px;
-        height: 50px;
-        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        margin-right: 1rem;
-        font-size: 1.3rem;
-    }
-
-    .order-header-text h6 {
-        color: #666;
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        font-weight: 600;
-        margin: 0 0 0.5rem 0;
-    }
-
-    .order-header-text p {
-        color: #2c3e50;
-        font-weight: 600;
-        margin: 0;
-    }
-
-    .status-badge {
-        display: inline-block;
-        padding: 0.5rem 1.2rem;
-        border-radius: 20px;
-        font-weight: 700;
-        font-size: 0.9rem;
-    }
-
-    .status-confirmed {
-        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-        color: #155724;
-    }
-
-    .status-cancelled {
-        background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
-        color: #721c24;
-    }
-
-    .order-detail-body {
-        padding: 2rem;
-    }
-
-    .detail-section {
-        margin-bottom: 2rem;
-    }
-
-    .detail-section:last-of-type {
-        margin-bottom: 0;
-    }
-
-    .detail-section-title {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: #2c3e50;
-        margin-bottom: 1.5rem;
-        display: flex;
-        align-items: center;
-    }
-
-    .detail-section-title i {
-        color: #5BA3C0;
-        margin-right: 0.7rem;
-        font-size: 1.2rem;
-    }
-
-    .detail-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .detail-row.full {
-        grid-template-columns: 1fr;
-    }
-
-    .detail-item-box {
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        padding: 1.5rem;
-        border-radius: 8px;
-    }
-
-    .detail-item-box h6 {
-        color: #666;
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        font-weight: 600;
-        margin: 0 0 0.5rem 0;
-    }
-
-    .detail-item-box p {
-        color: #2c3e50;
-        font-weight: 600;
-        margin: 0;
-        font-size: 1rem;
-    }
-
-    .detail-item-box p.large {
-        font-size: 1.5rem;
-    }
-
-    /* Payment card chip display */
-    .payment-card-display {
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-    }
-
-    .card-chip-icon {
-        width: 42px;
-        height: 42px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.4rem;
-        flex-shrink: 0;
-    }
-
-    .card-chip-visa {
-        background: linear-gradient(135deg, #1a1f71 0%, #2d3bb5 100%);
-        color: white;
-    }
-
-    .card-chip-mastercard {
-        background: linear-gradient(135deg, #eb001b 0%, #f79e1b 100%);
-        color: white;
-    }
-
-    .card-chip-default {
-        background: linear-gradient(135deg, #5BA3C0 0%, #4A8FA3 100%);
-        color: white;
-    }
-
-    .concert-link {
-        color: #5BA3C0;
-        text-decoration: none;
-        font-weight: 700;
-    }
-
-    .concert-link:hover {
-        text-decoration: underline;
-    }
-
-    .action-buttons {
-        display: flex;
-        gap: 1rem;
-        margin-top: 2rem;
-        padding-top: 2rem;
-        border-top: 2px solid #f0f0f0;
-    }
-
-    .action-buttons a,
-    .action-buttons button {
-        flex: 1;
-        padding: 0.9rem 1.5rem;
-        border-radius: 8px;
-        border: none;
-        font-weight: 600;
-        cursor: pointer;
-        text-decoration: none;
-        text-align: center;
-        transition: all 0.3s ease;
-    }
-
-    .btn-back {
-        background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
-        color: white;
-    }
-
-    .btn-back:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(108, 117, 125, 0.3);
-        color: white;
-        text-decoration: none;
-    }
-
-    .btn-view-concert {
-        background: linear-gradient(135deg, #004e89 0%, #0077b6 100%);
-        color: white;
-    }
-
-    .btn-view-concert:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0, 78, 137, 0.3);
-        color: white;
-        text-decoration: none;
-    }
-
-    .btn-cancel-order {
-        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-        color: white;
-    }
-
-    .btn-cancel-order:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
-    }
-
-    /* ── Cancel Confirmation Modal ── */
-    .modal-overlay {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.55);
-        z-index: 9999;
-        align-items: center;
-        justify-content: center;
-        backdrop-filter: blur(3px);
-    }
-
-    .modal-overlay.active {
-        display: flex;
-    }
-
-    .modal-box {
-        background: #fff;
-        border-radius: 16px;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-        padding: 2.5rem;
-        max-width: 480px;
-        width: 90%;
-        animation: modalSlideIn 0.25s ease;
-    }
-
-    @keyframes modalSlideIn {
-        from { transform: translateY(-30px); opacity: 0; }
-        to   { transform: translateY(0);     opacity: 1; }
-    }
-
-    .modal-icon {
-        width: 64px;
-        height: 64px;
-        background: linear-gradient(135deg, #fff3f3 0%, #fde8e8 100%);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 1.2rem;
-        font-size: 1.8rem;
-        color: #dc3545;
-    }
-
-    .modal-box h4 {
-        text-align: center;
-        font-weight: 700;
-        color: #2c3e50;
-        margin-bottom: 0.5rem;
-    }
-
-    .modal-box p.modal-sub {
-        text-align: center;
-        color: #666;
-        font-size: 0.95rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .modal-refund-info {
-        background: linear-gradient(135deg, #e7f5ff 0%, #cce5ff 100%);
-        border: 2px solid #b3d9ff;
-        border-radius: 10px;
-        padding: 1rem 1.2rem;
-        margin-bottom: 1.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-    }
-
-    .modal-refund-info i {
-        font-size: 1.4rem;
-        color: #004e89;
-        flex-shrink: 0;
-    }
-
-    .modal-refund-info .refund-text {
-        font-size: 0.9rem;
-        color: #004e89;
-        font-weight: 600;
-        line-height: 1.5;
-    }
-
-    .modal-refund-info .refund-text span {
-        display: block;
-        font-size: 0.8rem;
-        font-weight: 400;
-        color: #336b95;
-        margin-top: 0.2rem;
-    }
-
-    .modal-actions {
-        display: flex;
-        gap: 0.8rem;
-    }
-
-    .modal-btn {
-        flex: 1;
-        padding: 0.8rem;
-        border-radius: 8px;
-        border: none;
-        font-weight: 600;
-        cursor: pointer;
-        font-size: 0.95rem;
-        transition: all 0.3s ease;
-    }
-
-    .modal-btn-keep {
-        background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
-        color: white;
-    }
-
-    .modal-btn-keep:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(108,117,125,0.3);
-    }
-
-    .modal-btn-confirm {
-        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-        color: white;
-    }
-
-    .modal-btn-confirm:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(220,53,69,0.3);
-    }
-
-    @media (max-width: 768px) {
-        .order-header-row,
-        .detail-row {
-            grid-template-columns: 1fr;
-        }
-
-        .action-buttons {
-            flex-direction: column;
-        }
-
-        .order-detail-header h1 {
-            font-size: 1.6rem;
-        }
-    }
-</style>
-
-<div class="order-detail-container container">
-    <!-- Header -->
-    <div class="order-detail-header">
-        <h1><i class="fas fa-receipt" style="color: #5BA3C0;"></i> Order #{{ $order->id }}</h1>
-    </div>
-
-    <!-- Order Detail Card -->
-    <div class="order-detail-card">
-        <!-- Header Section -->
-        <div class="order-detail-header-section">
-            <div class="order-header-row">
-                <div class="order-header-item">
-                    <div class="order-header-icon">
-                        @if($order->status === 'confirmed')
-                            <i class="fas fa-check-circle"></i>
-                        @else
-                            <i class="fas fa-times-circle"></i>
+            <div class="pass-layout">
+                <article class="pass {{ $cancelled ? 'is-void' : '' }}">
+                    <div class="pass__art">
+                        @if($concert->hero_url)
+                            <img src="{{ $concert->hero_url }}" alt="">
                         @endif
                     </div>
-                    <div class="order-header-text">
-                        <h6>Order Status</h6>
-                        <span class="status-badge @if($order->status === 'confirmed') status-confirmed @else status-cancelled @endif">
-                            {{ ucfirst($order->status) }}
-                        </span>
+                    <div class="pass__title">
+                        <h2 class="shout">{{ $concert->artist }}</h2>
+                        <p>{{ $concert->venue }}@if($concert->city), {{ $concert->city }}@endif</p>
                     </div>
-                </div>
-
-                <div class="order-header-item">
-                    <div class="order-header-icon">
-                        <i class="fas fa-calendar-alt"></i>
+                    <div class="pass__facts">
+                        <div><span>Date</span><strong>{{ $concert->date->format('d M Y') }}</strong></div>
+                        <div><span>Doors</span><strong>{{ $concert->doors_time ?: $concert->start_time ?: 'TBC' }}</strong></div>
+                        <div><span>Tickets</span><strong>{{ $order->quantity }}</strong></div>
                     </div>
-                    <div class="order-header-text">
-                        <h6>Order Date</h6>
-                        <p>{{ $order->created_at->format('F d, Y \a\t h:i A') }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Body Section -->
-        <div class="order-detail-body">
-            <!-- Concert Information -->
-            <div class="detail-section">
-                <h3 class="detail-section-title">
-                    <i class="fas fa-microphone"></i> Concert Information
-                </h3>
-
-                <div class="detail-row">
-                    <div class="detail-item-box">
-                        <h6>Concert Title</h6>
-                        <p><a href="{{ route('concerts.show', $order->concert) }}" class="concert-link">{{ $order->concert->title }}</a></p>
-                    </div>
-                    <div class="detail-item-box">
-                        <h6>Artist</h6>
-                        <p>{{ $order->concert->artist }}</p>
-                    </div>
-                </div>
-
-                <div class="detail-row">
-                    <div class="detail-item-box">
-                        <h6>Venue</h6>
-                        <p>{{ $order->concert->venue }}</p>
-                    </div>
-                    <div class="detail-item-box">
-                        <h6>Concert Date</h6>
-                        <p>{{ \Carbon\Carbon::parse($order->concert->date)->format('F d, Y') }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Booking Details -->
-            <div class="detail-section">
-                <h3 class="detail-section-title">
-                    <i class="fas fa-ticket-alt"></i> Booking Details
-                </h3>
-
-                <div class="detail-row">
-                    <div class="detail-item-box">
-                        <h6>Number of Tickets</h6>
-                        <p>{{ $order->quantity }} @if($order->quantity > 1) tickets @else ticket @endif</p>
-                    </div>
-                    <div class="detail-item-box">
-                        <h6>Price per Ticket</h6>
-                        <p>${{ number_format($order->concert->ticket_price, 2) }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Payment Method -->
-            <div class="detail-section">
-                <h3 class="detail-section-title">
-                    <i class="fas fa-credit-card"></i> Payment Method
-                </h3>
-
-                <div class="detail-row full" style="margin-bottom: 0;">
-                    <div class="detail-item-box">
-                        @if($order->paymentCard)
-                            @php
-                                $cardType = strtolower($order->paymentCard->card_type);
-                                $lastFour = substr($order->paymentCard->card_number, -4);
-                                $chipClass = $cardType === 'visa' ? 'card-chip-visa'
-                                           : ($cardType === 'mastercard' ? 'card-chip-mastercard' : 'card-chip-default');
-                                $cardIcon  = $cardType === 'visa' ? 'fab fa-cc-visa'
-                                           : ($cardType === 'mastercard' ? 'fab fa-cc-mastercard' : 'fas fa-credit-card');
-                            @endphp
-                            <h6>Card Used</h6>
-                            <div class="payment-card-display">
-                                <div class="card-chip-icon {{ $chipClass }}">
-                                    <i class="{{ $cardIcon }}"></i>
-                                </div>
-                                <div>
-                                    <p style="letter-spacing: 0.12em; font-family: monospace; font-size: 1rem;">
-                                        •••• •••• •••• {{ $lastFour }}
-                                    </p>
-                                    <small style="color:#888; font-weight:500; font-size:0.8rem;">
-                                        {{ ucfirst($order->paymentCard->card_type) }} &nbsp;|&nbsp; {{ $order->paymentCard->full_name }}
-                                    </small>
-                                </div>
+                    <div class="pass__tear"></div>
+                    <div class="pass__code">
+                        @if($cancelled)
+                            <strong>Cancelled</strong>
+                        @else
+                            <div class="pass__live" id="livePass" data-url="{{ route('orders.pass', $order) }}">
+                                <div class="pass__qr" id="passCode" role="img" aria-label="Door code for this ticket"></div>
+                                <div class="pass__used" id="passUsed" hidden><i class="fas fa-check"></i> <span>Checked in</span></div>
+                                <div class="pass__timer" aria-hidden="true"><span id="passTimer"></span></div>
+                                <p class="pass__note" id="passNote">This code changes every 30 seconds</p>
+                                <button class="pass__copy" type="button" id="passText" title="Copy the code"></button>
                             </div>
-                        @else
-                            <h6>Card Used</h6>
-                            <p style="color:#999;">— Card info not available —</p>
+                        @endif
+                        <span class="pass__ref">{{ $order->reference }}</span>
+                    </div>
+                </article>
+
+                <div>
+                    <h1>{{ $concert->title }}</h1>
+                    <p class="muted">{{ $cancelled ? 'This order was cancelled.' : 'You are going. Show this code at the door.' }}</p>
+                    @if($received)
+                        <p class="sent-note"><i class="fas fa-gift"></i> Sent to you by {{ optional($order->transferredFrom)->name ?? 'another fan' }} on {{ $order->transferred_at->format('d M Y') }}.</p>
+                    @endif
+
+                    <h2 class="h6 mt-4">Your tickets</h2>
+                    <ul class="order-facts">
+                        @foreach($order->items as $item)
+                            <li>
+                                <div>
+                                    {{ $item->quantity }} × {{ $item->section_name }}
+                                    @if($item->seat_label)
+                                        <small class="muted d-block">{{ $item->seat_label }}</small>
+                                    @endif
+                                </div>
+                                @unless($received)
+                                    <strong class="mono">${{ number_format($item->unit_price * $item->quantity, 2) }}</strong>
+                                @endunless
+                            </li>
+                        @endforeach
+                        @unless($received)
+                            @if($order->discount > 0)
+                                <li><span>Promo {{ optional($order->promoCode)->code }}</span><strong class="mono">-${{ number_format($order->discount, 2) }}</strong></li>
+                            @endif
+                            <li><span>Total paid</span><strong class="mono">${{ number_format($order->total_price, 2) }}</strong></li>
+                            <li>
+                                <span>Payment</span>
+                                @if($order->paymentCard)
+                                    <span class="text-body">{{ $order->paymentCard->brand }} ending in <span class="mono">{{ $order->paymentCard->last_four }}</span></span>
+                                @else
+                                    <span>Card no longer on file</span>
+                                @endif
+                            </li>
+                            <li><span>Booked</span><span class="text-body">{{ $order->created_at->format('d M Y, H:i') }}</span></li>
+                        @endunless
+                    </ul>
+
+                    <div class="d-flex flex-wrap gap-2">
+                        @if(! $cancelled && $concert->isUpcoming())
+                            <a class="btn btn-accent" href="{{ route('concerts.calendar', $concert) }}"><i class="far fa-calendar-plus"></i> Add to calendar</a>
+                        @endif
+                        <a class="btn btn-ghost" href="{{ route('concerts.show', $concert) }}">View concert</a>
+                        @if($order->canBeCancelled())
+                            <form action="{{ route('orders.cancel', $order) }}" method="POST"
+                                  data-confirm="Cancel this order? Your tickets will be released and refunded.">
+                                @csrf
+                                @method('PUT')
+                                <button class="btn btn-danger-ghost" type="submit">Cancel order</button>
+                            </form>
                         @endif
                     </div>
-                </div>
-            </div>
 
-            <!-- Price Summary -->
-            <div class="detail-section detail-row full" style="margin: 0; padding-top: 1.5rem; border-top: 2px solid #f0f0f0;">
-                <div class="detail-item-box" style="background: linear-gradient(135deg, #e7f5ff 0%, #cce5ff 100%); border: 2px solid #b3d9ff;">
-                    <h6 style="color: #004e89;">Total Price</h6>
-                    <p class="large" style="color: #004e89;">${{ number_format($order->total_price, 2) }}</p>
+                    @if($order->canBeTransferred())
+                        <details class="transfer">
+                            <summary><i class="fas fa-paper-plane"></i> Send to a friend</summary>
+                            <form action="{{ route('orders.transfer', $order) }}" method="POST"
+                                  data-confirm="Send these tickets? They will leave your account and cannot be cancelled or refunded afterwards.">
+                                @csrf
+                                <label class="form-label" for="transferEmail">Their ConcertHub email</label>
+                                <div class="promo-row">
+                                    <input class="form-control" id="transferEmail" type="email" name="email" required>
+                                    <button class="btn btn-accent" type="submit">Send tickets</button>
+                                </div>
+                                <p class="muted mt-2 mb-0">The whole order moves to their account. They will not see what you paid.</p>
+                            </form>
+                        </details>
+                    @endif
                 </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="action-buttons">
-                <a href="{{ route('orders.index') }}" class="btn-back">
-                    <i class="fas fa-arrow-left"></i> Back to Orders
-                </a>
-                <a href="{{ route('concerts.show', $order->concert) }}" class="btn-view-concert">
-                    <i class="fas fa-eye"></i> View Concert
-                </a>
-                @if($order->status === 'confirmed')
-                    <button type="button" class="btn-cancel-order" id="openCancelModal">
-                        <i class="fas fa-times-circle"></i> Cancel Order
-                    </button>
-                @endif
             </div>
         </div>
     </div>
-</div>
-
-{{-- ── Cancel Confirmation Modal ── --}}
-@if($order->status === 'confirmed')
-<div class="modal-overlay" id="cancelModal">
-    <div class="modal-box">
-        <div class="modal-icon">
-            <i class="fas fa-exclamation-triangle"></i>
-        </div>
-        <h4>Cancel This Order?</h4>
-        <p class="modal-sub">This action cannot be undone. Your refund will be processed to the card used for payment.</p>
-
-        @if($order->paymentCard)
-            @php
-                $mCardType = strtolower($order->paymentCard->card_type);
-                $mLastFour = substr($order->paymentCard->card_number, -4);
-                $mCardIcon = $mCardType === 'visa' ? 'fab fa-cc-visa'
-                           : ($mCardType === 'mastercard' ? 'fab fa-cc-mastercard' : 'fas fa-credit-card');
-                $mChipClass = $mCardType === 'visa' ? 'card-chip-visa'
-                            : ($mCardType === 'mastercard' ? 'card-chip-mastercard' : 'card-chip-default');
-            @endphp
-            <div class="modal-refund-info">
-                <div class="card-chip-icon {{ $mChipClass }}" style="width:36px;height:36px;font-size:1.1rem;">
-                    <i class="{{ $mCardIcon }}"></i>
-                </div>
-                <div class="refund-text">
-                    Refund of <strong>${{ number_format($order->total_price, 2) }}</strong>
-                    → {{ ucfirst($order->paymentCard->card_type) }} ending in {{ $mLastFour }}
-                    <span>Cardholder: {{ $order->paymentCard->full_name }}</span>
-                </div>
-            </div>
-        @endif
-
-        <div class="modal-actions">
-            <button type="button" class="modal-btn modal-btn-keep" id="closeCancelModal">
-                <i class="fas fa-arrow-left"></i> Keep Order
-            </button>
-            <form action="{{ route('orders.cancel', $order) }}" method="POST" style="flex:1;margin:0;">
-                @csrf
-                @method('PUT')
-                <button type="submit" class="modal-btn modal-btn-confirm" style="width:100%;">
-                    <i class="fas fa-times-circle"></i> Confirm Cancel
-                </button>
-            </form>
-        </div>
-    </div>
-</div>
-
-<script>
-    document.getElementById('openCancelModal').addEventListener('click', function () {
-        document.getElementById('cancelModal').classList.add('active');
-    });
-    document.getElementById('closeCancelModal').addEventListener('click', function () {
-        document.getElementById('cancelModal').classList.remove('active');
-    });
-    // Close on overlay click
-    document.getElementById('cancelModal').addEventListener('click', function (e) {
-        if (e.target === this) this.classList.remove('active');
-    });
-</script>
-@endif
 @endsection
+
+@push('scripts')
+    @unless($cancelled)
+        <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+        <script src="{{ asset('js/live-pass.js') }}"></script>
+    @endunless
+@endpush
