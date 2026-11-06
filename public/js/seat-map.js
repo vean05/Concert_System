@@ -13,6 +13,7 @@ import {
     blockLabels, buildArena, fabricNormalMap, seatGeometries, seatMaterial,
 } from './arena-scene.js';
 import { venues } from './venues.js';
+import { stadiums } from './stadiums.js';
 import { LiveShow } from './live-show.js';
 
 const MAX_SEATS = 8;
@@ -849,7 +850,7 @@ function createView() {
     controls.autoRotateSpeed = 0.35;
     controls.autoRotate = !reducedMotion;
 
-    const arena = buildArena({ scene, renderer, data, blocks, rows, reducedMotion, venue: venues[data.layout.scene] });
+    const arena = buildArena({ scene, renderer, data, blocks, rows, reducedMotion, venue: venues[data.layout.scene] ?? stadiums[data.layout.scene] });
     const labels = blockLabels(scene, blocks, data.seats);
 
     /* Seats: every seat is simple, and the ones around the camera are detailed. */

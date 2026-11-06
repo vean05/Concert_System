@@ -348,4 +348,358 @@ return [
         'side_from_degrees' => 50,
         'corner_power' => 2,
     ],
+
+    // A bare end stage, a tall slanted LED monolith, and a long catwalk into the crowd.
+    'monolith-arena' => [
+        'name' => 'Crypto.com Arena',
+        'city' => 'Los Angeles',
+        'address' => '1111 S Figueroa St, Los Angeles, CA',
+        'transit' => 'Pico station on the Metro A and E lines is a short walk away.',
+        'capacity_note' => 'Around 20,000 for concerts. This model shows about 12,500 seats.',
+        'accuracy_note' => 'An approximate model of the arena. Treat it as a guide to the view, not an exact survey.',
+
+        'scene' => 'monolith',
+        'view' => [
+            'stage' => [-36, 7, 0],
+            'front' => [-25, 3, 0],
+            'home_camera' => [88, 84, 64],
+            'home_target' => [-4, 2, 0],
+            'max_distance' => 180,
+        ],
+
+        'tiers' => [
+            'catwalk' => ['name' => 'Catwalk', 'color' => '#FF2E4D'],
+            'floor' => ['name' => 'Floor', 'color' => '#FF8A1F'],
+            'lower_side' => ['name' => 'Lower Side', 'color' => '#7C4DFF'],
+            'lower_end' => ['name' => 'Lower End', 'color' => '#2F80FF'],
+            'upper' => ['name' => 'Upper', 'color' => '#00C2B2'],
+        ],
+
+        'seat_spacing' => 0.56,
+        'focus' => ['x' => -10, 'z' => 0],
+
+        'floor' => [
+            'tier' => 'floor',
+            'seats_per_row' => 12,
+            'row_depth' => 0.85,
+            'blocks' => [
+                ['label' => 'A', 'rows' => 16, 'x' => -20, 'z' => -6, 'tier' => 'catwalk'],
+                ['label' => 'B', 'rows' => 16, 'x' => -20, 'z' => 6, 'tier' => 'catwalk'],
+                ['label' => 'C', 'rows' => 16, 'x' => -20, 'z' => -12.8],
+                ['label' => 'D', 'rows' => 16, 'x' => -20, 'z' => 12.8],
+                ['label' => 'E', 'rows' => 12, 'x' => -4, 'z' => -6, 'tier' => 'catwalk'],
+                ['label' => 'F', 'rows' => 12, 'x' => -4, 'z' => 6, 'tier' => 'catwalk'],
+                ['label' => 'G', 'rows' => 12, 'x' => -4, 'z' => -12.8],
+                ['label' => 'H', 'rows' => 12, 'x' => -4, 'z' => 12.8],
+            ],
+        ],
+
+        'bowls' => [
+            ['first_block' => 101, 'blocks' => 20, 'rows' => 18, 'radius_x' => 40, 'radius_z' => 27, 'row_depth' => 0.85, 'height' => 1.2, 'rise' => 0.42, 'tiers' => ['side' => 'lower_side', 'end' => 'lower_end']],
+            ['first_block' => 201, 'blocks' => 26, 'rows' => 13, 'radius_x' => 59, 'radius_z' => 46, 'row_depth' => 0.8, 'height' => 13, 'rise' => 0.58, 'sweep_degrees' => 125, 'tiers' => ['side' => 'upper', 'end' => 'upper']],
+        ],
+
+        'sweep_degrees' => 148,
+        'block_gap_degrees' => 1.1,
+        'side_from_degrees' => 45,
+        'corner_power' => 2.4,
+    ],
+
+    // Las Vegas: neon arches, a T-shaped runway and a mirrored floor.
+    'neon-arena' => [
+        'name' => 'T-Mobile Arena',
+        'city' => 'Las Vegas',
+        'address' => '3780 S Las Vegas Blvd, Las Vegas, NV',
+        'transit' => 'On foot from the Strip, next to Park MGM and New York-New York.',
+        'capacity_note' => 'Around 20,000 for concerts. This model shows about 13,300 seats.',
+        'accuracy_note' => 'An approximate model of the arena, dressed for this show. Treat it as a guide to the view, not an exact survey.',
+
+        'scene' => 'neon',
+        'view' => [
+            'stage' => [-34, 7, 0],
+            'front' => [-24, 3, 0],
+            'home_camera' => [90, 86, 66],
+            'home_target' => [-3, 2, 0],
+            'max_distance' => 185,
+        ],
+
+        'tiers' => [
+            'runway' => ['name' => 'Runway', 'color' => '#FF2E93'],
+            'floor' => ['name' => 'Floor', 'color' => '#FFB020'],
+            'lower' => ['name' => 'Lower Bowl', 'color' => '#7C4DFF'],
+            'club' => ['name' => 'Club', 'color' => '#00C2B2'],
+            'upper' => ['name' => 'Upper Bowl', 'color' => '#2F80FF'],
+        ],
+
+        'seat_spacing' => 0.56,
+        'focus' => ['x' => -10, 'z' => 0],
+
+        'floor' => [
+            'tier' => 'floor',
+            'seats_per_row' => 12,
+            'row_depth' => 0.85,
+            'blocks' => [
+                ['label' => 'A', 'rows' => 17, 'x' => -22, 'z' => -6, 'tier' => 'runway'],
+                ['label' => 'B', 'rows' => 17, 'x' => -22, 'z' => 6, 'tier' => 'runway'],
+                ['label' => 'C', 'rows' => 17, 'x' => -22, 'z' => -12.8],
+                ['label' => 'D', 'rows' => 17, 'x' => -22, 'z' => 12.8],
+                ['label' => 'E', 'rows' => 14, 'x' => 2, 'z' => -13],
+                ['label' => 'F', 'rows' => 14, 'x' => 2, 'z' => -6.5],
+                ['label' => 'G', 'rows' => 14, 'x' => 2, 'z' => 0],
+                ['label' => 'H', 'rows' => 14, 'x' => 2, 'z' => 6.5],
+                ['label' => 'J', 'rows' => 14, 'x' => 2, 'z' => 13],
+            ],
+        ],
+
+        'bowls' => [
+            ['first_block' => 101, 'blocks' => 20, 'rows' => 15, 'radius_x' => 38, 'radius_z' => 25, 'row_depth' => 0.85, 'height' => 1.2, 'rise' => 0.42, 'tiers' => ['side' => 'lower', 'end' => 'lower']],
+            ['first_block' => 201, 'blocks' => 24, 'rows' => 6, 'radius_x' => 53, 'radius_z' => 40, 'row_depth' => 0.85, 'height' => 8.6, 'rise' => 0.5, 'sweep_degrees' => 125, 'tiers' => ['side' => 'club', 'end' => 'club']],
+            ['first_block' => 301, 'blocks' => 28, 'rows' => 12, 'radius_x' => 60, 'radius_z' => 47, 'row_depth' => 0.8, 'height' => 13.5, 'rise' => 0.6, 'sweep_degrees' => 122, 'tiers' => ['side' => 'upper', 'end' => 'upper']],
+        ],
+
+        'sweep_degrees' => 150,
+        'block_gap_degrees' => 1.1,
+        'side_from_degrees' => 0,
+        'corner_power' => 3,
+    ],
+
+    // In the round: a square stage on the court under a huge hanging LED cube.
+    'cube-arena' => [
+        'name' => 'Scotiabank Arena',
+        'city' => 'Toronto',
+        'address' => '40 Bay St, Toronto, ON',
+        'transit' => 'Union Station is connected to the arena by a covered walkway.',
+        'capacity_note' => 'Around 19,800 for concerts. This model shows about 16,700 seats.',
+        'accuracy_note' => 'An approximate model with the stage in the round. Treat it as a guide to the view, not an exact survey.',
+
+        'scene' => 'cube',
+        'view' => [
+            'stage' => [0, 9, 0],
+            'front' => [0, 2, 0],
+            'in_the_round' => true,
+            'home_camera' => [84, 82, 62],
+            'home_target' => [0, 3, 0],
+            'max_distance' => 175,
+        ],
+
+        'tiers' => [
+            'court_inner' => ['name' => 'Court Front', 'color' => '#FF2E4D'],
+            'court_outer' => ['name' => 'Court Corners', 'color' => '#FFB020'],
+            'lower' => ['name' => 'Lower Bowl', 'color' => '#2F80FF'],
+            'upper' => ['name' => 'Upper Bowl', 'color' => '#00C2B2'],
+        ],
+
+        'seat_spacing' => 0.56,
+        'focus' => ['x' => 0, 'z' => 0],
+
+        'floor' => [
+            'tier' => 'court_inner',
+            'seats_per_row' => 26,
+            'row_depth' => 0.85,
+            'blocks' => [
+                ['label' => 'A', 'rows' => 14, 'x' => 13, 'z' => 0, 'direction' => 0],
+                ['label' => 'B', 'rows' => 14, 'x' => 0, 'z' => 13, 'direction' => 90],
+                ['label' => 'C', 'rows' => 14, 'x' => -13, 'z' => 0, 'direction' => 180],
+                ['label' => 'D', 'rows' => 14, 'x' => 0, 'z' => -13, 'direction' => 270],
+                ['label' => 'E', 'rows' => 12, 'x' => 13.5, 'z' => 13.5, 'direction' => 45, 'seats_per_row' => 12, 'tier' => 'court_outer'],
+                ['label' => 'F', 'rows' => 12, 'x' => -13.5, 'z' => 13.5, 'direction' => 135, 'seats_per_row' => 12, 'tier' => 'court_outer'],
+                ['label' => 'G', 'rows' => 12, 'x' => -13.5, 'z' => -13.5, 'direction' => 225, 'seats_per_row' => 12, 'tier' => 'court_outer'],
+                ['label' => 'H', 'rows' => 12, 'x' => 13.5, 'z' => -13.5, 'direction' => 315, 'seats_per_row' => 12, 'tier' => 'court_outer'],
+            ],
+        ],
+
+        'bowls' => [
+            ['first_block' => 101, 'blocks' => 24, 'rows' => 16, 'radius_x' => 34, 'radius_z' => 30, 'row_depth' => 0.85, 'height' => 1.2, 'rise' => 0.42, 'tiers' => ['side' => 'lower', 'end' => 'lower']],
+            ['first_block' => 201, 'blocks' => 30, 'rows' => 13, 'radius_x' => 52, 'radius_z' => 48, 'row_depth' => 0.8, 'height' => 11.8, 'rise' => 0.58, 'tiers' => ['side' => 'upper', 'end' => 'upper']],
+        ],
+
+        'sweep_degrees' => 180,
+        'block_gap_degrees' => 0.9,
+        'side_from_degrees' => 0,
+        'corner_power' => 3.2,
+    ],
+
+    // Open to the sky, with a wide stage, a runway and a second stage on the pitch.
+    'open-stadium' => [
+        'name' => 'MetLife Stadium',
+        'city' => 'East Rutherford, New Jersey',
+        'address' => '1 MetLife Stadium Dr, East Rutherford, NJ',
+        'transit' => 'NJ Transit runs event trains to the Meadowlands station at the stadium.',
+        'capacity_note' => 'Around 82,500. This model shows about 26,100 seats.',
+        'accuracy_note' => 'An approximate model of the open-air bowl. Treat it as a guide to the view, not an exact survey.',
+
+        'scene' => 'openStadium',
+        'view' => [
+            'stage' => [-56, 9, 0],
+            'front' => [-42, 4, 0],
+            'home_camera' => [176, 150, 132],
+            'home_target' => [-4, 4, 0],
+            'max_distance' => 370,
+        ],
+
+        'tiers' => [
+            'floor_gold' => ['name' => 'Gold Floor', 'color' => '#FFB020'],
+            'floor' => ['name' => 'Floor', 'color' => '#FF2E93'],
+            'lower' => ['name' => 'Lower Level', 'color' => '#7C4DFF'],
+            'mezzanine' => ['name' => 'Mezzanine', 'color' => '#2F80FF'],
+            'upper' => ['name' => 'Upper Level', 'color' => '#00C2B2'],
+        ],
+
+        'seat_spacing' => 0.6,
+        'focus' => ['x' => -20, 'z' => 0],
+
+        'floor' => [
+            'tier' => 'floor',
+            'seats_per_row' => 16,
+            'row_depth' => 0.85,
+            'blocks' => [
+                ['label' => 'A', 'rows' => 24, 'x' => -42, 'z' => -16.8, 'tier' => 'floor_gold'],
+                ['label' => 'B', 'rows' => 24, 'x' => -42, 'z' => -6.6, 'tier' => 'floor_gold'],
+                ['label' => 'C', 'rows' => 24, 'x' => -42, 'z' => 6.6, 'tier' => 'floor_gold'],
+                ['label' => 'D', 'rows' => 24, 'x' => -42, 'z' => 16.8, 'tier' => 'floor_gold'],
+                ['label' => 'E', 'rows' => 24, 'x' => -18, 'z' => -16.8],
+                ['label' => 'F', 'rows' => 24, 'x' => -18, 'z' => -6.6],
+                ['label' => 'G', 'rows' => 24, 'x' => -18, 'z' => 6.6],
+                ['label' => 'H', 'rows' => 24, 'x' => -18, 'z' => 16.8],
+                ['label' => 'J', 'rows' => 24, 'x' => 6, 'z' => -16.8],
+                ['label' => 'K', 'rows' => 24, 'x' => 6, 'z' => -6.6],
+                ['label' => 'L', 'rows' => 24, 'x' => 6, 'z' => 6.6],
+                ['label' => 'M', 'rows' => 24, 'x' => 6, 'z' => 16.8],
+            ],
+        ],
+
+        'bowls' => [
+            ['first_block' => 101, 'blocks' => 36, 'rows' => 20, 'radius_x' => 64, 'radius_z' => 42, 'row_depth' => 0.85, 'height' => 2, 'rise' => 0.42, 'tiers' => ['side' => 'lower', 'end' => 'lower']],
+            ['first_block' => 201, 'blocks' => 38, 'rows' => 8, 'radius_x' => 84, 'radius_z' => 62, 'row_depth' => 0.85, 'height' => 12, 'rise' => 0.5, 'sweep_degrees' => 132, 'tiers' => ['side' => 'mezzanine', 'end' => 'mezzanine']],
+            ['first_block' => 301, 'blocks' => 42, 'rows' => 14, 'radius_x' => 94, 'radius_z' => 72, 'row_depth' => 0.85, 'height' => 18, 'rise' => 0.62, 'sweep_degrees' => 125, 'tiers' => ['side' => 'upper', 'end' => 'upper']],
+        ],
+
+        'sweep_degrees' => 146,
+        'block_gap_degrees' => 0.8,
+        'side_from_degrees' => 0,
+        'corner_power' => 3,
+    ],
+
+    // A bowl under a floating glass canopy, with an oval video ring hung inside it.
+    'canopy-stadium' => [
+        'name' => 'SoFi Stadium',
+        'city' => 'Inglewood, Los Angeles',
+        'address' => '1001 Stadium Dr, Inglewood, CA',
+        'transit' => 'Shuttles run on event days from the Metro K Line at Downtown Inglewood.',
+        'capacity_note' => 'Around 70,000. This model shows about 25,500 seats.',
+        'accuracy_note' => 'An approximate model of the bowl and canopy. Treat it as a guide to the view, not an exact survey.',
+
+        'scene' => 'canopy',
+        'view' => [
+            'stage' => [-52, 9, 0],
+            'front' => [-38, 4, 0],
+            'home_camera' => [170, 150, 126],
+            'home_target' => [-2, 6, 0],
+            'max_distance' => 350,
+        ],
+
+        'tiers' => [
+            'floor_front' => ['name' => 'Floor Front', 'color' => '#FF2E93'],
+            'floor' => ['name' => 'Floor', 'color' => '#FFB020'],
+            'lower' => ['name' => 'Lower Bowl', 'color' => '#00C2B2'],
+            'upper' => ['name' => 'Upper Bowl', 'color' => '#2F80FF'],
+        ],
+
+        'seat_spacing' => 0.6,
+        'focus' => ['x' => -18, 'z' => 0],
+
+        'floor' => [
+            'tier' => 'floor',
+            'seats_per_row' => 16,
+            'row_depth' => 0.85,
+            'blocks' => [
+                ['label' => 'A', 'rows' => 22, 'x' => -36, 'z' => -15.6, 'tier' => 'floor_front'],
+                ['label' => 'B', 'rows' => 22, 'x' => -36, 'z' => -5.2, 'tier' => 'floor_front'],
+                ['label' => 'C', 'rows' => 22, 'x' => -36, 'z' => 5.2, 'tier' => 'floor_front'],
+                ['label' => 'D', 'rows' => 22, 'x' => -36, 'z' => 15.6, 'tier' => 'floor_front'],
+                ['label' => 'E', 'rows' => 22, 'x' => -14, 'z' => -15.6],
+                ['label' => 'F', 'rows' => 22, 'x' => -14, 'z' => -5.2],
+                ['label' => 'G', 'rows' => 22, 'x' => -14, 'z' => 5.2],
+                ['label' => 'H', 'rows' => 22, 'x' => -14, 'z' => 15.6],
+                ['label' => 'J', 'rows' => 22, 'x' => 8, 'z' => -15.6],
+                ['label' => 'K', 'rows' => 22, 'x' => 8, 'z' => -5.2],
+                ['label' => 'L', 'rows' => 22, 'x' => 8, 'z' => 5.2],
+                ['label' => 'M', 'rows' => 22, 'x' => 8, 'z' => 15.6],
+            ],
+        ],
+
+        'bowls' => [
+            ['first_block' => 101, 'blocks' => 36, 'rows' => 22, 'radius_x' => 62, 'radius_z' => 46, 'row_depth' => 0.85, 'height' => 1.6, 'rise' => 0.4, 'tiers' => ['side' => 'lower', 'end' => 'lower']],
+            ['first_block' => 201, 'blocks' => 44, 'rows' => 20, 'radius_x' => 84, 'radius_z' => 68, 'row_depth' => 0.85, 'height' => 11.6, 'rise' => 0.6, 'sweep_degrees' => 128, 'tiers' => ['side' => 'upper', 'end' => 'upper']],
+        ],
+
+        'sweep_degrees' => 150,
+        'block_gap_degrees' => 0.8,
+        'side_from_degrees' => 0,
+        'corner_power' => 2.4,
+    ],
+
+    // A round revolving stage on the pitch, under a great lit arch.
+    'arch-stadium' => [
+        'name' => 'Wembley Stadium',
+        'city' => 'London',
+        'address' => 'Wembley, London HA9 0WS',
+        'transit' => 'Wembley Park station is a short walk along Olympic Way.',
+        'capacity_note' => 'Around 90,000 at most. This model shows about 30,000 seats.',
+        'accuracy_note' => 'An approximate model with the stage in the round. Treat it as a guide to the view, not an exact survey.',
+
+        'scene' => 'arch',
+        'view' => [
+            'stage' => [0, 7, 0],
+            'front' => [0, 3, 0],
+            'in_the_round' => true,
+            'home_camera' => [170, 164, 142],
+            'home_target' => [0, 10, 0],
+            'max_distance' => 380,
+        ],
+
+        'tiers' => [
+            'pitch_inner' => ['name' => 'Pitch Front', 'color' => '#FF2E93'],
+            'pitch_outer' => ['name' => 'Pitch', 'color' => '#FFB020'],
+            'lower' => ['name' => 'Lower Tier', 'color' => '#7C4DFF'],
+            'upper' => ['name' => 'Upper Tier', 'color' => '#00C2B2'],
+        ],
+
+        'seat_spacing' => 0.62,
+        'focus' => ['x' => 0, 'z' => 0],
+
+        'floor' => [
+            'tier' => 'pitch_inner',
+            'seats_per_row' => 18,
+            'row_depth' => 0.85,
+            'blocks' => [
+                ['label' => 'A', 'rows' => 16, 'x' => 16, 'z' => 0, 'direction' => 0],
+                ['label' => 'B', 'rows' => 16, 'x' => 11.31, 'z' => 11.31, 'direction' => 45],
+                ['label' => 'C', 'rows' => 16, 'x' => 0, 'z' => 16, 'direction' => 90],
+                ['label' => 'D', 'rows' => 16, 'x' => -11.31, 'z' => 11.31, 'direction' => 135],
+                ['label' => 'E', 'rows' => 16, 'x' => -16, 'z' => 0, 'direction' => 180],
+                ['label' => 'F', 'rows' => 16, 'x' => -11.31, 'z' => -11.31, 'direction' => 225],
+                ['label' => 'G', 'rows' => 16, 'x' => 0, 'z' => -16, 'direction' => 270],
+                ['label' => 'H', 'rows' => 16, 'x' => 11.31, 'z' => -11.31, 'direction' => 315],
+                ['label' => 'J', 'rows' => 12, 'x' => 31, 'z' => 0, 'direction' => 0, 'seats_per_row' => 26, 'tier' => 'pitch_outer'],
+                ['label' => 'K', 'rows' => 12, 'x' => 21.92, 'z' => 21.92, 'direction' => 45, 'seats_per_row' => 26, 'tier' => 'pitch_outer'],
+                ['label' => 'L', 'rows' => 12, 'x' => 0, 'z' => 31, 'direction' => 90, 'seats_per_row' => 26, 'tier' => 'pitch_outer'],
+                ['label' => 'M', 'rows' => 12, 'x' => -21.92, 'z' => 21.92, 'direction' => 135, 'seats_per_row' => 26, 'tier' => 'pitch_outer'],
+                ['label' => 'N', 'rows' => 12, 'x' => -31, 'z' => 0, 'direction' => 180, 'seats_per_row' => 26, 'tier' => 'pitch_outer'],
+                ['label' => 'P', 'rows' => 12, 'x' => -21.92, 'z' => -21.92, 'direction' => 225, 'seats_per_row' => 26, 'tier' => 'pitch_outer'],
+                ['label' => 'Q', 'rows' => 12, 'x' => 0, 'z' => -31, 'direction' => 270, 'seats_per_row' => 26, 'tier' => 'pitch_outer'],
+                ['label' => 'R', 'rows' => 12, 'x' => 21.92, 'z' => -21.92, 'direction' => 315, 'seats_per_row' => 26, 'tier' => 'pitch_outer'],
+            ],
+        ],
+
+        'bowls' => [
+            ['first_block' => 101, 'blocks' => 40, 'rows' => 22, 'radius_x' => 58, 'radius_z' => 48, 'row_depth' => 0.85, 'height' => 2, 'rise' => 0.42, 'tiers' => ['side' => 'lower', 'end' => 'lower']],
+            ['first_block' => 201, 'blocks' => 46, 'rows' => 16, 'radius_x' => 80, 'radius_z' => 70, 'row_depth' => 0.85, 'height' => 12.5, 'rise' => 0.62, 'tiers' => ['side' => 'upper', 'end' => 'upper']],
+        ],
+
+        'sweep_degrees' => 180,
+        'block_gap_degrees' => 0.7,
+        'side_from_degrees' => 0,
+        'corner_power' => 2.6,
+    ],
 ];

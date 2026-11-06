@@ -15,7 +15,7 @@ const { degToRad: rad, lerp, smoothstep } = THREE.MathUtils;
 const last = (list) => list[list.length - 1];
 
 /** A random stream that gives the same trees and details on every visit. */
-function seeded(seed) {
+export function seeded(seed) {
     let value = seed;
 
     return () => {
@@ -30,7 +30,7 @@ function centreOf(layout) {
     return layout.centre ? [layout.centre.x, layout.centre.z] : [0, 0];
 }
 
-function sweepOf(layout, bowl) {
+export function sweepOf(layout, bowl) {
     return rad(bowl.sweep_degrees ?? layout.sweep_degrees);
 }
 
@@ -51,14 +51,14 @@ function bowlRing(layout, bowl, profile, { margin = 3, ...options } = {}) {
     });
 }
 
-function addTerraces(group, layout, material, { repeatU = 90, margin } = {}) {
+export function addTerraces(group, layout, material, { repeatU = 90, margin } = {}) {
     layout.bowls.forEach((bowl) => {
         group.add(new THREE.Mesh(bowlRing(layout, bowl, terraceProfile(bowl), { segments: 320, repeatU, metresV: 4, margin }), material));
     });
 }
 
 /** Closes the open ends of a tier, down to `floor`. */
-function addEndCaps(group, layout, bowl, material, floor, margin = 3) {
+export function addEndCaps(group, layout, bowl, material, floor, margin = 3) {
     const [centreX, centreZ] = centreOf(layout);
     const limit = sweepOf(layout, bowl) + rad(margin);
     const profile = terraceProfile(bowl);
@@ -85,7 +85,7 @@ function addEndCaps(group, layout, bowl, material, floor, margin = 3) {
 }
 
 /** The walkway between a tier and the one behind it. */
-function connect(group, layout, from, to, walkway, face) {
+export function connect(group, layout, from, to, walkway, face) {
     const end = last(terraceProfile(from));
     const start = terraceProfile(to)[1];
     const edge = to.radius_x - from.radius_x + start[0];
@@ -97,7 +97,7 @@ function connect(group, layout, from, to, walkway, face) {
     }
 }
 
-function frontRail(group, layout, bowl, glass, steel) {
+export function frontRail(group, layout, bowl, glass, steel) {
     const offset = -bowl.row_depth / 2 - 0.06;
     const top = bowl.height + 0.98;
 
@@ -105,7 +105,7 @@ function frontRail(group, layout, bowl, glass, steel) {
     group.add(new THREE.Mesh(bowlRing(layout, bowl, [[offset - 0.04, top], [offset - 0.04, top + 0.06], [offset + 0.04, top + 0.06], [offset + 0.04, top]], { segments: 200 }), steel));
 }
 
-function ribbon(group, layout, bowl, text) {
+export function ribbon(group, layout, bowl, text) {
     const texture = ledBand(text);
     texture.repeat.set(10, 1);
 
@@ -116,7 +116,7 @@ function ribbon(group, layout, bowl, text) {
     return texture;
 }
 
-function disc(radiusX, radiusZ, power, material, y) {
+export function disc(radiusX, radiusZ, power, material, y) {
     const shape = new THREE.Shape();
 
     for (let i = 0; i <= 128; i++) {
@@ -131,7 +131,7 @@ function disc(radiusX, radiusZ, power, material, y) {
 }
 
 /** Flooring under each block on the floor, turned to match its seats. */
-function addCarpets(group, { blocks, data }, material) {
+export function addCarpets(group, { blocks, data }, material) {
     const seats = data.seats;
     const matrices = [];
 
@@ -161,7 +161,7 @@ function addCarpets(group, { blocks, data }, material) {
 }
 
 /** A hanging line of speakers curving down towards the crowd. */
-function addLineArray(group, material, x, top, z, yaw) {
+export function addLineArray(group, material, x, top, z, yaw) {
     const cabinets = [];
     let y = top;
     let tilt = 0;
@@ -178,7 +178,7 @@ function addLineArray(group, material, x, top, z, yaw) {
 }
 
 /** Runs of truss along z, at fixed x and height, with legs at both ends. */
-function addTrussLines(group, material, lines, reach, top, floor) {
+export function addTrussLines(group, material, lines, reach, top, floor) {
     const sections = [];
 
     lines.forEach((x) => {
@@ -199,20 +199,20 @@ function addTrussLines(group, material, lines, reach, top, floor) {
     group.add(instanced(trussModule(), material, sections));
 }
 
-function micStand(parts, x, floor, z) {
+export function micStand(parts, x, floor, z) {
     parts.drum('steel', 0.015, 1.4, x, floor + 0.7, z);
     parts.drum('steel', 0.13, 0.02, x, floor + 0.01, z);
     parts.drum('dark', 0.03, 0.14, x + 0.05, floor + 1.45, z);
 }
 
-function wedge(parts, x, floor, z) {
+export function wedge(parts, x, floor, z) {
     const box = new THREE.BoxGeometry(0.42, 0.34, 0.7);
     box.rotateZ(0.5);
     parts.add('speaker', box.translate(x, floor + 0.2, z));
 }
 
 /** A dark strip with bright bars. Its colour follows the lights in the show. */
-function barStripMaterial(colour) {
+export function barStripMaterial(colour) {
     return new THREE.MeshBasicMaterial({
         color: colour,
         map: canvasTexture(256, 32, (context, width, height) => {

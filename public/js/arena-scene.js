@@ -1249,6 +1249,7 @@ function addAudience(group, seats) {
         uMap: { value: phoneTexture },
         uScale: { value: 300 },
         uPhones: { value: 0 },
+        uRainbow: { value: 0 },
     };
     const phones = new THREE.Points(phoneGeometry, new THREE.ShaderMaterial({
         uniforms: phoneUniforms,
@@ -1262,7 +1263,9 @@ function addAudience(group, seats) {
             uniform float uScale;
             uniform float uPhones;
             varying float vGlow;
+            varying float vHue;
             void main() {
+                vHue = fract(aPhase * 0.47 + uTime * 0.08);
                 float lit = max(aRare, uPhones);
                 float idle = 0.35 + 0.65 * smoothstep(0.1, 1.0, sin(uTime * 1.2 + aPhase * 6.0) * 0.5 + 0.5);
                 vGlow = mix(idle, 0.9, uPhones) * lit;
@@ -1275,10 +1278,14 @@ function addAudience(group, seats) {
             }`,
         fragmentShader: `
             uniform sampler2D uMap;
+            uniform float uRainbow;
             varying float vGlow;
+            varying float vHue;
             void main() {
                 float dot = texture2D(uMap, gl_PointCoord).a;
-                gl_FragColor = vec4(vec3(0.9, 0.95, 1.0) * vGlow * 2.0, dot * vGlow);
+                vec3 band = clamp(abs(fract(vHue + vec3(0.0, 0.667, 0.333)) * 6.0 - 3.0) - 1.0, 0.0, 1.0);
+                vec3 colour = mix(vec3(0.9, 0.95, 1.0), band, uRainbow);
+                gl_FragColor = vec4(colour * vGlow * 2.0, dot * vGlow);
             }`,
     }));
     phones.frustumCulled = false;
@@ -1718,6 +1725,7 @@ export function buildArena({ scene, renderer, data, blocks, rows, reducedMotion,
 
         phones += (phonesWanted - phones) * Math.min(delta * 2, 1);
         audience.phoneUniforms.uPhones.value = phones;
+        audience.phoneUniforms.uRainbow.value = mood.wristbands ? phones : 0;
         energy.phones = phones;
 
         waveAge += delta;

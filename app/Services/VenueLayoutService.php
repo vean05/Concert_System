@@ -3,6 +3,9 @@
 namespace App\Services;
 
 use App\Models\Concert;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\SeatSection;
 use Generator;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
@@ -69,6 +72,72 @@ class VenueLayoutService
                 'total_ticket' => $sections->sum('capacity'),
             ]);
         });
+    }
+
+    /**
+     * Move a show that sold general admission onto a seat map. Everyone who already
+     * has tickets gets seats together, in the tier closest to what they paid, and
+     * keeps that price. Cancelled orders keep their record as it was.
+     *
+     * @param  array<string, float>  $prices  tier key => ticket price
+     */
+    public function convert(Concert $concert, string $key, array $prices): void
+    {
+        if ($concert->hasSeatMap()) {
+            throw new InvalidArgumentException("Concert [{$concert->id}] already has a seat map.");
+        }
+
+        DB::transaction(function () use ($concert, $key, $prices) {
+            $oldSections = $concert->sections()->pluck('id');
+            $orders = $concert->orders()->with('items')->where('status', Order::CONFIRMED)->orderBy('id')->get();
+
+            OrderItem::whereIn('seat_section_id', $oldSections)->update(['seat_section_id' => null]);
+            SeatSection::whereIn('id', $oldSections)->delete();
+
+            $this->apply($concert, $key, $prices);
+
+            $sections = $concert->sections()->get();
+
+            foreach ($orders as $order) {
+                foreach ($order->items as $item) {
+                    $this->seatItem($order, $item, $sections);
+                }
+            }
+        });
+    }
+
+    private function seatItem(Order $order, OrderItem $item, $sections): void
+    {
+        $section = $sections->sortBy(function ($section) use ($item) {
+            return abs($section->price - $item->unit_price);
+        })->first();
+
+        $seats = $section->seats()->whereNull('order_id')->orderBy('id')->get()
+            ->groupBy(function ($seat) {
+                return "{$seat->block}|{$seat->row_label}";
+            })
+            ->first(function ($row) use ($item) {
+                return $row->count() >= $item->quantity;
+            })
+            ->take($item->quantity);
+
+        foreach ($seats->values() as $index => $seat) {
+            $seat->update(['order_id' => $order->id]);
+
+            $place = [
+                'seat_section_id' => $section->id,
+                'seat_id' => $seat->id,
+                'section_name' => $section->name,
+                'seat_label' => $seat->label,
+                'quantity' => 1,
+            ];
+
+            if ($index === 0) {
+                $item->update($place);
+            } else {
+                $order->items()->create($place + ['unit_price' => $item->unit_price]);
+            }
+        }
     }
 
     public function layout(string $key): array
