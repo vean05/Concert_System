@@ -33,7 +33,10 @@
     <div class="seat-picker" id="seatPicker"
          data-data-url="{{ route('seats.data', $concert) }}"
          data-status-url="{{ route('seats.status', $concert) }}"
-         data-hold-url="{{ route('seats.hold', $concert) }}">
+         data-hold-url="{{ route('seats.hold', $concert) }}"
+         data-party-url="{{ route('seats.party.start', $concert) }}"
+         data-party-code="{{ $partyCode }}"
+         @if(auth()->user()->is_admin) data-sales-url="{{ route('admin.concerts.sales-map', $concert) }}" @endif>
 
         <aside class="seat-panel" aria-label="Tickets">
             <div class="seat-filters" id="tierList">
@@ -46,10 +49,30 @@
                 <output id="priceOutput"></output>
             </label>
 
+            <div class="seat-tools">
+                <button class="seat-tool" type="button" id="pickForMe"><i class="fas fa-wand-magic-sparkles"></i> Pick for me</button>
+                <button class="seat-tool" type="button" id="partyButton"><i class="fas fa-user-group"></i> Invite friends</button>
+            </div>
+
+            <section class="party" id="partyBox" aria-label="Your group" hidden>
+                <div class="party__head">
+                    <strong>Your group</strong>
+                    <button type="button" id="partyLeave">Leave</button>
+                </div>
+                <ul class="party__members" id="partyMembers"></ul>
+                <div class="party__link">
+                    <input type="text" id="partyLink" readonly aria-label="Group link">
+                    <button class="btn btn-ghost btn-sm" type="button" id="partyCopy">Copy link</button>
+                </div>
+                <p>Everyone sees each other's picks and pays for their own seats. A pick reserves nothing until that person continues to payment.</p>
+            </section>
+
             <div class="listing-head">
                 <span id="listingCount">Loading tickets</span>
                 <button class="listing-sort" type="button" id="listingSortButton" title="Change the order"><i class="fas fa-arrow-down-wide-short"></i> <span id="listingSort">Best view</span></button>
             </div>
+
+            <button class="compare-bar" type="button" id="compareBar" hidden></button>
 
             <ul class="listings" id="listings"></ul>
 
@@ -92,6 +115,9 @@
                 <button type="button" data-mode="tiers" aria-pressed="true">Tiers</button>
                 <button type="button" data-mode="price" aria-pressed="false">Price</button>
                 <button type="button" data-mode="view" aria-pressed="false">View</button>
+                @if(auth()->user()->is_admin)
+                    <button type="button" data-mode="sales" aria-pressed="false">Sales</button>
+                @endif
             </div>
 
             <div class="seat-legend" aria-label="Seat colours">
@@ -113,6 +139,8 @@
                 <button class="btn btn-ghost-light btn-sm" type="button" id="exitSeatView">Back to arena</button>
             </div>
 
+            <aside class="sales-panel" id="salesPanel" aria-label="Sales by section" hidden></aside>
+
             <div class="seat-tooltip" id="seatTooltip" hidden></div>
             <div class="seat-notice" id="seatNotice" role="status" hidden></div>
         </div>
@@ -122,6 +150,23 @@
                 <h2 id="qtyTitle">How many tickets?</h2>
                 <p>We'll show seats you can sit in together.</p>
                 <div class="qty-grid" id="qtyGrid"></div>
+            </div>
+        </div>
+
+        <div class="qty-sheet" id="pickSheet" hidden>
+            <div class="qty-sheet__box" role="dialog" aria-labelledby="pickTitle">
+                <h2 id="pickTitle">What matters most?</h2>
+                <p id="pickIntro"></p>
+                <div class="pick-options" id="pickOptions"></div>
+                <button class="sheet-close" type="button" data-close-sheet>Not now</button>
+            </div>
+        </div>
+
+        <div class="qty-sheet" id="compareSheet" hidden>
+            <div class="qty-sheet__box compare-box" role="dialog" aria-labelledby="compareTitle">
+                <h2 id="compareTitle">Compare seats</h2>
+                <div class="compare-grid" id="compareGrid"></div>
+                <button class="sheet-close" type="button" data-close-sheet>Close</button>
             </div>
         </div>
     </div>

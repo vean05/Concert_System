@@ -8,6 +8,7 @@ use App\Models\Seat;
 use App\Services\BookingService;
 use App\Services\PromoService;
 use App\Services\SeatHoldService;
+use App\Services\SeatPartyService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
@@ -16,7 +17,7 @@ class SeatMapController extends Controller
     /**
      * The 3D seat picker.
      */
-    public function show(Concert $concert)
+    public function show(Request $request, Concert $concert, SeatPartyService $parties)
     {
         abort_unless($concert->hasSeatMap() && $concert->is_published, 404);
 
@@ -24,7 +25,21 @@ class SeatMapController extends Controller
             return redirect()->route('concerts.show', $concert)->with('error', 'Booking is closed for this concert.');
         }
 
-        return view('seat_map.show', ['concert' => $concert, 'venue' => $concert->venueDetails()]);
+        $party = null;
+
+        if ($request->filled('party')) {
+            try {
+                $party = $parties->join(auth()->user(), $concert, (string) $request->query('party'));
+            } catch (BookingException $e) {
+                return redirect()->route('seats.show', $concert)->with('error', $e->getMessage());
+            }
+        }
+
+        return view('seat_map.show', [
+            'concert' => $concert,
+            'venue' => $concert->venueDetails(),
+            'partyCode' => optional($party)->code,
+        ]);
     }
 
     /**

@@ -16,6 +16,9 @@
                 </div>
                 <div class="d-flex gap-2">
                     <a class="btn btn-ghost" href="{{ route('concerts.show', $concert) }}">View page</a>
+                    @if($concert->hasSeatMap() && $concert->is_published && $concert->canBeBooked())
+                        <a class="btn btn-ghost" href="{{ route('seats.show', [$concert, 'map' => 'sales']) }}">Sales map</a>
+                    @endif
                     <a class="btn btn-accent" href="{{ route('admin.concerts.edit', $concert) }}">Edit</a>
                     <form action="{{ route('admin.concerts.delete', $concert) }}" method="POST"
                           data-confirm="Delete {{ $concert->title }}? This also removes its orders and reviews.">

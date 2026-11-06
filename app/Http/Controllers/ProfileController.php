@@ -9,7 +9,7 @@ class ProfileController extends Controller
     /**
      * Show user profile with their recent orders and reviews.
      */
-    public function show()
+    public function show(\App\Services\ConcertPassportService $passports)
     {
         $user = auth()->user();
 
@@ -26,7 +26,7 @@ class ProfileController extends Controller
             'favourites' => $user->favouriteConcerts()->count(),
         ];
 
-        return view('profile.show', compact('user', 'orders', 'reviews', 'stats'));
+        return view('profile.show', ['passport' => $passports->for($user)] + compact('user', 'orders', 'reviews', 'stats'));
     }
 
     /**
