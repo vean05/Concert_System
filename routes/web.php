@@ -9,6 +9,7 @@ use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PaymentCardController;
 use App\Http\Controllers\SeatMapController;
+use App\Http\Controllers\SeatPartyController;
 use App\Http\Controllers\Admin\PromoCodeController;
 use App\Http\Controllers\Admin\TicketCheckController;
 
@@ -42,6 +43,9 @@ Route::middleware(['auth', 'verified'])->prefix('concerts/{concert}')->name('sea
     Route::get('/checkout', [SeatMapController::class, 'checkout'])->name('checkout');
     Route::post('/checkout', [SeatMapController::class, 'purchase'])->name('purchase');
     Route::post('/checkout/promo', [SeatMapController::class, 'promo'])->name('promo');
+    Route::post('/party', [SeatPartyController::class, 'start'])->name('party.start');
+    Route::post('/party/{code}/sync', [SeatPartyController::class, 'sync'])->name('party.sync');
+    Route::delete('/party/{code}', [SeatPartyController::class, 'leave'])->name('party.leave');
 });
 
 // Order Routes (Authenticated users only)
@@ -102,6 +106,7 @@ Route::middleware(['auth', 'verified', 'is_admin'])->prefix('admin')->name('admi
     Route::post('/concerts', [ConcertController::class, 'store'])->name('concerts.store');
     Route::get('/concerts/{concert}', [AdminController::class, 'showConcert'])->name('concerts.show');
     Route::get('/concerts/{concert}/edit', [ConcertController::class, 'edit'])->name('concerts.edit');
+    Route::get('/concerts/{concert}/sales-map', [AdminController::class, 'salesMap'])->name('concerts.sales-map');
     Route::put('/concerts/{concert}', [ConcertController::class, 'update'])->name('concerts.update');
     Route::delete('/concerts/{concert}', [AdminController::class, 'deleteConcert'])->name('concerts.delete');
 

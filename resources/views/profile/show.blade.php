@@ -20,6 +20,10 @@
                 <a class="stat" href="{{ route('profile.reviews') }}"><strong>{{ $stats['reviews'] }}</strong><span class="small-label">Reviews</span></a>
             </div>
 
+            @if($passport['shows'])
+                @include('profile._passport')
+            @endif
+
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="mb-0">Recent orders</h2>
                 <a class="btn btn-ghost btn-sm" href="{{ route('orders.index') }}">View all</a>

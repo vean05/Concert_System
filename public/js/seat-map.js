@@ -13,6 +13,7 @@ import {
     blockLabels, buildArena, fabricNormalMap, seatGeometries, seatMaterial,
 } from './arena-scene.js';
 import { venues } from './venues.js';
+import { stadiums } from './stadiums.js';
 import { LiveShow } from './live-show.js';
 
 const MAX_SEATS = 8;
@@ -62,6 +63,15 @@ const SEAT_EYE_HEIGHT = 1.2;
 const TOUR_MS = 30000;
 const MAX_RIPPLES = 12;
 const RIPPLE_SECONDS = 1.8;
+const PARTY_POLL_MS = 3500;
+const COMPARE_MAX = 3;
+const PARTY_COLOURS = ['#ff4d6d', '#2fd4ff', '#ffb020', '#7dff6b', '#c58bff', '#ff8a3d', '#4dffc3', '#ffe14d'];
+const PICKS = [
+    { key: 'view', label: 'Best view', detail: 'The highest view score', rank: (a, b) => b.score - a.score },
+    { key: 'value', label: 'Best value', detail: 'The most view for the money', rank: (a, b) => valueOf(b) - valueOf(a) },
+    { key: 'close', label: 'Closest to the stage', detail: 'The shortest distance', rank: (a, b) => stageDistance(a.middle) - stageDistance(b.middle) },
+    { key: 'price', label: 'Lowest price', detail: 'The cheapest seats, then the best view', rank: (a, b) => data.tiers[a.tier].price - data.tiers[b.tier].price || b.score - a.score },
+];
 const HEAT_COLOURS = ['#3a4dff', '#18c6b3', '#ffd23f', '#ff3d3d'].map((hex) => new THREE.Color(hex));
 
 const root = document.getElementById('seatPicker');
@@ -98,6 +108,14 @@ let priceLimit = Infinity;
 let priceRange = [0, 0];
 let scoreRange = [0, 0];
 
+let party = null;
+let partyTimer = null;
+let shareTimer = null;
+let salesBlocks = new Map();
+let salesTop = 0;
+
+const friendSeats = new Map();
+const comparing = new Map();
 const indexById = new Map();
 const rows = new Map();
 const blocks = new Map();
@@ -164,11 +182,22 @@ function start(payload) {
     wirePanel();
     renderListings();
 
+    const salesMap = new URLSearchParams(window.location.search).get('map') === 'sales' && root.dataset.salesUrl;
+
     if (selected.length) {
         quantity = Math.max(selected.length, 1);
         renderListings();
-    } else {
+    } else if (!salesMap) {
         openQuantitySheet();
+    }
+
+    if (salesMap) {
+        setMapMode('sales');
+    }
+
+    if (root.dataset.partyCode) {
+        qtySheet.hidden = true;
+        joinParty(root.dataset.partyCode);
     }
 
     setInterval(pollStatus, POLL_MS);
@@ -261,9 +290,409 @@ function setMapMode(mode) {
         document.getElementById('mapScaleHigh').textContent = 'Best view';
     }
 
+    document.getElementById('salesPanel').hidden = mode !== 'sales';
+
+    if (mode === 'sales') {
+        loadSales();
+    }
+
     if (view) {
         view.paintColours();
     }
+}
+
+/* Sales map, for admins */
+
+function loadSales() {
+    fetch(root.dataset.salesUrl, { headers: { Accept: 'application/json' } })
+        .then((response) => (response.ok ? response.json() : null))
+        .then((body) => {
+            if (!body) {
+                showNotice('Sales could not be loaded.');
+                return;
+            }
+
+            salesBlocks = new Map(body.blocks.map((block) => [block.block, block]));
+            salesTop = Math.max(...body.blocks.map((block) => block.percent), 0);
+            document.getElementById('mapScaleLow').textContent = '0%';
+            document.getElementById('mapScaleHigh').textContent = `${salesTop}% sold`;
+            renderSalesPanel(body.blocks);
+
+            if (view) {
+                view.paintColours();
+            }
+        })
+        .catch(() => showNotice('Sales could not be loaded.'));
+}
+
+function renderSalesPanel(list) {
+    const panel = document.getElementById('salesPanel');
+    const sold = list.reduce((sum, block) => sum + block.sold, 0);
+    const seats = list.reduce((sum, block) => sum + block.seats, 0);
+    const revenue = list.reduce((sum, block) => sum + block.revenue, 0);
+    const recent = list.reduce((sum, block) => sum + block.recent, 0);
+
+    panel.textContent = '';
+
+    const head = document.createElement('div');
+    head.className = 'sales-panel__head';
+    const title = document.createElement('strong');
+    title.textContent = `${sold.toLocaleString()} of ${seats.toLocaleString()} seats sold`;
+    const note = document.createElement('span');
+    note.textContent = `${money.format(revenue)} · ${recent} in the last 24 hours`;
+    head.append(title, note);
+    panel.append(head);
+
+    list.filter((block) => block.sold > 0).slice(0, 8).forEach((block) => {
+        const row = document.createElement('button');
+        row.type = 'button';
+        row.className = 'sales-panel__row';
+
+        const name = document.createElement('span');
+        name.textContent = `Section ${block.block}`;
+        const figures = document.createElement('span');
+        figures.textContent = `${block.sold} · ${block.percent}%`;
+        row.append(name, figures);
+
+        row.addEventListener('mouseenter', () => highlightBlock(block.block));
+        row.addEventListener('mouseleave', () => highlightBlock(null));
+        panel.append(row);
+    });
+
+    if (!sold) {
+        const empty = document.createElement('p');
+        empty.textContent = 'No seats sold yet.';
+        panel.append(empty);
+    }
+}
+
+/* Friends choosing together */
+
+function partyRequest(url, method, body) {
+    return fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': csrfToken, Accept: 'application/json' },
+        body: body ? JSON.stringify(body) : undefined,
+    }).then((response) => {
+        if (!response.ok) {
+            throw new Error('Group request failed');
+        }
+        return response.json();
+    });
+}
+
+function startParty() {
+    if (party) {
+        return;
+    }
+
+    partyRequest(root.dataset.partyUrl, 'POST')
+        .then((state) => {
+            showParty(state);
+            copyPartyLink();
+            syncParty();
+        })
+        .catch(() => showNotice('The group could not be started. Please try again.'));
+}
+
+function joinParty(code) {
+    party = { code };
+    syncParty();
+}
+
+function showParty(state) {
+    party = state;
+    document.getElementById('partyBox').hidden = false;
+    document.getElementById('partyButton').hidden = true;
+    document.getElementById('partyLink').value = state.link;
+    renderParty();
+
+    clearInterval(partyTimer);
+    partyTimer = setInterval(syncParty, PARTY_POLL_MS);
+}
+
+function syncParty() {
+    if (!party) {
+        return;
+    }
+
+    partyRequest(`${root.dataset.partyUrl}/${party.code}/sync`, 'POST', {
+        seat_ids: selected.map((index) => data.seats.id[index]),
+    })
+        .then((state) => {
+            if (party) {
+                showParty(state);
+            }
+        })
+        .catch(() => {
+            // The next sync tries again; the link itself ending shows up on reload.
+        });
+}
+
+/** Friends see a change straight away, not on the next poll. */
+function shareSelection() {
+    clearTimeout(shareTimer);
+
+    if (party) {
+        shareTimer = setTimeout(syncParty, 250);
+    }
+}
+
+function leaveParty() {
+    const code = party.code;
+
+    clearInterval(partyTimer);
+    party = null;
+    renderFriendSeats(new Map());
+    document.getElementById('partyBox').hidden = true;
+    document.getElementById('partyButton').hidden = false;
+    partyRequest(`${root.dataset.partyUrl}/${code}`, 'DELETE').catch(() => {});
+}
+
+function renderFriendSeats(next) {
+    const changed = new Set([...friendSeats.keys(), ...next.keys()]);
+
+    friendSeats.clear();
+    next.forEach((value, key) => friendSeats.set(key, value));
+
+    if (view) {
+        changed.forEach(view.paintSeat);
+    }
+}
+
+function renderParty() {
+    const list = document.getElementById('partyMembers');
+    const next = new Map();
+
+    list.textContent = '';
+
+    party.members.forEach((member) => {
+        const colour = PARTY_COLOURS[member.slot % PARTY_COLOURS.length];
+        const picks = member.picks.map((id) => indexById.get(id)).filter((index) => index !== undefined);
+
+        if (!member.me) {
+            picks.forEach((index) => next.set(index, { name: member.name, colour }));
+        }
+
+        const item = document.createElement('li');
+        const dot = document.createElement('i');
+        dot.style.background = member.me ? '#111' : colour;
+        const name = document.createElement('span');
+        name.textContent = member.me ? 'You' : member.name;
+        const status = document.createElement('small');
+        const seats = `${picks.length} ${picks.length === 1 ? 'seat' : 'seats'}`;
+        status.textContent = member.online || member.me ? seats : `${seats} · away`;
+        item.append(dot, name, status);
+
+        if (!member.me && picks.length) {
+            const beside = document.createElement('button');
+            beside.type = 'button';
+            beside.textContent = 'Sit nearby';
+            beside.addEventListener('click', () => sitNear(member.name, picks));
+            item.append(beside);
+        }
+
+        list.append(item);
+    });
+
+    document.getElementById('partyBox').classList.toggle('has-friends', party.members.length > 1);
+    renderFriendSeats(next);
+}
+
+function copyPartyLink() {
+    const input = document.getElementById('partyLink');
+    const copied = () => showNotice('Link copied. Send it to your friends.');
+    const manual = () => {
+        input.select();
+        showNotice('Copy the link and send it to your friends.');
+    };
+
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(input.value).then(copied).catch(manual);
+    } else {
+        manual();
+    }
+}
+
+/** The free seats closest to a friend: same row first, then the rows around them. */
+function sitNear(name, picks) {
+    const anchor = picks[0];
+    const free = (index) => seatState[index] === FREE && !friendSeats.has(index);
+    const blockRows = [...rows.values()].filter((row) => data.seats.block[row[0]] === data.seats.block[anchor]);
+    const reach = (index) => Math.hypot(data.seats.x[index] - data.seats.x[anchor], data.seats.y[index] - data.seats.y[anchor], data.seats.z[index] - data.seats.z[anchor]);
+    let best = null;
+
+    blockRows.forEach((row) => {
+        for (let start = 0; start + quantity <= row.length; start++) {
+            const run = row.slice(start, start + quantity);
+
+            if (run.every(free)) {
+                const distance = Math.min(...run.map(reach));
+
+                if (!best || distance < best.distance) {
+                    best = { run, distance };
+                }
+            }
+        }
+    });
+
+    if (!best) {
+        showNotice(`No ${quantity} seats left together near ${name}.`);
+        return;
+    }
+
+    chooseRun(best.run, best.run[Math.floor(quantity / 2)]);
+    showNotice(`${seatLabel(best.run[0])} is the closest to ${name}.`);
+}
+
+/* Pick for me */
+
+function stageDistance(index) {
+    const front = stagePoints.front;
+
+    return Math.hypot(data.seats.x[index] - front.x, data.seats.y[index] - front.y, data.seats.z[index] - front.z);
+}
+
+function valueOf(listing) {
+    return (listing.score * listing.score) / data.tiers[listing.tier].price;
+}
+
+function openPickSheet() {
+    const listings = buildListings();
+    const options = document.getElementById('pickOptions');
+    const budget = priceLimit === Infinity ? '' : ` up to ${money.format(priceLimit)} each`;
+
+    document.getElementById('pickIntro').textContent = `We'll choose ${quantity} ${quantity === 1 ? 'seat' : 'seats together'}${budget}.`;
+    options.textContent = '';
+
+    PICKS.forEach((pick) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.disabled = !listings.length;
+
+        const label = document.createElement('strong');
+        label.textContent = pick.label;
+        const detail = document.createElement('small');
+        detail.textContent = pick.detail;
+        button.append(label, detail);
+
+        button.addEventListener('click', () => {
+            const [choice] = [...buildListings()].sort(pick.rank);
+
+            document.getElementById('pickSheet').hidden = true;
+
+            if (!choice) {
+                showNotice('Nothing matches those filters.');
+                return;
+            }
+
+            chooseRun(choice.run, choice.middle);
+            activeListing = choice.run.join('-');
+            renderListings();
+            showNotice(`${pick.label}: Section ${choice.block}, Row ${data.seats.row[choice.middle]} at ${money.format(data.tiers[choice.tier].price)} each.`);
+        });
+        options.append(button);
+    });
+
+    document.getElementById('pickSheet').hidden = false;
+}
+
+function chooseRun(run, middle) {
+    replaceSelection(run);
+
+    if (view) {
+        highlightBlock(null);
+        view.enterSeatView(middle);
+    }
+}
+
+/* Compare */
+
+function toggleCompare(listing, box) {
+    const key = listing.run.join('-');
+
+    if (comparing.has(key)) {
+        comparing.delete(key);
+    } else if (comparing.size >= COMPARE_MAX) {
+        box.checked = false;
+        showNotice(`You can compare up to ${COMPARE_MAX} listings.`);
+        return;
+    } else {
+        comparing.set(key, listing);
+    }
+
+    renderCompareBar();
+}
+
+function renderCompareBar() {
+    const bar = document.getElementById('compareBar');
+
+    bar.hidden = comparing.size === 0;
+    bar.disabled = comparing.size < 2;
+    bar.textContent = comparing.size < 2 ? 'Tick one more to compare' : `Compare ${comparing.size} listings`;
+}
+
+function openCompareSheet() {
+    const grid = document.getElementById('compareGrid');
+    const listings = [...comparing.values()];
+    const facts = listings.map((listing) => ({
+        listing,
+        price: data.tiers[listing.tier].price,
+        score: listing.score,
+        distance: stageDistance(listing.middle),
+    }));
+    const lowest = Math.min(...facts.map((fact) => fact.price));
+    const highest = Math.max(...facts.map((fact) => fact.score));
+    const nearest = Math.min(...facts.map((fact) => fact.distance));
+
+    grid.style.setProperty('--columns', listings.length);
+    grid.textContent = '';
+
+    facts.forEach(({ listing, price, score, distance }) => {
+        const column = document.createElement('article');
+        const thumb = document.createElement('span');
+        thumb.className = 'listing__view';
+
+        if (view) {
+            view.thumbnail(thumb, listing.middle);
+        }
+
+        const title = document.createElement('strong');
+        title.textContent = `Section ${listing.block}`;
+        const row = document.createElement('small');
+        row.textContent = `Row ${data.seats.row[listing.middle]}`;
+        column.append(thumb, title, row);
+
+        [
+            ['Price each', money.format(price), price === lowest],
+            ['View score', score.toFixed(1), score === highest],
+            ['To the stage', `About ${Math.round(distance)} m`, distance === nearest],
+        ].forEach(([name, value, winner]) => {
+            const fact = document.createElement('dl');
+            fact.className = winner ? 'is-best' : '';
+            const term = document.createElement('dt');
+            term.textContent = name;
+            const detail = document.createElement('dd');
+            detail.textContent = value;
+            fact.append(term, detail);
+            column.append(fact);
+        });
+
+        const choose = document.createElement('button');
+        choose.type = 'button';
+        choose.className = 'btn btn-accent btn-sm w-100';
+        choose.textContent = 'Choose these';
+        choose.addEventListener('click', () => {
+            document.getElementById('compareSheet').hidden = true;
+            activeListing = listing.run.join('-');
+            chooseRun(listing.run, listing.middle);
+            renderListings();
+        });
+        column.append(choose);
+        grid.append(column);
+    });
+
+    document.getElementById('compareSheet').hidden = false;
 }
 
 function setSeatState(id, value) {
@@ -306,6 +735,9 @@ function toggleSeat(index) {
         selected.splice(position, 1);
     } else if (seatState[index] !== FREE) {
         showNotice('That seat is not available.');
+        return;
+    } else if (friendSeats.has(index)) {
+        showNotice(`${friendSeats.get(index).name} has picked that seat.`);
         return;
     } else if (selected.length >= MAX_SEATS) {
         showNotice(`You can choose up to ${MAX_SEATS} seats at a time.`);
@@ -357,7 +789,7 @@ function renderSeatBar() {
 
 function replaceSelection(indices) {
     const previous = selected;
-    selected = indices;
+    selected = [...indices];
 
     if (view) {
         previous.forEach(view.paintSeat);
@@ -489,6 +921,10 @@ function renderListings() {
         return;
     }
 
+    const open = new Set(listings.map((listing) => listing.run.join('-')));
+    [...comparing.keys()].filter((key) => !open.has(key)).forEach((key) => comparing.delete(key));
+    renderCompareBar();
+
     listings.forEach((listing) => listingList.append(listingRow(listing)));
 }
 
@@ -557,7 +993,18 @@ function listingRow(listing) {
         }
     });
 
-    item.append(button);
+    const pick = document.createElement('label');
+    pick.className = 'listing__compare';
+    pick.title = 'Compare';
+    const box = document.createElement('input');
+    box.type = 'checkbox';
+    box.checked = comparing.has(key);
+    box.setAttribute('aria-label', `Compare Section ${block}`);
+    box.addEventListener('change', () => toggleCompare(listing, box));
+    pick.append(box);
+
+    item.className = 'listing-item';
+    item.append(button, pick);
     return item;
 }
 
@@ -672,6 +1119,7 @@ function renderSelection() {
         ? `Continue with ${selected.length} ${selected.length === 1 ? 'seat' : 'seats'}`
         : 'Choose your seats';
     renderSeatBar();
+    shareSelection();
 }
 
 function iconButton(icon, label) {
@@ -691,6 +1139,16 @@ function iconButton(icon, label) {
 function wirePanel() {
     document.getElementById('continueButton').addEventListener('click', holdSeats);
     document.getElementById('quantityButton').addEventListener('click', openQuantitySheet);
+    document.getElementById('pickForMe').addEventListener('click', openPickSheet);
+    document.getElementById('partyButton').addEventListener('click', startParty);
+    document.getElementById('partyCopy').addEventListener('click', copyPartyLink);
+    document.getElementById('partyLeave').addEventListener('click', leaveParty);
+    document.getElementById('compareBar').addEventListener('click', openCompareSheet);
+    document.querySelectorAll('[data-close-sheet]').forEach((button) => {
+        button.addEventListener('click', () => {
+            button.closest('.qty-sheet').hidden = true;
+        });
+    });
 
     document.getElementById('listingSortButton').addEventListener('click', () => {
         sortBy = sortBy === 'view' ? 'price' : 'view';
@@ -849,7 +1307,7 @@ function createView() {
     controls.autoRotateSpeed = 0.35;
     controls.autoRotate = !reducedMotion;
 
-    const arena = buildArena({ scene, renderer, data, blocks, rows, reducedMotion, venue: venues[data.layout.scene] });
+    const arena = buildArena({ scene, renderer, data, blocks, rows, reducedMotion, venue: venues[data.layout.scene] ?? stadiums[data.layout.scene] });
     const labels = blockLabels(scene, blocks, data.seats);
 
     /* Seats: every seat is simple, and the ones around the camera are detailed. */
@@ -909,6 +1367,12 @@ function createView() {
         if (selected.includes(index)) {
             return COLORS.selected;
         }
+        if (friendSeats.has(index) && seatState[index] !== SOLD) {
+            return color.set(friendSeats.get(index).colour);
+        }
+        if (mapMode === 'sales') {
+            return salesColor(index);
+        }
         if (seatState[index] === SOLD) {
             return COLORS.sold;
         }
@@ -922,6 +1386,16 @@ function createView() {
             return modeColor(index).multiplyScalar(0.16);
         }
         return modeColor(index);
+    }
+
+    function salesColor(index) {
+        const block = salesBlocks.get(String(data.seats.block[index]));
+        const value = block && salesTop ? heat(color, block.percent / salesTop) : color.copy(COLORS.dimmed);
+
+        if (highlightedBlock !== null && data.seats.block[index] !== highlightedBlock) {
+            value.multiplyScalar(0.16);
+        }
+        return value;
     }
 
     function modeColor(index) {
@@ -1529,7 +2003,8 @@ function createView() {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 thumbWatcher.unobserve(entry.target);
-                thumbQueue.push(entry.target);
+                // Someone comparing seats is waiting on these ones right now.
+                thumbQueue[entry.target.closest('.compare-grid') ? 'unshift' : 'push'](entry.target);
             }
         });
     }, { root: listingList, rootMargin: '120px 0px' });

@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
+    /**
+     * Real sales by block, for the sales colouring on the seat map.
+     */
+    public function salesMap(Concert $concert, \App\Services\SalesMapService $sales)
+    {
+        return response()->json(['blocks' => $sales->blocks($concert)]);
+    }
+
     private const SORTABLE_COLUMNS = ['date', 'title', 'artist', 'venue', 'created_at'];
 
     /**
