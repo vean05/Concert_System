@@ -824,3 +824,6 @@ nav .small.text-muted { margin-top: 1.75rem; color: var(--muted) !important; }
 .stamp strong { display: block; overflow: hidden; font-size: .95rem; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
 .stamp small { display: block; overflow: hidden; font-size: .78rem; color: var(--muted); text-overflow: ellipsis; white-space: nowrap; }
 @media (max-width: 560px) { .passport__head { flex-direction: column; align-items: flex-start; } .passport__next { text-align: left; } }
+
+/* Shown while the site is open through the public tunnel */
+.demo-note { position: fixed; right: .6rem; bottom: .6rem; z-index: 50; margin: 0; padding: .28rem .6rem; font-size: .76rem; font-weight: 500; color: #fff; background: rgba(12, 12, 15, .88); border-radius: 6px; pointer-events: none; }

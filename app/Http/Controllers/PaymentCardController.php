@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\PublicDemo;
 use App\Models\PaymentCard;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -59,7 +60,11 @@ class PaymentCardController extends Controller
     {
         return [
             'card_type' => 'required|in:visa,master',
-            'card_number' => ['required', 'regex:/^[0-9]{13,19}$/'],
+            'card_number' => ['required', 'regex:/^[0-9]{13,19}$/', function ($attribute, $value, $fail) {
+                if (config('app.public_demo') && $value !== PublicDemo::TEST_CARD) {
+                    $fail('This is a demo site. Use the test card ' . PublicDemo::TEST_CARD . ', not a real card.');
+                }
+            }],
             'expiry_date' => ['required', 'regex:/^(0[1-9]|1[0-2])\/\d{2}$/', function ($attribute, $value, $fail) {
                 if (preg_match('/^(0[1-9]|1[0-2])\/\d{2}$/', $value)
                     && Carbon::createFromFormat('!m/y', $value)->endOfMonth()->isPast()) {

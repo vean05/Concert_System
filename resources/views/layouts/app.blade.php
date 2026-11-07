@@ -17,6 +17,9 @@
     @stack('head')
 </head>
 <body class="@yield('body_class')">
+    @if(config('app.public_demo'))
+        <p class="demo-note">Demo site. No real payments. Test card {{ \App\Http\Middleware\PublicDemo::TEST_CARD }}.</p>
+    @endif
     @unless(View::hasSection('bare'))
     <nav class="navbar navbar-expand-lg site-nav" aria-label="Main">
         <div class="container">
